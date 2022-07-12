@@ -131,15 +131,6 @@ body {
   place-items: center;
 }
 
-#cloud {
-
-
-
-  cursor: pointer;
-  margin: 30px auto;
-  width: clamp(100px, 5vw, 55px);
-}
-
 header {
   position: relative;
 
@@ -237,11 +228,11 @@ h2, h3 {
 
 nav {
   position: sticky;
-  top: 0;
+  top: 20px;
   align-self: end;
   /* margin-inline: auto; */
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 100px auto;
 }
 
 nav ul{
@@ -251,6 +242,9 @@ nav ul{
   list-style-type: none;
 }
 
-
-
-
+#cloud {
+  display: block;
+  cursor: pointer;
+  margin: 100px auto 0 auto;
+  width: clamp(55px, 18vw, 200px);
+}
