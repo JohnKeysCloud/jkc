@@ -34,10 +34,10 @@
   --fw-bold-700: 700;
 
   /* fontSize */
-  --fs-h1: clamp(2.5rem, 10vw, 20rem);
-  --fs-h2: clamp(0.8125rem, 2.5vw, 2.75rem);
-  --fs-h3: clamp(0.688rem, 2vw, 2.813rem);
-  --fs-body: clamp(0.75rem, 1.5vw, 2.813rem);
+  --fs-xl: clamp(2.5rem, 10vw, 20rem);
+  --fs-h1: clamp(0.656rem, 2vw, 1.875rem);
+  --fs-h2: clamp(0.625rem, 1.8vw, 1.75rem);
+  --fs-body: clamp(0.625rem, 1.8vw, 2.375rem);
   --fs-nav: var(--fs-XXX);
   --fs-button: var(--fs-XXX);
 }
@@ -156,20 +156,20 @@ header {
 
 #jkc {
   font-family: var(--ff-primary);
-  font-size: var(--fs-h1);
+  font-size: var(--fs-xl);
   width: max-content;
 }
 
 .secondary-header {
   color: olive;
   font-family: 'Gosha Sans Bold', monospace;
-  font-size: var(--fs-h2);
+  font-size: var(--fs-h1);
 }
 
 .tertiary-header {
   color: olive;
   font-family: 'Gosha Sans Bold', monospace;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
 }
 
 .qotd {
