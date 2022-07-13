@@ -86,7 +86,6 @@ button {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
-
 :root {
   /* colors */
   --clr-links: rgb(155, 155, 0);
@@ -274,15 +273,18 @@ h2, h3 {
 
 
 nav {
+  background-color: #895c2f;
   position: sticky;
-  top: 30px;
-  width: 100%;
+  top: 0;
+  padding: 13px;
   margin: 0 0 100px 0;
+  width: 100%;
 }
 
 nav ul{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 55px;
   list-style-type: none;
   text-align: center;
 }
@@ -292,10 +294,10 @@ nav li {
   margin-bottom: 10px;
 }
 
-nav li:nth-child(2n+1) {
+/* nav li:nth-child(2n+1) {
   animation: menu-pulse-L 1.8s linear alternate infinite; 
 }
 
 nav li:nth-child(2n+2) {
   animation: menu-pulse-R 1.8s linear alternate infinite; 
-}
+} */
