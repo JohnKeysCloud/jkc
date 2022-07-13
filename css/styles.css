@@ -95,8 +95,10 @@ button {
 
   /* fontFamily */
   --ff-primary: 'MuseoModerno', cursive;
-  --ff-body: 'Roboto Mono', monospace;
+  --ff-accent: 'Roboto Mono', monospace;
   --ff-heading: 'Gosha Sans Regular', Arial, Helvetica, sans-serif;
+  --ff-pixelated: 'Press Start 2P', cursive;
+  --ff-body: 'Montserrat', sans-serif;
 
   /* fontWeight */
   --fw-light: 200;
@@ -161,6 +163,19 @@ button {
   }
 }
 
+@keyframes psp-btn {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.38);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.22);
+  }
+}
+
 body {
   color: var(--clr-body);
   background-color: #F9F7D9;
@@ -207,8 +222,7 @@ h2, h3 {
 
 .secondary-header,
 .tertiary-header {
-  font-family: 'Gosha Sans Regular', monospace;
-
+  font-family: var(--ff-heading)
 }
 
 .secondary-header {
@@ -234,6 +248,7 @@ h2, h3 {
 
 .welcome ,
 .qotd {
+  font-family: var(--ff-accent);
   width:77vw;
   margin-inline: auto;
 }
@@ -255,49 +270,39 @@ h2, h3 {
 
 #press-start {
   display: block;
-  animation: psp 0.8s linear alternate infinite;
-  font-family: 'Press Start 2P', cursive;
-  border-radius: 8px;
-  margin: 50px auto;
+
+  font-family: var(--ff-pixelated);
+  margin: 55px auto;
   letter-spacing: 1px;
   font-size: clamp(0.8125rem, 1.5vw, 1.8rem);
   color: var(--clr-body);
-  text-decoration: none;
-  justify-self: center;
   transition: transform 0.3s ease-in;
+
+  animation: psp 0.8s linear alternate infinite;
 }
 
 #press-start:hover {
-  transform: scaleY(1.3);
+  animation: psp 0.33s linear alternate infinite, psp-btn 0.55s ease-in-out alternate forwards;
 }
 
-
 nav {
-  background-color: #895c2f;
   position: sticky;
   top: 0;
-  padding: 13px;
+
+  background-color: #895827;
+  padding: 18px 0;
   margin: 0 0 100px 0;
-  width: 100%;
+  width: 100vw;
 }
 
 nav ul{
   display: flex;
   justify-content: center;
-  gap: 55px;
+  align-items: center;
+  gap: 30px;
   list-style-type: none;
-  text-align: center;
 }
 
-nav li {
-  letter-spacing: 1px;
-  margin-bottom: 10px;
+nav a {
+  color: #F9F7D9;
 }
-
-/* nav li:nth-child(2n+1) {
-  animation: menu-pulse-L 1.8s linear alternate infinite; 
-}
-
-nav li:nth-child(2n+2) {
-  animation: menu-pulse-R 1.8s linear alternate infinite; 
-} */
