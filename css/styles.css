@@ -275,7 +275,7 @@ h2, h3 {
 #half-hour {
   color: var(--clr-body) ;
   position: absolute;
-  top: -88%;
+  top: -93%;
 
   font-family: 'Press Start 2P', cursive;
   font-size: 0.813rem;
