@@ -86,6 +86,36 @@ button {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
+
+:root {
+  /* colors */
+  --clr-links: rgb(155, 155, 0);
+  --clr-header: rgb(170, 170, 0);
+  --clr-xl-header: #5c2e00;
+  --clr-body: rgba(102, 51, 0, 0.702);
+
+  /* fontFamily */
+  --ff-primary: 'MuseoModerno', cursive;
+  --ff-body: 'Roboto Mono', monospace;
+  --ff-heading: 'Gosha Sans Regular', Arial, Helvetica, sans-serif;
+
+  /* fontWeight */
+  --fw-light: 200;
+  --fw-regular: 400;
+  --fw-semi-bold: 500;
+  --fw-bold-700: 700;
+
+  /* fontSize */
+  --fs-xl: clamp(2.5rem, 10vw, 20rem);
+  --fs-h1: clamp(0.655rem, 3vw, 1.3rem);
+  --fs-h2: clamp(1rem, 1.3vw, 1.3rem);
+  --fs-body: clamp(0.8125rem, 3vw, 1.3rem);
+  --fs-body-small: clamp(0.75rem, 3vw, 1rem);
+
+  --fs-nav: var(--fs-XXX);
+  --fs-button: var(--fs-XXX);
+} 
+
 @font-face {
   font-family: 'Gosha Sans Bold';
   src: url('../assets/fonts/GoshaSansBold.otf');
@@ -130,35 +160,6 @@ button {
   from {
     opacity: 0;
   }
-}
-
-:root {
-  /* colors */
-  --clr-links: rgb(155, 155, 0);
-  --clr-header: rgb(170, 170, 0);
-  --clr-xl-header: #5c2e00;
-  --clr-body: rgba(102, 51, 0, 0.702);
-
-  /* fontFamily */
-  --ff-primary: 'MuseoModerno', cursive;
-  --ff-body: 'Roboto Mono', monospace;
-  --ff-heading: 'Gosha Sans Regular', Arial, Helvetica, sans-serif;
-
-  /* fontWeight */
-  --fw-light: 200;
-  --fw-regular: 400;
-  --fw-semi-bold: 500;
-  --fw-bold-700: 700;
-
-  /* fontSize */
-  --fs-xl: clamp(2.5rem, 10vw, 20rem);
-  --fs-h1: clamp(0.655rem, 3vw, 1.3rem);
-  --fs-h2: clamp(1rem, 1.3vw, 1.3rem);
-  --fs-body: clamp(0.8125rem, 3vw, 1.3rem);
-  --fs-body-small: clamp(0.75rem, 3vw, 1rem);
-
-  --fs-nav: var(--fs-XXX);
-  --fs-button: var(--fs-XXX);
 }
 
 body {
@@ -272,7 +273,7 @@ h2, h3 {
 }
 
 #half-hour {
-  color: olive;
+  color: var(--clr-body) ;
   position: absolute;
   top: -88%;
 
@@ -281,7 +282,7 @@ h2, h3 {
   height: 100px;
   letter-spacing: -3px;
   line-height: 12px;
-  opacity: 0.8;
+  opacity: 0.55;
   pointer-events: none;
   transform: scaley(1.2) ;
 }
