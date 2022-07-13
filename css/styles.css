@@ -88,10 +88,15 @@ button {
 
 :root {
   /* colors */
-  --clr-links: rgb(155, 155, 0);
-  --clr-header: rgb(170, 170, 0);
-  --clr-xl-header: #5c2e00;
-  --clr-body: rgba(102, 51, 0, 0.702);
+  --clr-body: hsla(30, 100%, 20%, 0.702);
+  --clr-header: hsl(60, 100%, 33%);
+  --clr-links: hsl(60, 100%, 30%);
+  --clr-xl-header: hsl(30, 100%, 18%);
+
+  --clr-bg-primary: hsl(56, 73%, 91%);
+  --clr-bg-secondary: hsl(52, 100%, 95%);
+  --clr-bg-accent: hsl(179, 100%, 91%);
+  --clr-bg-compliment: hsl(30, 56%, 35%);
 
   /* fontFamily */
   --ff-primary: 'MuseoModerno', cursive;
@@ -178,7 +183,7 @@ button {
 
 body {
   color: var(--clr-body);
-  background-color: #F9F7D9;
+  background-color: var(--clr-bg-primary);
   display: grid;
   place-items: center;
 }
@@ -198,12 +203,12 @@ body {
 header {
   position: relative;
 
-  background: linear-gradient(to bottom, #CFFFFE, #fffce8, #F9F7D9);
-
   display: grid;
   place-items: center;
-  padding: 0 7vw 200px 7vw;
+  
+  background: linear-gradient(to bottom, var(--clr-bg-accent), var(--clr-bg-secondary), var(--clr-bg-primary));
   overflow-x: hidden;
+  padding: 0 7vw 200px 7vw;
   min-height: 100vh;
   width: 100vw;
   margin-inline: auto;
@@ -265,7 +270,7 @@ h2, h3 {
 
 .qotd figcaption {
   font-size: var(--fs-body-small);
-  font-weight: 400;
+  font-weight: var(--fw-regular);
 }
 
 #press-start {
@@ -289,7 +294,7 @@ nav {
   position: sticky;
   top: 0;
 
-  background-color: #895827;
+  background-color: var(--clr-bg-compliment);
   padding: 18px 0;
   margin: 0 0 100px 0;
   width: 100vw;
@@ -304,5 +309,5 @@ nav ul{
 }
 
 nav a {
-  color: #F9F7D9;
+  color: var(--clr-bg-primary);
 }
