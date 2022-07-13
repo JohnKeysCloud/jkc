@@ -71,7 +71,6 @@ html:focus-within {
 /* Set core body defaults */
 body {
   font-family: var(--ff-body);
-  /* font-size: 62.5%; */
   margin: 0;
   overflow-x: hidden;
   min-height: 100vh;
@@ -131,6 +130,18 @@ body {
   place-items: center;
 }
 
+#full-height-wrapper {
+  display: grid;
+}
+
+#cloud {
+  display: block;
+  cursor: pointer;
+  height: auto;
+  margin: 100px auto 0 auto;
+  width: clamp(55px, 18vw, 200px);
+}
+
 header {
   position: relative;
 
@@ -147,10 +158,6 @@ header {
 
 h2, h3 {
   margin-bottom: 3px;
-}
-
-#full-height-wrapper {
-  display: grid;
 }
 
 #jkc {
@@ -228,23 +235,102 @@ h2, h3 {
 
 nav {
   position: sticky;
-  top: 20px;
+  top: 45px;
+
+  display: flex;
+  justify-content: space-around;
   align-self: end;
   /* margin-inline: auto; */
   width: 100%;
-  margin: 0 auto 100px auto;
+  margin: 0 0 100px 0;
 }
 
 nav ul{
-  display: flex;
-  justify-content: flex-end;
-  gap: 30px;
   list-style-type: none;
+  text-align: center;
 }
 
-#cloud {
-  display: block;
-  cursor: pointer;
-  margin: 100px auto 0 auto;
-  width: clamp(55px, 18vw, 200px);
+nav li {
+  margin-bottom: 5px;
+}
+
+nav a {
+  font-family: 'Press Start 2P', cursive;
+  letter-spacing: 1px;
+  padding: 0px 5.5px;
+}
+
+#half-hour {
+  color: olive;
+  position: absolute;
+  top: -88%;
+
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.813rem;
+  height: 100px;
+  letter-spacing: -3px;
+  line-height: 12px;
+  opacity: 0.8;
+  pointer-events: none;
+  transform: scaley(1.2) ;
+}
+
+.ascii-odd,
+.ascii-even {
+  display: inline-block;
+}
+
+#half-hour .ascii-odd {
+  animation: menu-pulse-L 1.8s linear alternate infinite; 
+}
+
+#half-hour .ascii-even {
+    animation: menu-pulse-R 1.8s linear alternate infinite; 
+}
+
+nav li:nth-child(2n+1), 
+.ascii-odd {
+  animation: menu-pulse-L 1.8s linear alternate infinite; 
+}
+
+nav li:nth-child(2n+2) {
+  animation: menu-pulse-R 1.8s linear alternate infinite; 
+}
+
+
+nav li:last-child a {
+  letter-spacing: -3px;
+}
+nav li:nth-child(3) a {
+  letter-spacing: -1px;
+}
+
+@keyframes menu-pulse-L {
+  from {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes menu-pulse-R {
+  from {
+    transform: scale(1.1) rotate(3deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
 }
