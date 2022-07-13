@@ -273,7 +273,7 @@ h2, h3 {
   font-weight: var(--fw-regular);
 }
 
-#press-start {
+#press-start-btn {
   display: block;
 
   font-family: var(--ff-pixelated);
@@ -282,11 +282,12 @@ h2, h3 {
   font-size: clamp(0.8125rem, 1.5vw, 1.8rem);
   color: var(--clr-body);
   transition: transform 0.3s ease-in;
+  width: max-content;
 
   animation: psp 0.8s linear alternate infinite;
 }
 
-#press-start:hover {
+#press-start-btn:hover {
   animation: psp 0.33s linear alternate infinite, psp-btn 0.55s ease-in-out alternate forwards;
 }
 
