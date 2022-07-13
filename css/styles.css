@@ -304,7 +304,7 @@ nav li:nth-child(2n+2),
 
 nav {
   position: sticky;
-  top: 45px;
+  top: 50px;
 
   display: flex;
   justify-content: space-around;
