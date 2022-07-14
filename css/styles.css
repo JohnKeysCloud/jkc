@@ -103,7 +103,7 @@ button {
   --clr-bg-primary: hsl(56, 73%, 91%);
   --clr-bg-secondary: hsl(52, 100%, 95%);
   --clr-bg-accent: hsl(179, 100%, 91%);
-  --clr-bg-compliment: hsl(30, 94%, 20%);
+  --clr-bg-compliment: hsl(30, 100%, 15%);
 
   /* fontFamily */
   --ff-primary: 'MuseoModerno', cursive;
@@ -111,7 +111,7 @@ button {
   --ff-heading: 'Gosha Sans Regular', Arial, Helvetica, sans-serif;
   --ff-pixelated: 'Press Start 2P', cursive;
   --ff-body: 'Montserrat', sans-serif;
-  --ff-nav: 'Montserrat', sans-serif;
+  --ff-nav: 'Press Start 2P', cursive;
 
   /* fontWeight */
   --fw-light: 200;
@@ -120,14 +120,19 @@ button {
   --fw-bold-700: 700;
 
   /* fontSize */
-  --fs-xl: clamp(2.5rem, 10vw, 20rem);
-  --fs-h1: clamp(0.655rem, 3vw, 1.8rem);
-  --fs-h2: clamp(1rem, 1.3vw, 1.8rem);
-  --fs-body: clamp(0.8125rem, 3vw, 1.8rem);
-  --fs-press-start: clamp(0.8125rem, 1.5vw, 1.8rem);
+  --fs-xl: clamp(2.5rem, 10vw, 20.813rem);
+  --fs-h1: clamp(0.655rem, 3vw, 1.875rem);
+  --fs-h2: clamp(1rem, 1.3vw, 1.875rem);
+  --fs-body: clamp(0.8125rem, 3vw, 1.875rem);
+  --fs-press-start: clamp(0.8125rem, 1.5vw, 1.875rem);
+  --fs-nav: clamp(0.5rem, 2vw, 0.8125rem);
 
-  --fs-nav: var(--fs-XXX);
   --fs-button: var(--fs-XXX);
+
+  /* variousStyles */
+
+  /* boxShadowForPixelatedFont */
+  --bs-retro: 0 0 0.3em;
 } 
 
 @font-face {
@@ -376,7 +381,7 @@ h2, h3 {
 }
 
 .qotd figcaption {
-  font-size: var(--fs-body-small);
+  font-size: var(--fs-body);
   font-weight: var(--fw-regular);
 }
 
@@ -407,7 +412,7 @@ h2, h3 {
   letter-spacing: 1px;
   font-size: var(--fs-press-start);
   color: var(--clr-body);
-  text-shadow: 0 0 0.3em;
+  text-shadow: var(--bs-retro);
   transition: transform 0.3s ease-in;
   width: max-content;
 
@@ -432,22 +437,40 @@ nav {
   position: sticky;
   top: 0;
 
-  background-color: var(--clr-bg-compliment);
-  padding: 18px 0;
-  margin: 0 0 100px 0;
+  padding: 1.5vh 0;
+  margin: 0 0 50px 0;
   width: 100vw;
+  z-index: 1;
+}
+
+nav::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background-color: var(--clr-bg-compliment);
+  box-shadow: 0 15px 8px -8px;
+  /* ^ BOTTOM ONLY: whatever you set the blur to (3rd value), set the spread (4th value) to the negative of it. */
+  opacity: 0.8;
+  height: 100%;
+  width: 100%;
+
+  z-index: -1;
 }
 
 nav ul{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 33px;
   list-style-type: none;
 }
 
 nav a {
   color: var(--clr-bg-primary);
-  font-family: var();
+  font-family: var(--ff-nav);
+  font-size: var(--fs-nav);
   font-weight: 700;
+  text-shadow: var(--bs-retro);
 }
