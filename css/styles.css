@@ -302,6 +302,7 @@ header {
 #full-height-container {
   display: grid;
   place-items: center;
+  padding-bottom: 100px;
 }
 
 h2, h3 {
