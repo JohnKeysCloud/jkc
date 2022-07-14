@@ -178,7 +178,7 @@ button {
     opacity: 1;
   }
   55% {
-    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-2vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   60% {
@@ -186,7 +186,7 @@ button {
     opacity: 1;
   }
   65% {
-    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-2vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   70% {
@@ -194,7 +194,7 @@ button {
     opacity: 1;
   }
   75% {
-    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-2vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   80% {
@@ -202,7 +202,7 @@ button {
     opacity: 1;
   }
   85% {
-    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-2vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   90% {
@@ -340,7 +340,7 @@ h2, h3 {
   align-items: flex-end ;
   text-align: end;
 
-  margin-bottom: 88px;
+  margin-bottom: 33px;
 }
 
 .welcome ,
