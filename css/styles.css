@@ -53,8 +53,15 @@ svg {
 }
 
 a {
+  display: inline-block;
   color: var(--clr-links);
   text-decoration: none;
+  transition: all 100ms ease-in;
+}
+
+a:hover {
+  opacity: 0.7;
+  transform: scaleY(1.11);
 }
 
 button {
@@ -90,7 +97,7 @@ button {
   /* colors */
   --clr-body: hsla(30, 100%, 20%, 0.702);
   --clr-header: hsl(60, 100%, 33%);
-  --clr-links: hsl(60, 100%, 30%);
+  --clr-links: hsl(60, 100%, 33%);
   --clr-xl-header: hsl(30, 100%, 18%);
 
   --clr-bg-primary: hsl(56, 73%, 91%);
@@ -104,6 +111,7 @@ button {
   --ff-heading: 'Gosha Sans Regular', Arial, Helvetica, sans-serif;
   --ff-pixelated: 'Press Start 2P', cursive;
   --ff-body: 'Montserrat', sans-serif;
+  --ff-nav: 'Montserrat', sans-serif;
 
   /* fontWeight */
   --fw-light: 200;
@@ -327,6 +335,10 @@ h2, h3 {
   font-size: var(--fs-h1);
 }
 
+.header-link {
+  text-decoration: underline dotted 2.3px;
+}
+
 .tertiary-header {
   color: var(--clr-header);
   font-size: var(--fs-h2);
@@ -436,4 +448,6 @@ nav ul{
 
 nav a {
   color: var(--clr-bg-primary);
+  font-family: var();
+  font-weight: 700;
 }
