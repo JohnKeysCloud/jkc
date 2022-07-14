@@ -293,7 +293,7 @@ header {
   
   background: linear-gradient(to bottom, var(--clr-bg-accent), var(--clr-bg-secondary), var(--clr-bg-primary));
   overflow-x: hidden;
-  padding: 0 7vw 0 7vw;
+  padding: 0 7vw 100px 7vw;
   min-height: 100vh;
   width: 100vw;
   margin-inline: auto;
@@ -302,7 +302,7 @@ header {
 #full-height-container {
   display: grid;
   place-items: center;
-  padding-bottom: 100px;
+  
 }
 
 h2, h3 {
