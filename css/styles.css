@@ -113,10 +113,9 @@ button {
 
   /* fontSize */
   --fs-xl: clamp(2.5rem, 10vw, 20rem);
-  --fs-h1: clamp(0.655rem, 3vw, 1.3rem);
-  --fs-h2: clamp(1rem, 1.3vw, 1.3rem);
-  --fs-body: clamp(0.8125rem, 3vw, 1.3rem);
-  --fs-body-small: clamp(0.75rem, 3vw, 1rem);
+  --fs-h1: clamp(0.655rem, 3vw, 1.8rem);
+  --fs-h2: clamp(1rem, 1.3vw, 1.8rem);
+  --fs-body: clamp(0.8125rem, 3vw, 1.8rem);
   --fs-press-start: clamp(0.8125rem, 1.5vw, 1.8rem);
 
   --fs-nav: var(--fs-XXX);
@@ -135,87 +134,87 @@ button {
 
 @keyframes cyclone-infinite {
   from {
-    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
     opacity: 0.5;
   }
   5% {
-    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
     opacity: 1;
   }
   10% {
-    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
     opacity: 0.5;
   }
   15% {
-    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
     opacity: 1;
   }
   20% {
-    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
     opacity: 0.5;
   }
   25% {
-    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
     opacity: 1;
   }
   30% {
-    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
     opacity: 0.5;
   }
   35% {
-    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
     opacity: 1;
   }
   40% {
-    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
     opacity: 0.5;
   }
   45% {
-    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(0vh) rotate(0) rotateX(0) scale(0.7);
     opacity: 1;
   }
   50% {
-    transform: translateY(0) rotate(0) rotateX(720deg) scale(1);
-    opacity: 0.5;
+    transform: translateY(-5vh) rotate(0) rotateX(720deg) scale(1);
+    opacity: 1;
   }
   55% {
-    transform: translateY(-3.8vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   60% {
-    transform: translateY(1.3vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-5vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   65% {
-    transform: translateY(-3.8vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   70% {
-    transform: translateY(1.3vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-5vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   75% {
-    transform: translateY(-3.8vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   80% {
-    transform: translateY(1.3vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-5vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   85% {
-    transform: translateY(-3.8vh) rotate(0) rotateX(720deg) scale(1);
+    transform: translateY(-1vh) rotate(0) rotateX(720deg) scale(1);
     opacity: 1;
   }
   90% {
-    transform: translateY(0) rotate(0) rotateX(720deg) scale(1);
-    opacity: 0.5;
+    transform: translateY(-5vh) rotate(0) rotateX(720deg) scale(1);
+    opacity: 1;
   }
   95% {
     transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
     opacity: 1;
   }
   to {
-    transform: translateY(0) rotate(0) rotateX(0) scale(0.7);
+    transform: translateY(3.3vh) rotate(0) rotateX(0) scale(0.7);
     opacity: 0.5;
   }
 }
@@ -278,17 +277,9 @@ body {
   place-items: center;
 }
 
-#full-height-wrapper {
-  display: grid;
-
-}
-
 #cyclone {
-  display: block;
   cursor: pointer;
-  height: auto;
-  margin: 88px auto 0 auto;
-  width: clamp(188px, 38vw, 300px);
+  width: clamp(188px, 38vw, 233px);
   animation: cyclone-infinite 28.888s linear infinite;
 }
 
@@ -302,10 +293,15 @@ header {
   
   background: linear-gradient(to bottom, var(--clr-bg-accent), var(--clr-bg-secondary), var(--clr-bg-primary));
   overflow-x: hidden;
-  padding: 0 7vw 250px 7vw;
+  padding: 0 7vw 0 7vw;
   min-height: 100vh;
   width: 100vw;
   margin-inline: auto;
+}
+
+#full-height-container {
+  display: grid;
+  place-items: center;
 }
 
 h2, h3 {
@@ -355,11 +351,12 @@ h2, h3 {
 }
 
 .welcome p {
+  font-size: var(--fs-body);
   font-weight: var(--fw-light); 
 }
 
 .qotd p {
-  font-size: var(--fs-body-small);
+  font-size: var(--fs-body);
   font-weight: var(--fw-light);
   font-style: italic;
 }
