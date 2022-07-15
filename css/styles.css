@@ -441,10 +441,12 @@ h2, h3 {
   width: max-content;
 
   animation: psp 0.8s linear alternate infinite;
+  -webkit-animation: psp 0.8s linear alternate infinite;
 }
 
 #press-start-btn:hover {
   animation: psp 0.33s linear alternate infinite, psp-hover 0.55s ease-out forwards;
+  -webkit-animation: psp 0.33s linear alternate infinite, psp-hover 0.55s ease-out forwards;
 }
 
 #press-start-container p {
@@ -518,9 +520,10 @@ nav a {
   background: linear-gradient(to bottom right, red, green, blue);
   border-radius: 50%;
   overflow: hidden;
-  opacity: 50%;
+  opacity: 33%;
 
   animation: three-sixty 0.88s linear infinite; 
+  -webkit-animation: three-sixty 0.88s linear infinite;
 }
 
 #avatar-container img {
@@ -530,6 +533,7 @@ nav a {
   border-radius: 50%;
 
   animation: avatar-cyclone 11s linear forwards;
+  -webkit-animation: avatar-cyclone 11s linear forwards;
 }
 
 #avatar-container img:hover {
