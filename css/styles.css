@@ -178,6 +178,90 @@ button {
   }
 }
 
+/* @keyframes bubble {
+  from { 
+    transform: translateX(0) translateY(0);
+  }    
+  3.85% {
+    transform: translateX(2%) translateY(-1vh);
+  }
+  7.69% {
+    transform: translateX(4%) translateY(1vh);
+  }
+  11.54% {
+    transform: translateX(6%) translateY(-1vh);
+  }
+  15.38% {
+    transform: translateX(8%) translateY(1vh);
+  }
+  19.23% {
+    transform: translateX(10%) translateY(-1vh);
+  }
+  23.08% {
+    transform: translateX(12%) translateY(1vh);
+  }
+  26.92% {
+    transform: translateX(10%) translateY(-1vh);
+  }
+  30.77% {
+    transform: translateX(8%) translateY(1vh);
+  }
+  34.62% {
+    transform: translateX(6%) translateY(-1vh);
+  }
+  38.46% {
+    transform: translateX(4%) translateY(1vh);
+  }
+  42.31% {
+    transform: translateX(2%) translateY(-1vh);
+  }
+  46.15% {
+    transform: translateX(0) translateY(1vh);
+  }
+  50% {
+    transform: translateX(-2%) translateY(-1vh);
+  }
+  53.85% {
+    transform: translateX(-4%) translateY(1vh);
+  }
+  57.69% {
+    transform: translateX(-6%) translateY(-1vh);
+  }
+  61.54% {
+    transform: translateX(-8%) translateY(1vh);
+  }
+  65.38% {
+    transform: translateX(-10%) translateY(-1vh);
+  }
+  69.23% {
+    transform: translateX(-12%) translateY(1vh);
+  }
+  73.08% {
+    transform: translateX(-10%) translateY(-1vh);
+  }
+  76.92% {
+    transform: translateX(-8%) translateY(1vh);
+  }
+  80.77% {
+    transform: translateX(-6%) translateY(-1vh);
+  }
+  84.62% {
+    transform: translateX(-4%) translateY(1vh);
+  }
+  88.46%{
+    transform: translateX(-2%) translateY(-1vh);
+  }
+  92.31% {
+    transform: translateX(0) translateY(0vh);
+  }
+  96.15% {
+    transform: translateX(10%) translateY(0vh);
+  }
+  to {
+    transform: translateX(20%) translateY(0vh);
+  }
+} */
+
 @keyframes cyclone-infinite {
   from {
     transform: translateY(3.3vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
@@ -503,15 +587,22 @@ nav a {
   letter-spacing: 1px;
 }
 
-#avatar-container {
+#avatar-overflow-container {
+  border: 8px ridge var(--clr-header);
   position: relative;
 
   overflow: hidden;
   border-radius: 50%;
+  transition: all 1.8s ease-in;
+}
+
+#avatar-overflow-container:hover {
+  /* animation: bubble 30s infinite ; */
+  transform: rotate(1080deg);
 }
 
 /* rgbCyclone360 */
-#avatar-container::before {
+#avatar-overflow-container::before {
   position: absolute;
   content: '';
   height: 100%;
@@ -523,11 +614,11 @@ nav a {
   overflow: hidden;
   opacity: 18%;
 
-  animation: three-sixty 0.88s linear infinite; 
+  animation: three-sixty 0.888s linear infinite; 
   -webkit-animation: three-sixty 0.88s linear infinite;
 }
 
-#avatar-container img {
+#avatar-overflow-container img {
   filter: sepia(1) brightness(0.7);
   transition: all 0.3s ease-in;
   transform: scale(0.8);
@@ -537,6 +628,6 @@ nav a {
   -webkit-animation: avatar-cyclone 11s linear forwards;
 }
 
-#avatar-container img:hover {
-  filter: sepia(0) brightness(1);
+#avatar-overflow-container img:hover {
+  filter: sepia(0) brightness(1) saturate(0.55);
 }
