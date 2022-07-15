@@ -176,7 +176,7 @@ button {
   88% {
     transform: rotate(0) scale(0.90)
   }
-  89% {
+  93% {
     transform: rotate(0) scale(0.86)
   }
   to {
@@ -599,11 +599,6 @@ nav a {
   overflow: hidden;
   border-radius: 50%;
   transition: all 0.3s ease-in;
-}
-
-#avatar-overflow-container:hover {
-  /* animation: bubble 30s infinite ; */
-  transform: rotate(360deg);
 }
 
 /* rgbCyclone360 */
