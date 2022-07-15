@@ -97,6 +97,7 @@ button {
   color: var(--clr-header);
   font-size: var(--fs-h1);
 }
+
 .tertiary-header {
   color: var(--clr-header);
   font-size: var(--fs-h2);
@@ -105,7 +106,40 @@ button {
 .section {
   display: grid;
   justify-items: center;
-  padding: 0 12vw;
+
+  padding-top: 7vh;
+}
+
+.section .section-container {
+  position: relative;
+
+  background-color: var(--clr-bg-primary);
+
+  text-align: center;
+  width: 80%;
+}
+
+.section .section-container .line-snap {
+  position: absolute;
+  top: 50%;
+
+  border: 1px solid var(--clr-bg-compliment);
+  opacity: 33%;
+  width: 100%;
+  z-index: 0;
+}
+
+.section .section-header-container {
+  position: relative;
+  z-index: 1;
+
+  background-color: var(--clr-bg-primary);
+  width: max-content;
+  margin: 0 auto;
+}
+
+.section .section-header-container h3 {
+  padding: 0 3px;
 }
 
 /* 
@@ -143,7 +177,7 @@ button {
   /* fontSize */
   --fs-xl: clamp(2.5rem, 10vw, 20.813rem);
   --fs-h1: clamp(0.655rem, 3vw, 1.875rem);
-  --fs-h2: clamp(1rem, 1.3vw, 1.875rem);
+  --fs-h2: clamp(2rem, 1.3vw, 1.875rem);
   --fs-body: clamp(0.8125rem, 3vw, 1.875rem);
   --fs-press-start: clamp(0.8125rem, 1.5vw, 1.875rem);
   --fs-nav: clamp(0.5rem, 2vw, 0.8125rem);
@@ -174,10 +208,10 @@ button {
     transform: rotate(0) scale(0.88);
   }
   88% {
-    transform: rotate(0) scale(0.90)
+    transform: rotate(-3deg) scale(0.90)
   }
   93% {
-    transform: rotate(0) scale(0.86)
+    transform: rotate(3deg) scale(0.86)
   }
   to {
     transform: rotate(0) scale(0.93)
@@ -551,12 +585,11 @@ h2, h3 {
 
 nav {
   position: sticky;
-  top: 3vh;
+  top: 1.3vh;
 
   padding: 1.3vh 0;
-  margin: 0 0 50px 0;
   width: 100vw;
-  z-index: 1;
+  z-index: 2;
 }
 
 nav::before {
@@ -596,9 +629,10 @@ nav a {
 #avatar-overflow-container {
   position: relative;
 
-  border: 3px solid var(--clr-header);
-  overflow: hidden;
+  border: 8px solid var(--clr-header);
   border-radius: 50%;
+  overflow: hidden;
+  margin-top: 50px;
   transition: all 0.3s ease-in;
 }
 
@@ -631,3 +665,6 @@ nav a {
 #avatar-overflow-container img:hover {
   filter: sepia(0) brightness(1) saturate(0.55);
 }
+
+
+
