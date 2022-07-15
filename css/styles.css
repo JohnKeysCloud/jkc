@@ -116,7 +116,7 @@ button {
   background-color: var(--clr-bg-primary);
 
   text-align: center;
-  width: 80%;
+  width: 80vw;
 }
 
 .section .section-container .line-snap {
@@ -626,14 +626,22 @@ nav a {
   letter-spacing: 1px;
 }
 
+#avatar-container {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+}
+
 #avatar-overflow-container {
   position: relative;
 
   border: 8px solid var(--clr-header);
   border-radius: 50%;
   overflow: hidden;
-  margin-top: 50px;
+
+  margin: 0 auto;
   transition: all 0.3s ease-in;
+  width: 333px;
 }
 
 /* rgbCyclone360 */
@@ -664,6 +672,11 @@ nav a {
 
 #avatar-overflow-container img:hover {
   filter: sepia(0) brightness(1) saturate(0.55);
+}
+
+#about-text-content-container {
+  width: 80vw;
+  /* text-align: ; */
 }
 
 
