@@ -60,8 +60,8 @@ a {
 }
 
 a:hover {
-  opacity: 0.7;
-  transform: scaleY(1.11);
+  filter: hue-rotate(180deg);
+  transform: scaleY(1.03);
 }
 
 button {
@@ -212,7 +212,7 @@ button {
 
 @keyframes avatar-cyclone {
   from {
-    transform: rotate(2880deg) scale(1);
+    transform: rotate(360deg) scale(1);
   }
   90% {
     transform: rotate(0) scale(0.80);
