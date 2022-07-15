@@ -516,6 +516,8 @@ nav a {
   inset: 0;
 
   background: linear-gradient(to bottom right, red, green, blue);
+  border-radius: 50%;
+  overflow: hidden;
   opacity: 50%;
 
   animation: three-sixty 0.88s linear infinite; 
