@@ -596,6 +596,7 @@ nav a {
 #avatar-overflow-container {
   position: relative;
 
+  border: 3px solid var(--clr-header);
   overflow: hidden;
   border-radius: 50%;
   transition: all 0.3s ease-in;
