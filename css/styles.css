@@ -520,7 +520,7 @@ nav a {
   background: linear-gradient(to bottom right, red, green, blue);
   border-radius: 50%;
   overflow: hidden;
-  opacity: 33%;
+  opacity: 18%;
 
   animation: three-sixty 0.88s linear infinite; 
   -webkit-animation: three-sixty 0.88s linear infinite;
