@@ -720,10 +720,11 @@ nav a {
 
 }
 
-#nyc {
+.nyc {
   font-family: bookman-jf-pro, serif;
   font-style: italic;
   word-spacing: 7px;
+  font-feature-settings: unset;
 }
 
 .nyc-glyph {
