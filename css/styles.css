@@ -112,6 +112,7 @@ button {
   justify-items: center;
 
   padding-top: 7vh;
+  width: 77vw;
 }
 
 .section-top {
@@ -187,7 +188,7 @@ button {
   ;
   --fs-h1: clamp(2.5rem, 10vw, 20.813rem);
   --fs-h2: clamp(2rem, 1.3vw, 1.875rem);
-  --fs-h3: clamp(2rem, 1.3vw, 1.875rem);
+  --fs-h3: clamp(1.3rem, 1.3vw, 1.875rem);
   --fs-h4: clamp(0.655rem, 3vw, 1.875rem);
 
   --fs-press-start: clamp(0.8125rem, 1.5vw, 1.875rem);
@@ -488,8 +489,7 @@ header {
 
 #full-height-container {
   display: grid;
-  place-items: center;
-  
+  place-items: center;  
 }
 
 #jkc {
@@ -577,6 +577,7 @@ header {
 #press-start-btn:hover {
   animation: psp 0.33s linear alternate infinite, psp-hover 0.55s ease-out forwards;
   -webkit-animation: psp 0.33s linear alternate infinite, psp-hover 0.55s ease-out forwards;
+  filter: unset;
 }
 
 #press-start-container p {
@@ -681,8 +682,13 @@ nav a {
 }
 
 #about-text-content-container {
-  padding: 0 10vw;
+  display: grid;
+
   text-align: center;
+  background: var(--clr-bg-primary);
+
+
+  margin-bottom: 28px;
 }
 
 #about-text-content-container ul {
@@ -708,4 +714,46 @@ nav a {
 
 #about-text-content-container ul > li:last-child::marker {
   content: '💎';
+}
+
+
+
+
+
+
+
+
+
+@keyframes text-wiggle {
+  from {
+    transform: scaleY(1);
+
+  }
+  70% {
+    transform: scaleY(1.05);
+  }
+  to {
+    transform: scaleY(1.10);
+  }
+  
+}
+
+.random-bold-text {
+  display: inline-block;
+  font-weight: bold;
+  animation: text-wiggle 0.5s linear alternate infinite;
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(24deg);
+  }
+  to {
+      transform: rotate(0deg);
+  } 
+}
+
+#wave {
+  display: inline-block;
+  animation: wave 0.3s linear alternate infinite;
 }
