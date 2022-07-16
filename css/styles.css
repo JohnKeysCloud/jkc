@@ -715,6 +715,18 @@ nav a {
   margin-bottom: 28px;
 }
 
+#nyc {
+  font-family: bookman-jf-pro, serif;
+  font-style: italic;
+  word-spacing: 7px;
+  /* use the first available swash character (add 2 after to use the second) */
+  font-feature-settings:"swsh";
+}
+
+#nyc-r {
+  font-feature-settings: initial;
+}
+
 #stack {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -736,3 +748,5 @@ nav a {
 .icon {
   font-size: 3rem;
 }
+
+
