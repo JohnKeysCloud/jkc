@@ -451,10 +451,32 @@ button {
   }
 }
 
+@keyframes text-wiggle {
+  from {
+    transform: scaleY(1);
+  }
+  70% {
+    transform: scaleY(1.10);
+  }
+  to {
+    transform: scaleY(1.15);
+  }
+  
+}
+
 @keyframes three-sixty {
   from{
     transform: rotate(-360deg);
   }
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(24deg);
+  }
+  to {
+      transform: rotate(0deg);
+  } 
 }
 
 body {
@@ -681,79 +703,21 @@ nav a {
   filter: sepia(0) brightness(1) saturate(0.55);
 }
 
+#wave {
+  display: inline-block;
+  animation: wave 0.3s linear alternate infinite;
+}
+
 #about-text-content-container {
   display: grid;
 
   text-align: center;
-  background: var(--clr-bg-primary);
-
-
   margin-bottom: 28px;
 }
 
-#about-text-content-container ul {
-  text-align: center;
-  list-style-position: inside;
-}
-
-#about-text-content-container ul > li:first-child::marker {
-  content: '🎶';
-}
-
-#about-text-content-container ul > li:nth-child(2)::marker {
-  content: '👾';
-}
-
-#about-text-content-container ul > li:nth-child(3)::marker {
-  content: '🎱';
-}
-
-#about-text-content-container ul > li:nth-child(4)::marker {
-  content: '⛸️';
-}
-
-#about-text-content-container ul > li:last-child::marker {
-  content: '💎';
-}
-
-
-
-
-
-
-
-
-
-@keyframes text-wiggle {
-  from {
-    transform: scaleY(1);
-
-  }
-  70% {
-    transform: scaleY(1.05);
-  }
-  to {
-    transform: scaleY(1.10);
-  }
-  
-}
-
-.random-bold-text {
+.jkc-text {
   display: inline-block;
+  font-size: var(--fs-h3);
   font-weight: bold;
   animation: text-wiggle 0.5s linear alternate infinite;
-}
-
-@keyframes wave {
-  from {
-    transform: rotate(24deg);
-  }
-  to {
-      transform: rotate(0deg);
-  } 
-}
-
-#wave {
-  display: inline-block;
-  animation: wave 0.3s linear alternate infinite;
 }
