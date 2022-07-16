@@ -715,9 +715,24 @@ nav a {
   margin-bottom: 28px;
 }
 
+#stack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+}
+
 .jkc-text {
   display: inline-block;
   font-size: var(--fs-h3);
   font-weight: bold;
   animation: text-wiggle 0.5s linear alternate infinite;
+}
+
+.tech-icon {
+  display: grid;
+  text-align: center;
+}
+
+.icon {
+  font-size: 3rem;
 }
