@@ -785,6 +785,8 @@ nav a {
 }
 
 .project-section p {
+  font-size: var(--fs-body);
+;
   padding-top: 33px;
   text-align: center;
 }
