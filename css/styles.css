@@ -908,6 +908,8 @@ nav a {
 }
 
 .project-section .close-btn {
+  grid-area: 1 / 7 / span 1 / span 1;
+
   align-self: start;
   justify-self: end;
 
