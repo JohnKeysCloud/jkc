@@ -65,8 +65,8 @@ a {
 }
 
 a:hover {
-  filter: hue-rotate(180deg);
   transform: scaleY(1.03);
+  opacity: 0.7;
 }
 
 button {
@@ -269,7 +269,7 @@ button {
   60% {
     transform: scale(1.8, 1);
     opacity: 0.55;
-    color: chartreuse;
+    color: var(--tcny-project-accent);
   }
   to {
     transform: scale(1.38);
@@ -280,6 +280,15 @@ button {
 @keyframes three-sixty {
   from{
     transform: rotate(-360deg);
+  }
+}
+
+@keyframes three-sixty-link {
+  from {
+    transform: rotate(0) scale(1);
+  }
+  to {
+    transform: rotate(-360deg) scale(1.8)
   }
 }
 
@@ -311,6 +320,7 @@ button {
   --clr-bg-secondary: #fffdee;
   --clr-bg-accent: hsl(179, 100%, 91%);
   --clr-bg-compliment: hsl(30, 100%, 15%);
+  --clr-tcny-accent: red;
 
   /* fontFamily */
   --ff-primary: 'MuseoModerno', cursive;
@@ -673,7 +683,6 @@ nav a {
   font-size: var(--fs-body);
   text-align: center;
   margin-bottom: 28px;
-
 }
 
 .nyc {
@@ -723,7 +732,7 @@ nav a {
   z-index: 1;
 }
 
-.stack .stack-gif {
+.project-section .stack .stack-gif {
   position: absolute;
 
   inset: 0;
@@ -733,18 +742,18 @@ nav a {
   transition: 0.8s ease-in;
 }
 
-.logo-stack {
+.project-section .logo-stack {
   margin: 0 auto;
   width: 77%;
 }
 
-.logo-stack .stack-still {
+.project-section .logo-stack .stack-still {
   padding-bottom: 18px;
 
   transition: all 0.1s ease-out;
 }
 
-.logo-stack .stack-gif {
+.project-section .logo-stack .stack-gif {
   padding-bottom: 18px;
   pointer-events: none;
   transform: scale(0);
@@ -752,41 +761,176 @@ nav a {
   z-index: 1;
 }
 
-.logo-stack:hover > .stack-still {
+.project-section .logo-stack:hover > .stack-still {
   transform: scale(0);
 }
 
-.logo-stack:hover > .stack-gif {
+.project-section .logo-stack:hover > .stack-gif {
   opacity: 1;
   transform: scale(1, 1.2);
   pointer-events: none;
 }
 
-.project-stack {
-  border-radius: 150px;
+.project-section .project-stack-psuedo-hover {
+  position: relative;
+
+  transition: 0.38s ease-in;
+}
+
+.project-section .project-stack-psuedo-hover:hover {
+  transform: scale(1.03);
+}
+
+.project-section .project-stack-psuedo-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+
+  border-radius: 33px;
+  box-shadow: 0 0 155px 8px var(--clr-tcny-accent);
+  opacity: 0.18;
+
+  transition: all 0.38s ease-in;
+}
+
+.project-section .project-stack-psuedo-hover:hover::before {
+  opacity: 0.88;
+}
+
+.project-section .project-stack {
+  cursor: pointer;
+  border-radius: 33px;
   filter: sepia(0.33);
   overflow: hidden;
-
-  z-index: 0;
 }
 
-.project-stack .stack-still {
+.project-section .project-stack .stack-still {
   filter: sepia(0.33);
 }
 
-.project-stack .stack-gif {
+.project-section .project-stack .stack-gif {
   opacity: 0;
   transition: opacity 0.38s ease-in-out, transform 1.3s ease-in;
 }
 
-.project-stack .stack-gif:hover {
+.project-section .project-stack-psuedo-hover:hover > .project-stack > .stack-gif {
   opacity: 1;
   transform: scale(1.08);
 }
 
+.project-section .btn-container {
+  position: absolute;
+  inset: 0;
+  
+  display: grid;
+  place-content: center;
+  
+  background: linear-gradient(to bottom right, black, rgb(33, 33, 33), black);
+  border-radius: 33px;
+  overflow: hidden;
+  transition: opacity 0.38s ease-in;
+
+  z-index: 1;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+.project-section .project-stack.open ~ .btn-container {
+  opacity: 1;
+  visibility: visible;
+}
+
+.project-section .cyclone-grid {
+  display: grid;
+  place-items: center;
+
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  
+  transform: scale(0.8);
+}
+
+.project-section .github-link {
+  grid-area: 2 / 5 / span 2 / span 2;
+
+  display: grid;
+  place-items: center; 
+}
+
+.project-section .github-link img {
+  filter: drop-shadow(0 0 1px var(--clr-tcny-accent));
+  transition: transform 0.88s ease-in-out;
+}
+
+.project-section .github-link:hover img {
+  transform: scale(1.7) rotate(360deg);
+}
+
+.project-section .live-link {
+  grid-area: 3 / 2 / span 2 / span 2;
+  display: grid;
+  place-items: center;  
+}
+
+.project-section .live-link img {
+  filter: drop-shadow(0 0 1px var(--clr-tcny-accent));
+  transition: transform 0.88s ease-in-out;
+}
+
+.project-section .live-link:hover img {
+  transform: scale(1.5) rotate(360deg);
+}
+
+.project-section .tcny-link:hover {
+  animation: 0.8s three-sixty-link linear infinite reverse;
+}
+
+.project-section .btn-container .monogram-img {
+  width: 55%;
+}
+
+.project-section .btn-container .monogram-img:not(.live-img,.github-img) {
+  opacity: 0.8;
+  pointer-events: none;
+  transition: opacity 0.88s ease-in-out;
+}
+
+.project-section .btn-container .link:hover {
+  opacity: 1;
+}
+
+.project-section .btn-container .link:hover ~ .monogram-img:not(.live-img,.github-img):nth-child(even) {
+  opacity: 0.3;
+  animation: three-sixty 3.3s linear infinite;
+}
+
+.project-section .btn-container .link:hover ~ .monogram-img:not(.luve-img,.github-img):nth-child(odd) {
+  opacity: 0.1;
+  animation: three-sixty 1.3s linear infinite reverse;
+}
+
+.project-section .close-btn {
+  align-self: start;
+  justify-self: end;
+
+  color: var(--clr-tcny-accent);
+  cursor: pointer;
+  filter: drop-shadow(0 0 8px var(--clr-tcny-accent));
+  height: 88%;
+  opacity: 0.8;
+  width: 88%;
+
+  transition: transform 0.38s ease-in;
+}
+
+.project-section .close-btn:hover {
+  opacity: 1;
+  transform: scale(1.3) rotate(-180deg);
+}
+
 .project-section p {
   font-size: var(--fs-body);
-;
   padding-top: 33px;
   text-align: center;
 }
@@ -819,13 +963,13 @@ nav a {
   height: 133px;
 }
 
-#contact-form .btn-container {
+#contact > #contact-form .btn-container {
   display: grid;
 
   width: 100%
 }
 
-#contact-form .btn-container button {
+#contact > #contact-form .btn-container button {
   justify-self: center;
 
   border: 3px solid var(--clr-header);
@@ -835,7 +979,7 @@ nav a {
   width: max-content;
 }
 
-#contact-form .btn-container button:disabled {
+#contact > #contact-form .btn-container button:disabled {
   /* background-color: olive; */
   border: 3px solid rgba(75, 75, 75, 0.447);
   border-radius: 33px;
