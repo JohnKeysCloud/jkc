@@ -256,6 +256,15 @@ button {
   }
 }
 
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes psp {
   from {
     opacity: 0;
@@ -861,13 +870,16 @@ nav a {
 }
 
 .project-section .github-link:hover img {
-  transform: scale(1.7) rotate(360deg);
+  transform: scale(1.7) rotate(-360deg);
 }
 
 .project-section .live-link {
+  position: relative;
+
   grid-area: 3 / 2 / span 2 / span 2;
   display: grid;
-  place-items: center;  
+  place-items: center; 
+  z-index: 1;
 }
 
 .project-section .live-link img {
@@ -877,6 +889,39 @@ nav a {
 
 .project-section .live-link:hover img {
   transform: scale(1.5) rotate(360deg);
+}
+
+/* liveLinkLabel */
+.project-section .live-link::before {
+  content: 'LINK';
+}
+
+/* githubLinkLabel */
+.project-section .github-link::before {
+  content: 'GITHUB';
+}
+
+.project-section .link::before {
+  position: absolute;
+  top: 30%;
+
+  z-index: 1;
+  font-family: var(--ff-pixelated);
+  font-size:3rem;
+  color: var(--clr-tcny-accent);
+  text-align: center;
+  text-shadow: 0 0 18px var(--clr-tcny-accent);
+  /* transition: opacity 0.38s ease-in-out; */
+
+  animation: pulse 0.38s linear infinite alternate;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+.project-section .link:hover::before {
+  opacity: 1;
+  visibility: visible;
 }
 
 .project-section .tcny-link:hover {
@@ -920,21 +965,21 @@ nav a {
   height: 100%;
   width: 100%;
   
-  opacity: 0.8;
   overflow: hidden;
   transition: transform 0.38s ease-in;
 }
 
 .project-section .close-btn svg {
   grid-area: svg;
-
+  
+  opacity: 0.8;
   width: 88%;
   height: 88%;
 }
 
 .project-section .close-btn svg:hover {
   opacity: 1;
-  transform: scale(1.5) rotate(-540deg);
+  transform: scale(1.3) rotate(-540deg);
 }
 
 .project-section p {
