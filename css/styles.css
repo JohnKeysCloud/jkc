@@ -475,11 +475,7 @@ header {
   place-items: center;
   
   background: linear-gradient(to bottom, var(--clr-bg-sora), var(--clr-bg-creamy), var(--clr-bg-creamiest));
-  overflow-x: hidden;
-  /* padding: 0 7vw 133px 7vw; */
   min-height: 100vh;
-  width: 100vw;
-  /* margin-inline: auto; */
 }
 
 #full-height-container {
@@ -588,7 +584,7 @@ nav {
   background-color: var(--clr-bg-compliment);
   box-shadow: 0 15px 8px -8px;
 
-  width: 100vw;
+  width: 100%;
 }
 
 nav ul {
