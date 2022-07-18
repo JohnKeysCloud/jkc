@@ -476,6 +476,7 @@ header {
   
   background: linear-gradient(to bottom, var(--clr-bg-sora), var(--clr-bg-creamy), var(--clr-bg-creamiest));
   min-height: 100vh;
+  width: 100vw;
 }
 
 #full-height-container {
@@ -583,24 +584,25 @@ nav {
   z-index: 2;
   background-color: var(--clr-bg-compliment);
   box-shadow: 0 15px 8px -8px;
-
-  width: 100%;
+  width: 100vw;
 }
 
 nav ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3vw;
   list-style-type: none;
+
 }
 
 nav a {
   color: var(--clr-bg-creamiest);
   font-family: var(--ff-nav);
-  font-size: var(--fs-nav);
-  text-shadow: var(--bs-retro);
+  font-size: 0.8125rem;
   letter-spacing: 1px;
+  /* font-size: 25%; */
+  text-shadow: 0 0 10px var(--clr-body-primary-nature-brown);
+  /* transform: rotate(-33deg); */
 }
 
 #avatar-container {
