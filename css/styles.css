@@ -786,7 +786,7 @@ nav a {
   position: absolute;
   inset: 0;
 
-  border-radius: 33px;
+  border-radius: 38px;
   box-shadow: 0 0 155px 8px var(--clr-tcny-accent);
   opacity: 0.18;
 
@@ -799,7 +799,7 @@ nav a {
 
 .project-section .project-stack {
   cursor: pointer;
-  border-radius: 33px;
+  border-radius: 38px;
   filter: sepia(0.33);
   overflow: hidden;
 }
@@ -826,7 +826,7 @@ nav a {
   place-content: center;
   
   background: linear-gradient(to bottom right, black, rgb(33, 33, 33), black);
-  border-radius: 33px;
+  border-radius: 38px;
   overflow: hidden;
   transition: opacity 0.38s ease-in;
 
