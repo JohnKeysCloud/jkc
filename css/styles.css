@@ -825,7 +825,7 @@ nav a {
   background: linear-gradient(to bottom right, black, rgb(33, 33, 33), black);
   border-radius: 0px;
   overflow: hidden;
-  transition: opacity 0.38s ease-in;
+  transition: all 0.38s ease-in-out;
 
   z-index: 1;
 
