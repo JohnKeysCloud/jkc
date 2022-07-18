@@ -907,7 +907,7 @@ nav a {
 
   z-index: 1;
   font-family: var(--ff-pixelated);
-  font-size:3rem;
+  font-size: calc(var(--fs-h2) + 0.8rem);
   color: var(--clr-tcny-accent);
   text-align: center;
   text-shadow: 0 0 18px var(--clr-tcny-accent);
