@@ -499,7 +499,8 @@ figcaption {
 
 header {
   display: grid;
-  place-items: center;
+  justify-items: center;
+  align-items: baseline;
   
   background: linear-gradient(to bottom, var(--clr-bg-sora), var(--clr-bg-creamy), var(--clr-bg-creamiest));
   min-height: 100vh;
@@ -541,6 +542,8 @@ header {
 .welcome p {
   font-size: var(--fs-body);
   font-weight: var(--fw-light); 
+  
+  margin-bottom: 11px;
 }
 
 .qotd p {
@@ -554,10 +557,10 @@ header {
   font-weight: var(--fw-regular);
 }
 
-/* #press-start-container {
+#press-start-container {
   display: grid;
   place-items: center;
-} */
+}
 
 #press-start-btn ~ p {
   transition: opacity 0.38s ease-out;
@@ -574,7 +577,7 @@ header {
 }
 
 #press-start-btn {
-  display: block;
+  /* display: block; */
 
   font-family: var(--ff-pixelated);
   margin: 0 auto;
@@ -602,7 +605,7 @@ header {
   font-size: max(0.75rem, calc(var(--fs-press-start) - 0.18rem));
   font-weight: var(--fw-bold-700);
   opacity: 0.38;
-  padding-right: 13px;
+  padding-right: 5.5vw;
 }
 
 nav {
