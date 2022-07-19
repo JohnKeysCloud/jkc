@@ -131,10 +131,10 @@ button {
     transform: scale(1);
   }
   70% {
-    transform: scale(1.05);
+    transform: scale(1.2) translateX(2px);
   }
   to {
-    transform: scale(1.1);
+    transform: scale(1.3) translateX(3px);
   }
   
 }
@@ -256,6 +256,21 @@ button {
   }
 }
 
+@keyframes jiggle {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  85% {
+    transform: scale(1.3);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 @keyframes pulse {
   from {
     opacity: 0;
@@ -347,14 +362,14 @@ button {
 
   /* fontSize */
   --fs-h1: clamp(2.5rem, 10vw, 20.813rem);
-  --fs-h2: clamp(1.688rem, 3.3vw, 2rem);
-  --fs-h3: clamp(1.563rem, 3.2vw, 1.938rem);
-  --fs-h4: clamp(1.438rem, 3.1vw, 1.875rem);
+  --fs-h2: clamp(1.5rem, 3.3vw, 2rem);
+  --fs-h3: clamp(1.438rem, 3.2vw, 1.938rem);
+  --fs-h4: clamp(1.375rem, 3.1vw, 1.875rem);
   --fs-body: clamp(1rem, 2.8vw, 1.125rem);
   
   --fs-button: var(--fs-XXX);
-  --fs-icon-name: clamp(0.655rem, 2vw, 0.8125rem);
-  --fs-nav: clamp(1rem, 2vw, 1.125rem);
+  --fs-icon-name: clamp(0.8125rem, 2vw, 1rem);
+  --fs-nav: clamp(1rem, 2vw, 3rem);
   --fs-placeholder:  clamp(0.655rem, 1.5vw, 0.8125rem);
   --fs-press-start: clamp(1rem, 1.5vw, 1.875rem);
 
@@ -438,8 +453,8 @@ button {
   margin: 0 auto;
 }
 
-.section .section-header-container h4 {
-  margin: 0 5px;
+.section .section-header-container h3 {
+  margin: 0 8px;
 }
 
 button {
@@ -460,13 +475,25 @@ body {
   place-items: center;
 }
 
+p,
+figcaption {
+  padding: 0 5vw;
+}
+
 #cyclone {
   cursor: pointer;
   width: clamp(188px, 38vw, 233px);
-  animation: cyclone-infinite 18.888s linear infinite;
   overflow-x: hidden;
   pointer-events: none;
 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
+  animation: cyclone-infinite 18.888s linear infinite;
+  -webkit-animation: cyclone-infinite 18.888s linear infinite;
+  
   transition: transform 3s ease-in-out;
 }
 
@@ -494,8 +521,10 @@ header {
   text-decoration: underline dotted 2.3px;
 }
 
-.welcome {
-  margin-bottom: 20px;
+.welcome h2 {
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 11px;
 }
 
 .qotd {
@@ -578,21 +607,19 @@ header {
 
 nav {
   position: sticky;
-  top: 1.3vh;
+  top: 0;
 
   padding: 1.3vh 0;
   z-index: 2;
-  background-color: var(--clr-bg-compliment);
-  box-shadow: 0 15px 8px -8px;
+  background-color: var(--clr-body-accent-secondary);
   width: 100vw;
 }
 
 nav ul {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   list-style-type: none;
-
 }
 
 nav a {
@@ -601,7 +628,7 @@ nav a {
   font-size: 0.8125rem;
   letter-spacing: 1px;
   /* font-size: 25%; */
-  text-shadow: 0 0 10px var(--clr-body-primary-nature-brown);
+  text-shadow: 0 0 2px var(--clr-body-primary-nature-brown);
   /* transform: rotate(-33deg); */
 }
 
@@ -635,6 +662,11 @@ nav a {
   overflow: hidden;
   opacity: 18%;
 
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
   animation: three-sixty 0.333s linear infinite; 
   -webkit-animation: three-sixty 0.333s linear infinite;
 }
@@ -655,6 +687,8 @@ nav a {
 #wave {
   display: inline-block;
   animation: wave 0.3s linear alternate infinite;
+  -webkit-animation: wave 0.3s linear alternate infinite;
+  
 }
 
 #about-text-content-container {
@@ -685,6 +719,8 @@ nav a {
 .cloud {
   display: inline-block;
   animation: cloud 0.5s linear alternate infinite;
+  -webkit-animation: cloud 0.5s linear alternate infinite;
+  
 
 }
 
@@ -696,7 +732,12 @@ nav a {
 
 .tech-icon {
   display: grid;
-  text-align: center;
+  text-align: center; 
+}
+
+.tech-icon:hover > i {
+  animation: jiggle 333ms linear forwards;
+  -webkit-animation: jiggle 333ms linear forwards;
 }
 
 .icon {
@@ -705,6 +746,11 @@ nav a {
 
 .icon-name {
   font-size: var(--fs-icon-name);
+  transition: transform 333ms ease-in;
+}
+
+.tech-icon:hover > .icon-name {
+  transform: translateY(8px) scale(1.3);
 }
 
 .stack {
@@ -849,12 +895,9 @@ nav a {
 }
 
 .project-section .live-link {
-  position: relative;
-
   grid-area: 3 / 2 / span 2 / span 2;
   display: grid;
   place-items: center; 
-  z-index: 1;
 }
 
 .project-section .live-link img {
@@ -880,15 +923,17 @@ nav a {
   position: absolute;
   top: 30%;
 
-  z-index: 1;
   font-family: var(--ff-pixelated);
   font-size: calc(var(--fs-h2) + 0.8rem);
   color: var(--clr-tcny-accent);
   text-align: center;
   text-shadow: 0 0 18px var(--clr-tcny-accent);
-  /* transition: opacity 0.38s ease-in-out; */
+
+  z-index: 1;
 
   animation: pulse 0.38s linear infinite alternate;
+  -webkit-animation: pulse 0.38s linear infinite alternate;
+  
 
   opacity: 0;
   visibility: hidden;
@@ -901,6 +946,7 @@ nav a {
 
 .project-section .tcny-link:hover {
   animation: 0.8s three-sixty-link linear infinite reverse;
+  -webkit-animation: 0.8s three-sixty-link linear infinite reverse;
 }
 
 .project-section .btn-container .monogram-img {
@@ -920,11 +966,13 @@ nav a {
 .project-section .btn-container .link:hover ~ .monogram-img:not(.live-img,.github-img):nth-child(even) {
   opacity: 0.3;
   animation: three-sixty 3.3s linear infinite;
+  -webkit-animation: three-sixty 3.3s linear infinite;
 }
 
 .project-section .btn-container .link:hover ~ .monogram-img:not(.luve-img,.github-img):nth-child(odd) {
   opacity: 0.1;
   animation: three-sixty 1.3s linear infinite reverse;
+  -webkit-animation: three-sixty 1.3s linear infinite reverse;
 }
 
 .project-section .close-btn {
