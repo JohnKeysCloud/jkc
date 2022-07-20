@@ -392,7 +392,7 @@ button {
   
   --fs-button: var(--fs-XXX);
   --fs-icon-name: clamp(0.8125rem, 2vw, 1rem);
-  --fs-nav: clamp(1rem, 2vw, 3rem);
+  --fs-nav: clamp(0.8125rem, 1.5vw, 1.313rem);
   --fs-placeholder:  clamp(0.655rem, 1.5vw, 0.8125rem);
   --fs-press-start: clamp(1rem, 1.5vw, 1.875rem);
 
@@ -504,6 +504,10 @@ main > .section:last-child {
   margin-bottom: 8vh;
 }
 
+main > .section {
+  padding-bottom: 8vh;
+}
+
 p,
 figcaption {
   padding: 0 5vw;
@@ -516,7 +520,7 @@ figcaption {
   
   background: linear-gradient(to bottom, var(--clr-bg-sora), var(--clr-bg-creamy), var(--clr-bg-creamiest));
   min-height: 100vh;
-  padding-top: 8vh;
+  padding-top: 3vh;
   width: 100vw;
 }
 
@@ -639,8 +643,9 @@ figcaption {
 }
 
 #full-nav {
+  justify-self: end;
+  
   display: grid;
-  justify-self: center;
   place-items: center;
   
   position: sticky;
@@ -656,7 +661,12 @@ figcaption {
 } */
 
 #full-nav #key {
+  position: absolute;
+  justify-self: end;
+  top: 33px;
+
   cursor: pointer;
+  padding-right: 8px;
   filter: drop-shadow(0 0 18px var(--clr-bg-creamiest));
 
   transition: all 0.38s ease-in;
@@ -669,16 +679,16 @@ figcaption {
 }
 
 #key:hover {
-  transform: scale(1.3) rotate(-90deg) translateX(-30px);
+  transform: translateY(-8vh) scale(1.3) rotate(-90deg) translateX(-30px);
 }
 
 #full-nav nav {
   position: absolute;
-  top: 0vh;
+  top: 18vh;
   right: 0vw;
   
-  opacity: 0;
-  visibility: hidden;
+  /* opacity: 0; */
+  /* visibility: hidden; */
   
   transition: all 0.38s ease-in;
 
@@ -690,7 +700,7 @@ figcaption {
   visibility: visible;
 }
 
-#full-nav nav::before {
+/* #full-nav nav a::before {
   position: absolute;
   inset: 0;
   
@@ -698,35 +708,40 @@ figcaption {
   content: '';
 
   border-radius: 33px;
+  border-left: 8px solid chartreuse;
   box-shadow: 0 0px 33px 8px chartreuse;
 
   z-index: -1;
-}
+} */
 
 #full-nav nav ul {
   position: sticky;
 
   display: grid;
-  place-items: center;
+  justify-items: end;
+  
   gap: 18px;
 
-  background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.111), rgba(44, 44, 44) ,rgba(0, 0, 0, 111));
 
-  border-radius: 33px;
+  border-top-left-radius: 33px;
+  border-bottom-left-radius: 33px;
 
   list-style-type: none;
 }
 
 #full-nav nav a {
-  color: chartreuse;
-  background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.111), rgba(44, 44, 44) ,rgba(0, 0, 0, 111));
-  padding: 8px 13px;
-  border-radius: 33px;
+  color: var(--clr-bg-creamiest);
+  background: rgba(128, 128, 0, 0.888);
+  padding: 11px 18px;
+  /* border: 1px solid chartreuse; */
+
+  border-top-left-radius: 11px;
+  border-bottom-left-radius: 33px;
 
   font-family: var(--ff-nav);
-  font-size: var(--fs-press-start);
+  font-size: var(--fs-nav);
   letter-spacing: 1px;
-  text-shadow: 0 0 2px chartreuse;
+  /* text-shadow: 0 0 8px olive; */
 }
 
 /* #full-nav li:nth-of-type(odd) {
@@ -862,33 +877,27 @@ figcaption {
   transform: translateY(8px) scale(1.3);
 }
 
-#projects .stack {
+#projects .logo-stack {
   position: relative;
   z-index: 1;
 }
 
-#projects .project-section .stack .stack-gif {
-  position: absolute;
-
-  inset: 0;
-  height: 100%;
-  width: 100%;
-
-  transition: 0.8s ease-in;
-}
-
-#projects .project-section .logo-stack {
+#projects .logo-stack {
   margin: 0 auto;
-  width: 77%;
 }
 
-#projects .project-section .logo-stack .stack-still {
+#projects .logo-stack .stack-still {
   padding-bottom: 18px;
 
   transition: all 0.1s ease-out;
 }
 
-#projects .project-section .logo-stack .stack-gif {
+#projects .logo-stack .stack-gif {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+
   padding-bottom: 18px;
   pointer-events: none;
   transform: scale(0);
@@ -896,65 +905,54 @@ figcaption {
   z-index: 1;
 }
 
-#projects .project-section .logo-stack:hover > .stack-still {
+#projects .logo-stack:hover > .stack-still {
   transform: scale(0);
 }
 
-#projects .project-section .logo-stack:hover > .stack-gif {
+#projects .logo-stack:hover > .stack-gif {
   opacity: 1;
   transform: scale(1, 1.2);
   pointer-events: none;
 }
 
-#projects .project-section .project-stack-psuedo-hover {
-  position: relative;
-
+/* projectBoxShadow */
+#projects .project-stack-psuedo {
+  position: relative; 
   transition: 0.38s ease-in;
 }
 
-#projects .project-section .project-stack-psuedo-hover:hover {
+#projects .project-stack-psuedo:hover {
   transform: scale(1.03);
 }
 
-/* projectBoxShadow */
-#projects .project-section .project-stack-psuedo-hover::before {
+#projects .project-stack-psuedo::before {
   content: '';
   position: absolute;
   inset: 0;
 
-  border-radius: 0px;
-  box-shadow: 0 15px 30px 1px var(--clr-bg-compliment);
+  box-shadow: 0 15px 30px 1px var(--clr-tcny-accent);
   opacity: 0;
   
   transition: all 0.38s ease-in;
 }
 
-#projects .project-section .project-stack-psuedo-hover:hover::before {
+#projects .project-stack-psuedo:hover::before {
   opacity: 1;
 }
 
-#projects .project-section .project-stack {
+#projects .gif-container {
+  position: relative;
   cursor: pointer;
-  border-radius: 0px;
-  filter: sepia(0.33);
-  overflow: hidden;
+
+  z-index: 1;
 }
 
-#projects .project-section .project-stack .stack-still {
-  filter: sepia(0.33);
+#projects .gif-container > img {
+  width: 100%;
+  height: 100%;
 }
 
-#projects .project-section .project-stack .stack-gif {
-  opacity: 0;
-  transition: opacity 0.38s ease-in-out, transform 1.3s ease-in;
-}
-
-#projects .project-section .project-stack-psuedo-hover:hover > .project-stack > .stack-gif {
-  opacity: 1;
-  transform: scale(1.08);
-}
-
-#projects .project-section .btn-container {
+#projects .btn-container {
   position: absolute;
   inset: 0;
   
@@ -963,21 +961,23 @@ figcaption {
   
   background: linear-gradient(to bottom right, black, rgb(33, 33, 33), black);
   border-radius: 0px;
-  overflow: hidden;
   transition: all 0.38s ease-in-out;
 
-  z-index: 1;
-
+  width: 100%;
+  height: 100%;
+  
   opacity: 0;
   visibility: hidden;
+
+  z-index: 2;
 }
 
-#projects .project-section .project-stack.open ~ .btn-container {
+#projects .gif-container.open ~ .btn-container {
   opacity: 1;
   visibility: visible;
 }
 
-#projects .project-section .cyclone-grid {
+#projects .cyclone-grid {
   display: grid;
   place-items: center;
 
@@ -987,48 +987,57 @@ figcaption {
   transform: scale(0.8);
 }
 
-#projects .project-section .github-link {
-  grid-area: 2 / 5 / span 2 / span 2;
+#projects .close-btn {
+  grid-area: 1 / 7 / span 1 / span 1;
 
   display: grid;
-  place-items: center; 
+  grid-template-areas: 'svg';
+  place-items: center;
+
+  color: var(--clr-tcny-accent);
+  cursor: pointer;
+  filter: drop-shadow(0 0 8px var(--clr-tcny-accent));
+  height: 100%;
+  width: 100%;
+  
+  overflow: hidden;
+  transition: transform 0.38s ease-in;
 }
 
-#projects .project-section .github-link img {
-  filter: drop-shadow(0 0 1px var(--clr-tcny-accent));
-  transition: transform 0.88s ease-in-out;
+#projects .close-btn:hover {
+  transform: scale(1.3) rotate(-540deg);
 }
 
-#projects .project-section .github-link:hover img {
-  transform: scale(1.7) rotate(-360deg);
+#projects .close-btn svg {
+  grid-area: svg;
+  
+  opacity: 0.8;
+  width: 88%;
+  height: 88%;
 }
 
-#projects .project-section .live-link {
+#projects .close-btn:hover > svg {
+  opacity: 1;
+}
+
+/* liveLink */
+#projects .live-link {
   grid-area: 3 / 2 / span 2 / span 2;
   display: grid;
   place-items: center; 
 }
 
-#projects .project-section .live-link img {
+#projects .live-link img {
   filter: drop-shadow(0 0 1px var(--clr-tcny-accent));
   transition: transform 0.88s ease-in-out;
 }
 
-#projects .project-section .live-link:hover img {
+#projects .live-link:hover img {
   transform: scale(1.5) rotate(360deg);
 }
 
-/* liveLinkLabel */
-#projects .project-section .live-link::before {
-  content: 'LINK';
-}
-
-/* githubLinkLabel */
-#projects .project-section .github-link::before {
-  content: 'GITHUB';
-}
-
-#projects .project-section .link::before {
+/* linkLabelUniformity */
+#projects .link::before {
   position: absolute;
   top: 30%;
 
@@ -1048,76 +1057,76 @@ figcaption {
   visibility: hidden;
 }
 
-#projects .project-section .link:hover::before {
+#projects .link:hover::before {
   opacity: 1;
   visibility: visible;
 }
 
-#projects .project-section .tcny-link:hover {
-  animation: 0.8s three-sixty-link linear infinite reverse;
-  -webkit-animation: 0.8s three-sixty-link linear infinite reverse;
+/* liveLinkLabel */
+#projects .live-link::before {
+  content: 'LINK';
 }
 
-#projects .project-section .btn-container .monogram-img {
+/* githubLink */
+#projects .github-link {
+  grid-area: 2 / 5 / span 2 / span 2;
+
+  display: grid;
+  place-items: center; 
+}
+
+#projects .github-link img {
+  filter: drop-shadow(0 0 1px var(--clr-tcny-accent));
+  transition: transform 0.88s ease-in-out;
+}
+
+#projects .github-link:hover img {
+  transform: scale(1.7) rotate(-360deg);
+}
+
+/* githubLinkLabel */
+#projects .github-link::before {
+  content: 'GITHUB';
+}
+
+
+#projects .btn-container .monogram-img {
   width: 55%;
 }
 
-#projects .project-section .btn-container .monogram-img:not(.live-img,.github-img) {
+#projects .btn-container .monogram-img:not(.live-img,.github-img) {
   opacity: 0.8;
-  pointer-events: none;
-  transition: opacity 0.88s ease-in-out;
+
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
+  transition: opacity 0.55s ease-in-out, transform 111ms ease-out;
 }
 
-#projects .project-section .btn-container .link:hover {
+#projects .btn-container .monogram-img:not(.live-img,.github-img):hover {
+  transform: scale(1.3);
   opacity: 1;
 }
 
-#projects .project-section .btn-container .link:hover ~ .monogram-img:not(.live-img,.github-img):nth-child(even) {
+#projects .btn-container .link:hover {
+  opacity: 1;
+}
+
+#projects .btn-container .link:hover ~ .monogram-img:not(.live-img,.github-img):nth-child(even) {
   opacity: 0.3;
   animation: three-sixty 3.3s linear infinite;
   -webkit-animation: three-sixty 3.3s linear infinite;
 }
 
-#projects .project-section .btn-container .link:hover ~ .monogram-img:not(.luve-img,.github-img):nth-child(odd) {
+#projects .btn-container .link:hover ~ .monogram-img:not(.luve-img,.github-img):nth-child(odd) {
   opacity: 0.1;
   animation: three-sixty 1.3s linear infinite reverse;
   -webkit-animation: three-sixty 1.3s linear infinite reverse;
 }
 
-#projects .project-section .close-btn {
-  grid-area: 1 / 7 / span 1 / span 1;
-
-  display: grid;
-  grid-template-areas: 'svg';
-  place-items: center;
-
-  color: var(--clr-tcny-accent);
-  cursor: pointer;
-  filter: drop-shadow(0 0 8px var(--clr-tcny-accent));
-  height: 100%;
-  width: 100%;
-  
-  overflow: hidden;
-  transition: transform 0.38s ease-in;
-}
-
-#projects .project-section .close-btn:hover {
-  transform: scale(1.3) rotate(-540deg);
-}
-
-#projects .project-section .close-btn svg {
-  grid-area: svg;
-  
-  opacity: 0.8;
-  width: 88%;
-  height: 88%;
-}
-
-#projects .project-section .close-btn:hover > svg {
-  opacity: 1;
-}
-
-#projects .project-section p {
+#projects p {
   font-size: var(--fs-body);
   padding-top: 33px;
   text-align: center;

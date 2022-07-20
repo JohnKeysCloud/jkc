@@ -1,4 +1,4 @@
-const openModal = document.querySelector('.project-stack');
+const openModal = document.querySelector('.gif-container');
 const closeModal = document.querySelector('.close-btn')
 let modalOpen = false;
 
