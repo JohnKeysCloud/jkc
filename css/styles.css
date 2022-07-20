@@ -960,11 +960,7 @@ figcaption {
   place-content: center;
   
   background: linear-gradient(to bottom right, black, rgb(33, 33, 33), black);
-  border-radius: 0px;
   transition: all 0.38s ease-in-out;
-
-  width: 100%;
-  height: 100%;
   
   opacity: 0;
   visibility: hidden;
@@ -1033,7 +1029,7 @@ figcaption {
 }
 
 #projects .live-link:hover img {
-  transform: scale(1.5) rotate(360deg);
+  transform: scale(1.3) rotate(360deg);
 }
 
 /* linkLabelUniformity */
@@ -1081,7 +1077,7 @@ figcaption {
 }
 
 #projects .github-link:hover img {
-  transform: scale(1.7) rotate(-360deg);
+  transform: scale(1.3) rotate(-360deg);
 }
 
 /* githubLinkLabel */
@@ -1089,24 +1085,24 @@ figcaption {
   content: 'GITHUB';
 }
 
-
 #projects .btn-container .monogram-img {
-  width: 55%;
+  width: 88%;
 }
 
 #projects .btn-container .monogram-img:not(.live-img,.github-img) {
   opacity: 0.8;
+  width: 55%;
 
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 
-  transition: opacity 0.55s ease-in-out, transform 111ms ease-out;
+  transition: opacity 0.55s ease-in-out, transform 111ms ease-in-out;
 }
 
 #projects .btn-container .monogram-img:not(.live-img,.github-img):hover {
-  transform: scale(1.3);
+  transform: scale(0.55);
   opacity: 1;
 }
 
@@ -1114,16 +1110,16 @@ figcaption {
   opacity: 1;
 }
 
-#projects .btn-container .link:hover ~ .monogram-img:not(.live-img,.github-img):nth-child(even) {
-  opacity: 0.3;
-  animation: three-sixty 3.3s linear infinite;
-  -webkit-animation: three-sixty 3.3s linear infinite;
-}
-
 #projects .btn-container .link:hover ~ .monogram-img:not(.luve-img,.github-img):nth-child(odd) {
   opacity: 0.1;
   animation: three-sixty 1.3s linear infinite reverse;
   -webkit-animation: three-sixty 1.3s linear infinite reverse;
+}
+
+#projects .btn-container .link:hover ~ .monogram-img:not(.live-img,.github-img):nth-child(even) {
+  opacity: 0.3;
+  animation: three-sixty 3.3s linear infinite;
+  -webkit-animation: three-sixty 3.3s linear infinite;
 }
 
 #projects p {
@@ -1225,4 +1221,3 @@ figcaption {
 #contact > #contact-form .btn-container button:hover::after {
   opacity: 1;
 }
-
