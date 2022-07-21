@@ -357,7 +357,7 @@ button {
   /* colors */
   --clr-xl-header: hsl(30, 100%, 18%);
   --clr-body-primary-nature-brown:  hsla(30, 100%, 20%, 0.702);
-  --clr-body-accent-nature-green: hsl(60, 100%, 33%);
+  --clr-body-accent-nature-green: #a8a800;
   --clr-body-accent-secondary: hsla(60, 100%, 33%, 0.707);
   --clr-submit-txt: red;
 
@@ -367,6 +367,8 @@ button {
   --clr-bg-creamy: #fffdee;
   --clr-bg-compliment: hsl(30, 100%, 15%);
   --clr-tcny-accent: red;
+  --clr-code: red;
+  --clr-lang: #006070;
 
   /* fontFamily */
   --ff-primary: 'MuseoModerno', cursive;
@@ -422,7 +424,8 @@ button {
 .tertiary-header,
 .quarternary-header {
   color: var(--clr-body-accent-nature-green);
-  font-family: var(--ff-heading)
+  font-family: var(--ff-heading);
+  margin-bottom: 8px;
 }
 
 .secondary-header {
@@ -478,9 +481,29 @@ button {
   margin: 0 8px;
 }
 
+.text-content-container {
+  display: grid;
+
+  font-size: var(--fs-body);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
 button {
   font-family: var(--ff-pixelated);
   font-size: var(--fs-press-start);
+}
+
+.lang {
+  color: var(--clr-lang);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: var(--fw-bold-700);
+}
+
+code {
+  color: var(--clr-code);
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 0 0 8px var(--clr-code);
 }
 
 /* 
@@ -505,7 +528,7 @@ main > .section:last-child {
 }
 
 main > .section {
-  padding-bottom: 8vh;
+  padding-bottom: 5vh;
 }
 
 p,
@@ -812,15 +835,6 @@ figcaption {
   display: inline-block;
   animation: wave 0.3s linear alternate infinite;
   -webkit-animation: wave 0.3s linear alternate infinite;
-  
-}
-
-#about #about-text-content-container {
-  display: grid;
-
-  font-size: var(--fs-body);
-  text-align: center;
-  margin-bottom: 28px;
 }
 
 #about .nyc {
@@ -915,10 +929,15 @@ figcaption {
   pointer-events: none;
 }
 
+#projects .text-content-container p {
+  padding-top: none;
+}
+
 /* projectBoxShadow */
 #projects .project-stack-psuedo {
   position: relative; 
   transition: 0.38s ease-in;
+  margin-bottom: 33px;
 }
 
 #projects .project-stack-psuedo:hover {
@@ -930,7 +949,7 @@ figcaption {
   position: absolute;
   inset: 0;
 
-  box-shadow: 0 15px 30px 1px var(--clr-tcny-accent);
+  box-shadow: 0 15px 30px 1px var(--clr-code);
   opacity: 0;
   
   transition: all 0.38s ease-in;
@@ -1106,27 +1125,34 @@ figcaption {
   opacity: 1;
 }
 
+#projects .btn-container .monogram-img:not(.live-img,.github-img):active {
+  transform: scale(0.77);
+  opacity: 1;
+}
+
 #projects .btn-container .link:hover {
   opacity: 1;
 }
 
-#projects .btn-container .link:hover ~ .monogram-img:not(.luve-img,.github-img):nth-child(odd) {
+#projects .btn-container .link:hover ~ .monogram-img:nth-child(odd) {
   opacity: 0.1;
-  animation: three-sixty 1.3s linear infinite reverse;
-  -webkit-animation: three-sixty 1.3s linear infinite reverse;
+  animation: three-sixty 0.3s linear infinite reverse;
+  -webkit-animation: three-sixty 0.3s linear infinite reverse;
 }
 
-#projects .btn-container .link:hover ~ .monogram-img:not(.live-img,.github-img):nth-child(even) {
-  opacity: 0.3;
-  animation: three-sixty 3.3s linear infinite;
-  -webkit-animation: three-sixty 3.3s linear infinite;
+#projects .btn-container .link:hover ~ .monogram-img:nth-child(even) {
+  opacity: 0.38;
+  animation: three-sixty 0.8s linear infinite;
+  -webkit-animation: three-sixty 0.83s linear infinite;
 }
+
+
 
 #projects p {
   font-size: var(--fs-body);
-  padding-top: 33px;
   text-align: center;
 }
+
 
 #contact #contact-form {
   display: grid;
