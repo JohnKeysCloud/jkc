@@ -575,13 +575,17 @@ figcaption {
   font-size: var(--fs-h1);
 }
 
-#hero .welcome ,
+#hero .welcome,
 #hero .qotd {
   font-family: var(--ff-accent);
 }
 
+#hero .welcome {
+  text-align: center;
+}
+
 #hero .qotd {
-  text-align: end;
+  text-align: center;
 
   margin-bottom: 33px;
 }
