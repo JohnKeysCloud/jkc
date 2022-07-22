@@ -876,6 +876,7 @@ main > .about-above-nav {
 /* keyAnimation */
 #full-nav .nav-toggle.open {
   animation: key-unstuck 0.8s linear alternate forwards;
+  -webkit-animation: key-unstuck 0.8s linear alternate forwards;
 }
 
 #full-nav .nav-toggle.open ~ nav {
@@ -883,13 +884,14 @@ main > .about-above-nav {
   visibility: visible;
 }
 
-#full-nav.is-pinned .nav-toggle.open {
+/* #full-nav.is-pinned .nav-toggle.open {
   animation: key-stuck 3s linear alternate forwards;
+  -webkit-animation: key-stuck 3s linear alternate forwards;
 }
 
 #full-nav.ispinned .nav-toggle.open img {
   opacity: 1;
-}
+} */
 
 
 
