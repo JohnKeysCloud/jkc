@@ -119,7 +119,19 @@ button {
     transform: rotate(0) scale(0.83)
   }
   to {
-    transform: rotate(0) scale(0.90)
+    transform: rotate(0) scale(0.95)
+  }
+}
+
+@keyframes avatar-cyclone-active {
+  from {
+    transform: rotate(0) scale(0.95);
+  }
+  50% {
+    transform: rotate(0) scale(0.5);
+  }
+  to {
+    transform: rotate(1080deg) scale(1); 
   }
 }
 
@@ -773,6 +785,8 @@ main > .about-above-nav {
 }
 
 #about #avatar-overflow-container img {
+  cursor: pointer;
+
   filter: sepia(1) brightness(0.7);
   transition: all 0.3s ease-in;
   border-radius: 50%;
@@ -783,6 +797,11 @@ main > .about-above-nav {
 
 #about #avatar-overflow-container img:hover {
   filter: sepia(0) brightness(1) saturate(0.55);
+}
+
+#about #avatar-overflow-container img:active {
+  animation: avatar-cyclone-active 0.8s ease-in forwards;
+  /* transform: rotate(1080deg); */
 }
 
 #about #wave {
@@ -820,6 +839,7 @@ main > .about-above-nav {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
   width: min(500px, 100%);
+  padding-top: 33px;
 }
 
 #about .tech-icon {
