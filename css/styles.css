@@ -356,7 +356,7 @@ button {
 
 :root {
   /* colors */
-  --clr-xl-header: hsl(30, 100%, 18%);
+  --clr-xl-header: #5c2e00;
   --clr-body-primary-nature-brown:  hsla(30, 100%, 20%, 0.702);
   --clr-body-accent-nature-green: #a8a800;
   --clr-body-accent-secondary: hsla(60, 100%, 33%, 0.707);
@@ -793,19 +793,22 @@ main > .about-above-nav {
 
 
 
-
-
-
-
-
-
+#key-hole {
+  position: fixed;
+  height: 43px;
+  top: 33px;
+  right: -13px;
+  z-index: -1;
+}
 
 #full-nav {  
+  /* border: 2px solid red; */
   position: sticky;
   top: -1px;
 
   display: grid;
   place-items: center;
+  height: 100px;
   width: 100vw;
 
   transition: all 0.38s ease-in;
@@ -814,7 +817,14 @@ main > .about-above-nav {
 }
 
 #full-nav #key {
-  justify-self: center;
+  
+  display: grid;
+  place-items: center;
+
+  /* border: 2px solid red; */
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
   transition: all 0.38s ease-in;
 }
 
@@ -823,13 +833,11 @@ main > .about-above-nav {
   filter: drop-shadow(0 0 13px var(--clr-body-accent-nature-green));
   opacity: 1;
   width: 11rem;
-
-  z-index: -1;
 }
 
 #full-nav nav {
   position: absolute;
-  top: 55px;
+  top: 88px;
   right: 0;
   
   opacity: 0;
@@ -841,42 +849,39 @@ main > .about-above-nav {
   z-index: 2;
 }
 
-#full-nav.is-pinned .nav-toggle {
-  opacity: 1;
-  transform: translateY(8vh) translateX(38vw) scale(0.8) rotate(90deg);
+#full-nav.is-pinned #key img {
+  opacity: 0.7;
+  transition: opacity 0.38s ease-in;
 } 
 
+#full-nav.is-pinned #key img:hover {
+  opacity: 1;
+} 
+
+#full-nav.is-pinned #key.nav-toggle.open img {
+  opacity: 1;
+}
 
 
-@keyframes key-unstuck {
+@keyframes key {
   from {
-    transform: translateX(0) translateY(0) rotate(0);
+    transform: translateX(0) rotate(3deg) scaleY(1);
   }
   33% {
-    transform: translateX(34.8vw) translateY(20px) rotate(55deg);
+    transform: translateX(48vw) rotate(0deg) scaleY(0.5); 
   }
   55% {
-    transform: translateX(34.8vw) translateY(20px) rotate(55deg) rotate(3deg) scaleY(0.5);
+    transform: translateX(48vw) rotate(3deg) scaleY(0.5);
   }
   to {
-    transform: translateX(34.8vw) translateY(20px) rotate(55deg) rotateY(0) scaleY(1);
+    transform: translateX(48vw) rotateY(0) scaleY(1);
   }
 }
 
-/* @keyframes key-stuck {
-  from {
-    transform: translateY(8vh) translateX(38vw) scale(0.8) rotate(90deg);
-
-  }
-  to {
-    transform: translateY(8vh) translateX(38vw) scale(0.8) rotate(360deg)
-  }
-} */
-
 /* keyAnimation */
-#full-nav .nav-toggle.open {
-  animation: key-unstuck 0.8s linear alternate forwards;
-  -webkit-animation: key-unstuck 0.8s linear alternate forwards;
+#full-nav .nav-toggle.open img {
+  animation: key 0.8s linear alternate forwards;
+  -webkit-animation: key 0.8s linear alternate forwards;
 }
 
 #full-nav .nav-toggle.open ~ nav {
