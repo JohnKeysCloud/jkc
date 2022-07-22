@@ -825,7 +825,7 @@ main > .about-above-nav {
 
   display: grid;
   place-items: center;
-  height: 100px;
+  height: 111px;
   width: 100vw;
 
   transition: all 0.38s ease-in;
@@ -838,14 +838,10 @@ main > .about-above-nav {
   place-items: center;
 
   height: 100%;
-  overflow: hidden;
   width: 100%;
+  overflow-x: hidden;
 
   transition: all 0.38s ease-in;
-}
-
-#key:hover {
-  animation: key-jingle 0.38s linear alternate infinite;
 }
 
 #full-nav #key img {
@@ -855,18 +851,36 @@ main > .about-above-nav {
   width: 11rem;
 }
 
+#key.nav-toggle img {
+  animation: key-jingle 0.38s linear alternate infinite;
+  transition: all 0.38s ease-in;
+}
+
+#key img:hover {
+  animation: none;
+  transform: scale(1.1);
+} 
+
+#key.nav-toggle.open img {
+  animation: none;
+}
+
 
 #full-nav.is-pinned #key img {
   opacity: 0.7;
   transition: opacity 0.38s ease-in;
+
+  animation: none;
 } 
 
 #full-nav.is-pinned #key img:hover {
   opacity: 1;
+  animation: key-jingle 0.38s linear alternate infinite;
 } 
 
 #full-nav.is-pinned #key.nav-toggle.open img {
   opacity: 1;
+  animation: none;  
 }
 
 /* keyAnimation */
