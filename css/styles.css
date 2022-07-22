@@ -838,10 +838,14 @@ main > .about-above-nav {
   place-items: center;
 
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   width: 100%;
 
   transition: all 0.38s ease-in;
+}
+
+#key:hover {
+  animation: key-jingle 0.38s linear alternate infinite;
 }
 
 #full-nav #key img {
@@ -849,12 +853,6 @@ main > .about-above-nav {
   filter: drop-shadow(0 0 13px var(--clr-body-accent-nature-green));
   opacity: 1;
   width: 11rem;
-}
-
-#full-nav #key img:hover {
-    opacity: 1;
-
-  animation: key-jingle 0.38s linear alternate infinite;
 }
 
 
