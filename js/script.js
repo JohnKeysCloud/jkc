@@ -1,8 +1,8 @@
+const key = document.getElementById('key-img')
 const openModal = document.querySelector('.nav-toggle');
-const closeModal = document.querySelector('.close-btn')
 let navOpen = false;
 
-openModal.addEventListener('click', () => {
+key.addEventListener('click', () => {
   if (!navOpen) {
     openModal.classList.add('open');
     navOpen = true;
@@ -13,6 +13,8 @@ openModal.addEventListener('click', () => {
 }); 
 
 const openBtnContainer = document.getElementsByClassName("modal-trigger")[0];
+const closeModal = document.querySelector(".close-btn");
+
 let modalOpen = false;
 
 openBtnContainer.addEventListener("click", () => {
