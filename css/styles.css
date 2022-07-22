@@ -31,10 +31,11 @@ html:focus-within {
 
 
 /* Set core viewport defaults */
+
 body {
+  position: relative;
   font-family: var(--ff-body);
   margin: 0;
-  overflow-x: hidden;
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -279,6 +280,42 @@ button {
   }
   to {
     transform: translateX(48vw) rotateY(0) scaleY(1);
+  }
+}
+
+@keyframes key-hover {
+  from {
+    transform: scale(1) rotate(0);
+  }
+  10% {
+    transform: scale(0.45) rotate(0);
+  }
+  20% {
+    transform: scale(0.45) rotate(-3turn);
+  }
+  40% {
+    transform: scale(0.45) rotate(-1turn);
+  }
+  45% {
+    transform: scale(1) rotate(-1turn);  
+  }
+  50% {
+    transform: scale(1) rotate(-1turn) translateY(-11px);  
+  }
+  60% {
+    transform: scale(1) rotate(-1turn) translateY(0px) rotateY(33deg);  
+  }
+  70% {
+    transform: scale(1) rotate(-1turn) translateY(-11px) rotateY(0deg);  
+  }
+  80% {
+    transform: scale(1) rotate(-1turn) translateY(0) rotateY(33deg);  
+  }
+  88% {
+    transform: scale(1) rotate(-1turn) translateY(-11px) rotateY(0deg);  
+  }
+  to {
+    transform: scale(1) rotate(-1turn) translateY(0) rotateY(0deg);
   }
 }
 
@@ -708,9 +745,8 @@ main > .about-above-nav {
   position: relative;
 
   border-radius: 50%;
-  overflow: hidden;
-
   margin: 0 auto;
+  overflow: hidden;
   transition: all 0.3s ease-in;
 }
 
@@ -836,7 +872,7 @@ main > .about-above-nav {
 #full-nav #key {
   display: grid;
   place-items: center;
-
+  
   height: 100%;
   width: 100%;
   overflow-x: hidden;
@@ -853,18 +889,20 @@ main > .about-above-nav {
 
 #key.nav-toggle img {
   animation: key-jingle 0.38s linear alternate infinite;
+  -webkit-animation: key-jingle 0.38s linear alternate infinite;
+  
   transition: all 0.38s ease-in;
 }
 
 #key img:hover {
-  animation: none;
+  animation: key-hover 7.77s linear infinite;
+  -webkit-animation: key-hover 7.77s linear infinite;
   transform: scale(1.1);
 } 
 
 #key.nav-toggle.open img {
   animation: none;
 }
-
 
 #full-nav.is-pinned #key img {
   opacity: 0.7;
@@ -876,15 +914,18 @@ main > .about-above-nav {
 #full-nav.is-pinned #key img:hover {
   opacity: 1;
   animation: key-jingle 0.38s linear alternate infinite;
+  -webkit-animation: key-jingle 0.38s linear alternate infinite;
+
 } 
 
 #full-nav.is-pinned #key.nav-toggle.open img {
   opacity: 1;
-  animation: none;  
+  animation: key 0.8s linear alternate forwards;
+  -webkit-animation: key 0.8s linear alternate forwards;
 }
 
 /* keyAnimation */
-#full-nav .nav-toggle.open {
+#full-nav .nav-toggle.open img {
   animation: key 0.8s linear alternate forwards;
   -webkit-animation: key 0.8s linear alternate forwards;
 }
