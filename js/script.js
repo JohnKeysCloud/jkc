@@ -1,18 +1,19 @@
 const openModal = document.querySelector('.nav-toggle');
 const closeModal = document.querySelector('.close-btn')
-let modalOpen = false;
+let navOpen = false;
 
 openModal.addEventListener('click', () => {
-  if (!modalOpen) {
+  if (!navOpen) {
     openModal.classList.add('open');
-    modalOpen = true;
+    navOpen = true;
   } else {
     openModal.classList.remove('open');
-    modalOpen = false;
+    navOpen = false;
   }
 }); 
 
 const openBtnContainer = document.getElementsByClassName("modal-trigger")[0];
+let modalOpen = false;
 
 openBtnContainer.addEventListener("click", () => {
   if (!modalOpen) {
@@ -27,6 +28,12 @@ closeModal.addEventListener('click', () => {
     modalOpen = false;
   }
 });
+
+
+
+
+
+
 
 
 // Start to target all items within array
