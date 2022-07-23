@@ -31,26 +31,16 @@ closeModal.addEventListener('click', () => {
   }
 });
 
-
-
-
-
-
-
-
-// Start to target all items within array
-// for (var i = 0; i < openModal.length; i++) {
-//   openModal[i].classList.add('open');
-// };
-
-
 const stickyCheck = document.querySelector("#full-nav");
-
 const observer = new IntersectionObserver(
   ([e]) => {
     return e.target.classList.toggle("is-pinned", e.intersectionRatio < 1);
   },
   { threshold: [1] }
 );
-
 observer.observe(stickyCheck);
+
+// Start to target all items within array
+// for (var i = 0; i < openModal.length; i++) {
+//   openModal[i].classList.add('open');
+// };
