@@ -1109,44 +1109,46 @@ main > .about-above-nav {
 }
 
 /* projectBoxShadow */
-#projects .project-stack-psuedo {
+#projects .project-stack .project-stack-psuedo {
   position: relative; 
   transition: 0.38s ease-in;
   margin-bottom: 33px;
 }
 
-#projects .project-stack-psuedo:hover {
+#projects .project-stack .project-stack-psuedo:hover {
   transform: scale(1.03);
 }
 
-#projects .project-stack-psuedo::before {
-  content: '';
+#projects .project-stack .project-stack-psuedo::before {
   position: absolute;
   inset: 0;
+  
+  content: '';
 
   box-shadow: 0 15px 30px 1px var(--clr-code);
-  opacity: 0;
+  /* opacity: 0; */
   
   transition: all 0.38s ease-in;
 }
 
-#projects .project-stack-psuedo:hover::before {
+#projects .project-stack .project-stack-psuedo:hover::before {
   opacity: 1;
 }
 
-#projects .gif-container {
+#projects .project-stack .gif-container {
   position: relative;
+  
   cursor: pointer;
 
   z-index: 1;
 }
 
-#projects .gif-container > img {
+#projects .project-stack .gif-container > img {
   width: 100%;
   height: 100%;
 }
 
-#projects .btn-container {
+#projects .project-stack .btn-container {
   position: absolute;
   inset: 0;
   
@@ -1162,12 +1164,12 @@ main > .about-above-nav {
   z-index: 2;
 }
 
-#projects .modal-trigger.open ~ .btn-container {
+#projects .project-stack .modal-trigger.open ~ .btn-container {
   opacity: 1;
   visibility: visible;
 }
 
-#projects .cyclone-grid {
+#projects .project-stack .cyclone-grid {
   display: grid;
   place-items: center;
 
@@ -1177,7 +1179,7 @@ main > .about-above-nav {
   transform: scale(0.8);
 }
 
-#projects .close-btn {
+#projects .project-stack .close-btn {
   grid-area: 1 / 7 / span 1 / span 1;
 
   display: grid;
@@ -1194,11 +1196,11 @@ main > .about-above-nav {
   transition: transform 0.38s ease-in;
 }
 
-#projects .close-btn:hover {
+#projects .project-stack .close-btn:hover {
   transform: scale(1.3) rotate(-540deg);
 }
 
-#projects .close-btn svg {
+#projects .project-stack .close-btn svg {
   grid-area: svg;
   
   opacity: 0.8;
@@ -1206,33 +1208,33 @@ main > .about-above-nav {
   height: 88%;
 }
 
-#projects .close-btn:hover > svg {
+#projects .project-stack .close-btn:hover > svg {
   opacity: 1;
 }
 
 /* liveLink */
-#projects .live-link-container {
+#projects .project-stack .live-link-container {
   grid-area: 3 / 2 / span 2 / span 2;
   display: grid;
   place-items: center; 
 }
 
-#projects .live-link img {
+#projects .project-stack .live-link img {
   filter: drop-shadow(0 0 1px var(--clr-tcny-accent));
   transition: transform 0.88s ease-in-out;
 }
 
-#projects .live-link:hover img {
+#projects .project-stack .live-link:hover img {
   transform: scale(1.3) rotate(360deg);
 }
 
 /* linkLabelUniformity */
-#projects .uniform-link-container {
+#projects .project-stack .uniform-link-container {
   position: relative;
 }
 
 /* TODO: */
-#projects .project-btn-label {
+#projects .project-stack .project-btn-label {
   position: absolute;
 
   font-family: var(--ff-pixelated);
@@ -1248,14 +1250,14 @@ main > .about-above-nav {
   -webkit-animation: pulse 0.38s linear infinite alternate;
 }
 
-#projects  .live-link-container .project-btn-label {
+#projects .project-stack .live-link-container .project-btn-label {
   top: -77%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
 }
 
-#projects  .github-link-container .project-btn-label {
+#projects .project-stack .github-link-container .project-btn-label {
   top: 139%;
   left: 50%;
   transform: translateX(-50%);
@@ -1263,28 +1265,28 @@ main > .about-above-nav {
 } 
 
 /* githubLink */
-#projects .github-link-container {
+#projects .project-stack .github-link-container {
   grid-area: 2 / 5 / span 2 / span 2;
 
   display: grid;
   place-items: center; 
 }
 
-#projects .github-link img {
+#projects .project-stack .github-link img {
   filter: drop-shadow(0 0 1px var(--clr-tcny-accent));
   transition: transform 0.88s ease-in-out;
 }
 
-#projects .github-link:hover img {
+#projects .project-stack .github-link:hover img {
   transform: scale(1.3) rotate(-360deg);
 }
 
-#projects .btn-container .monogram-img {
+#projects .project-stack .btn-container .monogram-img {
   width: 88%;
   margin-inline: auto;
 }
 
-#projects .btn-container .monogram-img:not(.live-img,.github-img) {
+#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img) {
   opacity: 0.8;
   width: 55%;
 
@@ -1296,33 +1298,33 @@ main > .about-above-nav {
   transition: opacity 0.55s ease-in-out, transform 111ms ease-in-out;
 }
 
-#projects .btn-container .monogram-img:not(.live-img,.github-img):hover {
+#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img):hover {
   transform: scale(0.55);
   opacity: 1;
 }
 
-#projects .btn-container .monogram-img:not(.live-img,.github-img):active {
+#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img):active {
   transform: scale(0.77);
   opacity: 1;
 }
 
-#projects .btn-container .link:hover {
+#projects .project-stack .btn-container .link:hover {
   opacity: 1;
 }
 
-#projects .btn-container .uniform-link-container:hover ~ .monogram-img:nth-child(odd) {
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-child(odd) {
   opacity: 0.1;
   animation: three-sixty 0.3s linear infinite reverse;
   -webkit-animation: three-sixty 0.3s linear infinite reverse;
 }
 
-#projects .btn-container .uniform-link-container:hover ~ .monogram-img:nth-child(even) {
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-child(even) {
   opacity: 0.38;
   animation: three-sixty 0.8s linear infinite;
   -webkit-animation: three-sixty 0.83s linear infinite;
 }
 
-#projects .btn-container .uniform-link-container:hover .project-btn-label {
+#projects .project-stack .btn-container .uniform-link-container:hover .project-btn-label {
   animation: none;
 }
 
@@ -1423,4 +1425,10 @@ main > .about-above-nav {
 
 #contact > #contact-form .btn-container button:hover::after {
   opacity: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  #projects .project-stack {
+    padding: 0 15vw;
+  }
 }
