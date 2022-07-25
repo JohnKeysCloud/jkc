@@ -937,7 +937,9 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   display: grid;
   justify-content: center;
 
-  padding: 0 33px 33px 33px;
+  margin-bottom: 33px;
+  padding: 0 55px;
+  
   width: 100%;
 }
 
@@ -953,15 +955,15 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 /* rgbCyclone360 */
 #about #avatar-overflow-container::before {
   position: absolute;
-  content: '';
-  height: 100%;
-  width: 100%;
   inset: 0;
 
+  content: '';
+
   background: linear-gradient(to bottom right, red, green, blue);
-  border-radius: 50%;
-  overflow: hidden;
+  height: 100%;
   opacity: 18%;
+  width: 100%;
+
 
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
@@ -1431,11 +1433,25 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 }
 
 @media only screen and (min-width: 768px) {
+  #about #avatar-container {
+    padding: 0;
+  }
+
   #projects .project-stack {
     padding: 0 15vw;
     border-radius: 21%;
   }
+
 }
 
-/* @media only screen and (min-width: 992px) {
-} */
+@media only screen and (min-width: 992px) {
+  #about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+  }
+
+  #about-content #stack {
+    grid-column: 1 / end;
+  }
+}
