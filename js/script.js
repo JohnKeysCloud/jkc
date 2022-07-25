@@ -46,8 +46,3 @@ const observer = new IntersectionObserver(
   { threshold: [1] }
 );
 observer.observe(stickyCheck);
-
-// Start to target all items within array
-// for (var i = 0; i < openModal.length; i++) {
-//   openModal[i].classList.add('open');
-// };
