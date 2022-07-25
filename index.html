@@ -21,6 +21,8 @@
   </head>
   <body>
     <a name="top"></a>
+    
+    <img id="key-hole" src="assets/images/keyHole.png" alt="Key Hole">
 
     <header id="hero" class="section">
       <div id="full-height-container">
@@ -44,7 +46,7 @@
         </div>
 
         <div id="press-start-container">
-          <a id="press-start-btn" href="#about" role="button">
+          <a id="press-start-btn" href="#navigation" role="button">
               PRESS START
           </a>
           <p>// Click to Continue</p>
@@ -52,9 +54,39 @@
       </div>
     </header>
 
-    <main> 
+    <nav id="navigation">
+      <button id="key" class="nav-toggle" aria-label="Menu Button">
+        <img id="key-img" src="assets/images/keyFinal-horizonal.svg" alt="Master Key">
+      </button>
+      <div id="nav-ul-wrapper">
+        <ul>
+          <li>
+            <a href="#top">
+              TOP
+            </a>
+          </li>
+          <li>
+            <a href="#about">
+              ABOUT
+            </a>
+          </li>
+          <li>
+            <a href="#projects">
+              PROJECTS
+            </a>
+          </li>
+          <li>
+            <a href="#contact">
+              CONTACT
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+          
+    <main>
 
-      <section id="about" class="about-above-nav section">
+      <section id="about" class="section">
         <div class="section-top">
           <div class="section-header-container">
             <h3 class="tertiary-header">about</h3>
@@ -62,81 +94,49 @@
           <hr class="line-snap">
         </div>
         
-        <div id="avatar-container">
-          <div id="avatar-overflow-container">
-            <img src="assets/images/jkcAvatar.png" alt="john Keys johnKeysCloud">
+        <div id="about-left">
+          <div id="avatar-container">
+            <div id="avatar-overflow-container">
+              <img src="assets/images/jkcAvatar.png" alt="john Keys johnKeysCloud">
+            </div>
+          </div>
+          <div class="text-content-container">
+            <h4 class="quarternary-header">Hello there (<span class="emoji-eyes">◕</span>‿<span class="emoji-eyes">◕</span>) <span id="wave">👋🏽</span></h4>
           </div>
         </div>
 
-        <div class="text-content-container">
-          <h4 class="quarternary-header">Hello there (<span class="emoji-eyes">◕</span>‿<span class="emoji-eyes">◕</span>) <span id="wave">👋🏽</span></h4>
-        </div>
-      </section>
-
-      <div id="full-nav"> 
-        <button id="key" class="nav-toggle" aria-label="Menu Button">
-          <img id="key-img" src="assets/images/keyFinal-horizonal.svg" alt="Master Key">
-        </button>
-        <img id="key-hole" src="assets/images/keyHole.png" alt="Key Hole">
-        <nav id="nav">
-          <ul>
-            <li>
-              <a href="#top">
-                TOP
-              </a>
-            </li>
-            <li>
-              <a href="#about">
-                ABOUT
-              </a>
-            </li>
-            <li>
-              <a href="#projects">
-                PROJECTS
-              </a>
-            </li>
-            <li>
-              <a href="#contact">
-                CONTACT
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <section id="about" class="about-below-nav section">
-
-        <div class="text-content-container">
-          <p>
-            As a perpetual student of software development, I spend absurd amounts of time stuffing my brain with 'best practices'.
-            Providing an experimentally interactive & aesthtically gratifying user experience while maintaining accessibility is my niche.
-            I spawned and reside in <span class="nyc"><span class="nyc-glyph">New Yo</span>r<span class="nyc-glyph">k City</span></span>, where you'll typically find me in a coffee shop jamming to Lo-Fi or classical music with
-            an oat latte in-hand, clickity-clacking away.
-            <br>
-            <a href="https://www.buymeacoffee.com/johnkeyscloud" alt="Buy Me a Coffee" target="_blank" rel="noopener noreferrer">☕️ Wanna get my next round?</a>
-            <br>
-            I'd appreciate it 😊.
-            <br>
-            Stay Frosty!
-            <br>
-            <br>
-            <span class="jkc-text">ツkc<span class="cloud">💭</span></span>
-          </p>
-        </div>
-
-        <div id="stack">
-          <div class="tech-icon">
-            <i class="devicon-html5-plain colored icon"></i>
-            <span class="icon-name">HTML</span>
+        <div id="about-right">   
+          <div class="text-content-container">
+            <p>
+              As a perpetual student of software development, I spend absurd amounts of time stuffing my brain with 'best practices'.
+              Providing an experimentally interactive & aesthtically gratifying user experience while maintaining accessibility is my niche.
+              I spawned and reside in <span class="nyc"><span class="nyc-glyph">New Yo</span>r<span class="nyc-glyph">k City</span></span>, where you'll typically find me in a coffee shop jamming to Lo-Fi or classical music with
+              an oat latte in-hand, clickity-clacking away.
+              <br>
+              <a href="https://www.buymeacoffee.com/johnkeyscloud" alt="Buy Me a Coffee" target="_blank" rel="noopener noreferrer">☕️ Wanna get my next round?</a>
+              <br>
+              I'd appreciate it 😊.
+              <br>
+              Stay Frosty!
+              <br>
+              <br>
+              <span class="jkc-text">ツkc<span class="cloud">💭</span></span>
+            </p>
           </div>
-          <div class="tech-icon">
-            <i class="devicon-css3-plain colored icon"></i>
-            <span class="icon-name">CSS</span>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-javascript-plain colored icon"></i>
-            <span class="icon-name">JAVASCRIPT</span>
-          </div>
+          <div id="stack">
+            <div class="tech-icon">
+              <i class="devicon-html5-plain colored icon"></i>
+              <span class="icon-name">HTML</span>
+            </div>
+            <div class="tech-icon">
+              <i class="devicon-css3-plain colored icon"></i>
+              <span class="icon-name">CSS</span>
+            </div>
+            <div class="tech-icon">
+              <i class="devicon-javascript-plain colored icon"></i>
+              <span class="icon-name">JAVASCRIPT</span>
+            </div>
+          </div>   
         </div>
         
       </section>
