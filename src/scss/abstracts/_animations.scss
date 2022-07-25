@@ -1,0 +1,377 @@
+@keyframes avatar-cyclone {
+  from {
+    transform: rotate(360deg) scale(1);
+  }
+
+  90% {
+    transform: rotate(0) scale(0.80);
+  }
+
+  92% {
+    transform: rotate(0) scale(0.85)
+  }
+
+  95% {
+    transform: rotate(0) scale(0.83)
+  }
+
+  to {
+    transform: rotate(0) scale(0.95)
+  }
+}
+
+@keyframes avatar-cyclone-active {
+  from {
+    transform: rotate(0) scale(0.95);
+  }
+
+  50% {
+    transform: rotate(0) scale(0.5);
+  }
+
+  to {
+    transform: rotate(1080deg) scale(1);
+  }
+}
+
+@keyframes cloud {
+  from {
+    transform: scale(1);
+  }
+
+  70% {
+    transform: scale(1.2) translateX(2px);
+  }
+
+  to {
+    transform: scale(1.3) translateX(3px);
+  }
+
+}
+
+@keyframes cyclone-infinite {
+  from {
+    transform: translateY(3.3vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 0.5;
+  }
+
+  5% {
+    transform: translateY(0) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 1;
+  }
+
+  10% {
+    transform: translateY(3.3vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 0.5;
+  }
+
+  15% {
+    transform: translateY(0) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateY(3.3vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 0.5;
+  }
+
+  25% {
+    transform: translateY(0) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 1;
+  }
+
+  30% {
+    transform: translateY(3.3vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 0.5;
+  }
+
+  35% {
+    transform: translateY(0) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 1;
+  }
+
+  40% {
+    transform: translateY(3.3vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 0.5;
+  }
+
+  45% {
+    transform: translateY(0vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(1vh) translateX(0) rotateX(720deg) rotate(0) scale(1);
+    opacity: 1;
+  }
+
+  55% {
+    transform: translateY(1vh) translateX(18vw) rotateX(720deg) rotate(360deg) scale(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: translateY(1vh) translateX(-18vw) rotateX(720deg) rotate(720deg) scale(1);
+    opacity: 1;
+  }
+
+  65% {
+    transform: translateY(1vh) translateX(18vw) rotateX(720deg) rotate(360deg) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateY(1vh) translateX(-18vw) rotateX(720deg) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+
+  75% {
+    transform: translateY(1vh) translateX(18vw) rotateX(720deg) rotate(1080deg) scale(1);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateY(1vh) translateX(-18vw) rotateX(720deg) rotate(-1080deg) scale(1);
+    opacity: 1;
+  }
+
+  85% {
+    transform: translateY(1vh) translateX(0) rotateX(720deg) rotate(0) scale(1);
+    opacity: 1;
+  }
+
+  90% {
+    transform: translateY(1vh) translateX(0) rotateX(720deg) rotate(0) scale(1);
+    opacity: 1;
+  }
+
+  95% {
+    transform: translateY(0) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(3.3vh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    opacity: 0.5;
+  }
+}
+
+@keyframes emoji-eyes {
+  from {
+    transform: scale(1.2) rotate(90deg);
+  }
+}
+
+@keyframes menu-pulse-L {
+  from {
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  50% {
+    transform: scale(1.3) rotate(0deg);
+  }
+
+  75% {
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes menu-pulse-R {
+  from {
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  50% {
+    transform: scale(1.3) rotate(0deg);
+  }
+
+  75% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes jiggle {
+  from {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.5);
+  }
+
+  85% {
+    transform: scale(1.3);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes key {
+  from {
+    transform: translateX(0) rotate(3deg) scaleY(1);
+  }
+
+  33% {
+    transform: translateX(48vw) rotate(0deg) scaleY(0.5);
+  }
+
+  55% {
+    transform: translateX(48vw) rotate(3deg) scaleY(0.5);
+  }
+
+  to {
+    transform: translateX(48vw) rotateY(0) scaleY(1);
+  }
+}
+
+@keyframes key-hover {
+  from {
+    transform: scale(1) rotate(0);
+  }
+
+  10% {
+    transform: scale(0.45) rotate(0);
+  }
+
+  20% {
+    transform: scale(0.45) rotate(-3turn);
+  }
+
+  40% {
+    transform: scale(0.45) rotate(-1turn);
+  }
+
+  45% {
+    transform: scale(1) rotate(-1turn);
+  }
+
+  50% {
+    transform: scale(1) rotate(-1turn) translateY(-11px);
+  }
+
+  60% {
+    transform: scale(1) rotate(-1turn) translateY(0px) rotateY(33deg);
+  }
+
+  70% {
+    transform: scale(1) rotate(-1turn) translateY(-11px) rotateY(0deg);
+  }
+
+  80% {
+    transform: scale(1) rotate(-1turn) translateY(0) rotateY(33deg);
+  }
+
+  88% {
+    transform: scale(1) rotate(-1turn) translateY(-11px) rotateY(0deg);
+  }
+
+  to {
+    transform: scale(1) rotate(-1turn) translateY(0) rotateY(0deg);
+  }
+}
+
+@keyframes key-jingle {
+  from {
+    transform: rotate(3deg);
+  }
+
+  to {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes leafInTheWind {
+  from {
+    transform: translateX(-150%) translateY(0) rotate(333deg) scale(0.33);
+  }
+
+  20% {
+    transform: translateX(-100%) translateY(150%) rotate(555deg) scale(0.33);
+  }
+
+  40% {
+    transform: translateX(0%) translateY(150%) rotate(888deg) scale(0.33);
+  }
+
+  60% {
+    transform: translateX(88px) translateY(100%) rotate(1111deg) scale(0.33);
+  }
+
+  61% {
+    transform: translateX(88px) translateY(100%) rotate(3333deg) scale(0.33);
+  }
+
+  to {
+    transform: translateX(100vw) translateY(0) rotate(3050deg) scale(0.33);
+  }
+
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes press-start {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes press-start-hover {
+  from {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.8, 1);
+    opacity: 0.55;
+    color: var(--tcny-project-accent);
+  }
+
+  to {
+    transform: scale(1.38);
+    color: red;
+  }
+}
+
+@keyframes three-sixty {
+  from {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes three-sixty-link {
+  from {
+    transform: rotate(0) scale(1);
+  }
+
+  to {
+    transform: rotate(-360deg) scale(1.8)
+  }
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(24deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}

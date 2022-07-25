@@ -1,0 +1,48 @@
+:root {
+  /* colors */
+  --clr-xl-header: #5c2e00;
+  --clr-body-primary-nature-brown: hsla(30, 100%, 20%, 0.702);
+  --clr-body-accent-nature-green: #a8a800;
+  --clr-body-accent-secondary: hsla(60, 100%, 33%, 0.707);
+  --clr-submit-txt: red;
+
+  /* bgColors */
+  --clr-bg-sora: hsl(179, 100%, 91%);
+  --clr-bg-creamiest: hsl(56, 73%, 91%);
+  --clr-bg-creamy: #fffdee;
+  --clr-bg-compliment: hsl(30, 100%, 15%);
+  --clr-tcny-accent: red;
+  --clr-code: red;
+  --clr-lang: #006070;
+
+  /* fontFamily */
+  --ff-primary: 'MuseoModerno', cursive;
+  --ff-accent: 'Roboto Mono', monospace;
+  --ff-heading: 'Gosha Sans Regular', Arial, Helvetica, sans-serif;
+  --ff-body: 'Montserrat', sans-serif;
+  --ff-nav: var(--ff-pixelated);
+
+  --ff-pixelated: 'Press Start 2P', cursive;
+
+  /* fontWeight */
+  --fw-light: 200;
+  --fw-regular: 400;
+  --fw-semi-bold: 500;
+  --fw-bold-700: 700;
+
+  /* fontSize */
+  --fs-h1: clamp(2.5rem, 10vw, 20.813rem);
+  --fs-h2: clamp(1.5rem, 3.3vw, 2rem);
+  --fs-h3: clamp(1.438rem, 3.2vw, 1.938rem);
+  --fs-h4: clamp(1.375rem, 3.1vw, 1.875rem);
+  --fs-body: clamp(1rem, 2.8vw, 1.125rem);
+
+  --fs-project-btn-label: clamp(1rem, 5vw, 5rem);
+  --fs-icon-name: clamp(0.8125rem, 2vw, 1rem);
+  --fs-nav: clamp(0.8125rem, 1.5vw, 1.313rem);
+  --fs-placeholder: clamp(0.655rem, 1.5vw, 0.8125rem);
+  --fs-press-start: clamp(1rem, 1.5vw, 1.875rem);
+  
+  /* boxShadowForPixelatedFont */
+  --bs-retro: 0 0 0.3em;
+}
