@@ -1,7 +1,6 @@
 const key = document.getElementById('key-img')
 const openModal = document.querySelector('.nav-toggle');
 let navOpen = false;
-
 key.addEventListener('click', () => {
   if (!navOpen) {
     openModal.classList.add('open');
@@ -12,10 +11,19 @@ key.addEventListener('click', () => {
   }
 }); 
 
-const openBtnContainer = document.getElementsByClassName("modal-trigger")[0];
-const closeModal = document.querySelector(".close-btn");
 
+const logoModalTrigger = document.querySelector(".logo-modal-trigger")
 let modalOpen = false;
+logoModalTrigger.addEventListener("click", () => {
+  if (!modalOpen) {
+    openBtnContainer.classList.add("open");
+    modalOpen = true;
+  }
+}); 
+
+
+const openBtnContainer = document.querySelector(".modal-trigger");
+const closeModal = document.querySelector(".close-btn");
 
 openBtnContainer.addEventListener("click", () => {
   if (!modalOpen) {
@@ -23,7 +31,6 @@ openBtnContainer.addEventListener("click", () => {
     modalOpen = true;
   }
 }); 
-
 closeModal.addEventListener('click', () => {
   if (modalOpen) {
     openBtnContainer.classList.remove("open");
@@ -38,7 +45,6 @@ const observer = new IntersectionObserver(
   },
   { threshold: [1] }
 );
-
 observer.observe(stickyCheck);
 
 // Start to target all items within array

@@ -1063,32 +1063,29 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 #projects .logo-stack {
   position: relative;
 
+  cursor: pointer;
+  margin: 0 15vw 33px 15vw;
+
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
-
-  z-index: 1;
 }
 
 #projects .logo-stack .stack-still {
-  padding: 0 13vw 18px 13vw;
-
   transition: all 0.1s ease-out;
 }
 
 #projects .logo-stack .stack-gif {
   position: absolute;
-  inset: 0;
-  
-  height: 100%;
-  padding: 0 13vw 18px 13vw;
-  pointer-events: none;
-  transform: scale(0);
-  transition: all 100ms ease-in;
+  top: 50%;
+
   width: 100%;
 
-  z-index: 1;
+  
+  opacity: 0;
+  transform: scale(0) translateY(-50%);
+  transition: all 100ms ease-in;
 }
 
 #projects .logo-stack:hover > .stack-still {
@@ -1097,8 +1094,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #projects .logo-stack:hover > .stack-gif {
   opacity: 1;
-  transform: scale(1, 1.2);
-  pointer-events: none;
+  transform: scale(1) translateY(-50%);
 }
 
 #projects .text-content-container p {
