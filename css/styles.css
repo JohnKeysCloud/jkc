@@ -940,21 +940,23 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   margin-bottom: 33px;
   overflow: hidden;
   padding: 0 55px;
-  
-  width: 100%;
 }
 
 #about #avatar-overflow-container {
   position: relative;
-
+  
   border-radius: 50%;
+  height: 100%;
   margin: 0 auto;
   overflow: hidden;
+  width: 100%;
+
   transition: all 0.3s ease-in;
 }
 
 /* rgbCyclone360 */
 #about #avatar-overflow-container::before {
+  border: 2px solid red;
   position: absolute;
   inset: 0;
 
@@ -993,7 +995,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #about #avatar-overflow-container img:active {
   animation: avatar-cyclone-active 0.8s ease-in forwards;
-  /* transform: rotate(1080deg); */
 }
 
 #about .emoji-eyes {
