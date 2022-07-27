@@ -18,6 +18,9 @@ logoModalTrigger.addEventListener("click", () => {
   if (!modalOpen) {
     openBtnContainer.classList.add("open");
     modalOpen = true;
+  } else {
+    openBtnContainer.classList.remove("open");
+    modalOpen = false;
   }
 }); 
 
