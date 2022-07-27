@@ -240,6 +240,12 @@ button {
   }
 }
 
+@keyframes emoji-rotate {
+  from {
+    transform: rotate(-360deg);
+  }
+}
+
 @keyframes menu-pulse-L {
   from {
     transform: scale(1.1) rotate(-3deg);
@@ -428,21 +434,24 @@ button {
  */
 
 :root {
-  /* colors */
-  --clr-xl-header: #5c2e00;
-  --clr-body-primary-nature-brown:  hsla(30, 100%, 20%, 0.702);
-  --clr-body-accent-nature-green: #a8a800;
-  --clr-body-accent-secondary: hsla(60, 100%, 33%, 0.707);
+  /* primaryColors */
+  --clr-xl-header: rgb(92, 46, 0);
+  --clr-body-primary-nature-brown:  rgb(102, 51, 0);
+  --clr-body-accent-nature-green: rgb(168, 168, 0);
+  --clr-body-accent-secondary: rgba(168, 168, 0, 0.707);
   --clr-submit-txt: red;
 
   /* bgColors */
-  --clr-bg-sora: hsl(179, 100%, 91%);
-  --clr-bg-creamiest: hsl(56, 73%, 91%);
-  --clr-bg-creamy: #fffdee;
-  --clr-bg-compliment: hsl(30, 100%, 15%);
+  --clr-bg-sora: rgb(209, 255, 254);
+  --clr-bg-creamiest: rgb(249, 247, 215);
+  --clr-bg-creamy: rgb(255, 253, 238);
+
+  /* colorsMisc */
+  --clr-section-div: rgb(77, 38, 0);
   --clr-tcny-accent: red;
   --clr-code: red;
-  --clr-lang: #006070;
+  --clr-coffee: rgb(127, 81, 31);
+  --clr-lang: rgb(0, 96, 112);
 
   /* fontFamily */
   --ff-primary: 'MuseoModerno', cursive;
@@ -462,7 +471,7 @@ button {
   /* fontSize */
   --fs-h1: clamp(2.5rem, 10vw, 20.813rem);
   --fs-h2: clamp(1.5rem, 3.3vw, 2rem);
-  --fs-h3: clamp(1.438rem, 3.2vw, 1.938rem);
+  --fs-h3: clamp(1.25rem, 2.3vw, 1.563rem);
   --fs-h4: clamp(1.375rem, 3.1vw, 1.875rem);
   --fs-body: clamp(1rem, 2.8vw, 1.125rem);
   
@@ -472,11 +481,10 @@ button {
   --fs-placeholder:  clamp(0.655rem, 1.5vw, 0.8125rem);
   --fs-press-start: clamp(1rem, 1.5vw, 1.875rem);
 
-
   /* variousStyles */
 
-  /* boxShadowForPixelatedFont */
-  --bs-retro: 0 0 0.3em;
+  /* textShadowForPixelatedFont */
+  --ts-retro: 0 0 0.25em;
 } 
 
 /* 
@@ -509,10 +517,18 @@ button {
 
 .tertiary-header {
   font-size: var(--fs-h3);
+  font-family: var(--ff-pixelated);
+  color: var(--clr-coffee);
+  font-weight: bold;
+  letter-spacing: -1.5px;
 }
 
 .quarternary-header {
   font-size: var(--fs-h4);
+  background: linear-gradient(to right, rgba(255, 0, 0, .555), rgba(0, 128, 0, .555), rgba(0, 0, 255, .555));
+  background-clip: text ;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section {
@@ -520,14 +536,12 @@ button {
   justify-items: center;
 }
 
-.section-top {
-  margin-bottom: 33px;
-}
-
 .section .section-top {
   position: relative;
 
   background-color: var(--clr-bg-creamiest);
+
+  margin-bottom: 33px;
 
   text-align: center;
   width: 77vw;
@@ -537,7 +551,7 @@ button {
   position: absolute;
   top: 50%;
 
-  border: 1px solid var(--clr-bg-compliment);
+  border: 1px solid var(--clr-section-div);
   opacity: 33%;
   width: 100%;
   z-index: 0;
@@ -554,6 +568,7 @@ button {
 
 .section .section-header-container h3 {
   margin: 0 8px;
+  /* text-shadow: 0 0 8px; */
 }
 
 .text-content-container {
@@ -715,7 +730,7 @@ main > .section {
   letter-spacing: 1px;
   font-size: var(--fs-press-start);
   color: var(--clr-body-primary-nature-brown);
-  text-shadow: var(--bs-retro);
+  text-shadow: var(--ts-retro);
   transition: transform 0.3s ease-in;
   width: max-content;
 
@@ -759,6 +774,7 @@ nav {
 
   display: grid;
   place-items: center;
+
   height: 111px;
   width: 100vw;
 
@@ -996,14 +1012,28 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #about .emoji-eyes {
   display: inline-block;
-  transform: scale(1.1);
   animation: emoji-eyes 3s linear infinite alternate;
+  background: linear-gradient( to bottom right, red, green, blue);
+  opacity: 0.555;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#about .emoji-rotate {
+  display: inline-block;
+  animation: emoji-rotate 8s linear infinite;
 }
 
 #about #wave {
   display: inline-block;
   animation: wave 0.3s linear alternate infinite;
   -webkit-animation: wave 0.3s linear alternate infinite;
+
+  background: initial;
+  background-clip: initial;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 
 #about .nyc {
