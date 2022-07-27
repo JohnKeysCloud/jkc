@@ -435,22 +435,22 @@ button {
 
 :root {
   /* primaryColors */
-  --clr-xl-header: rgb(92, 46, 0);
-  --clr-body-primary-nature-brown:  rgb(102, 51, 0);
-  --clr-body-accent-nature-green: rgb(168, 168, 0);
-  --clr-body-accent-secondary: rgba(168, 168, 0, 0.707);
+  --clr-xl-header: white;
+  --clr-body-primary-nature-brown:  white;
+  --clr-body-accent-nature-green: white;
+  --clr-body-accent-secondary: white;
   --clr-submit-txt: red;
 
   /* bgColors */
-  --clr-bg-sora: rgb(209, 255, 254);
-  --clr-bg-creamiest: rgb(249, 247, 215);
-  --clr-bg-creamy: rgb(255, 253, 238);
+  --clr-bg-sora: transparent;
+  --clr-bg-creamiest: transparent;
+  --clr-bg-creamy: transparent;
 
   /* colorsMisc */
-  --clr-section-div: rgb(77, 38, 0);
+  --clr-section-div: white;
   --clr-tcny-accent: red;
   --clr-code: red;
-  --clr-coffee: rgb(127, 81, 31);
+  --clr-coffee: white;
   --clr-lang: rgb(0, 96, 112);
 
   /* fontFamily */
@@ -578,6 +578,13 @@ button {
   text-align: center;
 }
 
+.text-content-container p {
+  background: rgba(0, 0, 0, 0.333);
+  border-radius: 55px;
+  border-top-right-radius: 0;
+  padding: 18px;
+}
+
 button {
   font-family: var(--ff-pixelated);
   font-size: var(--fs-press-start);
@@ -603,7 +610,8 @@ code {
 
 body {
   color: var(--clr-body-primary-nature-brown);
-  background-color: var(--clr-bg-creamiest);
+  background: url('/assets/images/theWonderKid.png');
+  background-size: cover;
   display: grid;
   place-items: center;
 }
@@ -630,7 +638,6 @@ main > .section {
   justify-items: center;
   align-items: baseline;
   
-  background: linear-gradient(to bottom, var(--clr-bg-sora), var(--clr-bg-creamy), var(--clr-bg-creamiest));
   min-height: 100vh;
   padding-top: 3vh;
   width: 100vw;
@@ -662,6 +669,7 @@ main > .section {
   color: var(--clr-xl-header);
   font-family: var(--ff-primary);
   font-size: var(--fs-h1);
+  text-shadow: 0 0 8px black;
 }
 
 #hero .welcome,
@@ -1469,9 +1477,9 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 }
 
 @media only screen and (min-width: 1024px) {
-  .text-content-container p {
+  /* .text-content-container p {
     padding: 0;
-  }
+  } */
 
   #hero .welcome > p,
   #hero .qotd p,
