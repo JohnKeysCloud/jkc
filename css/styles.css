@@ -636,7 +636,7 @@ code {
 
 body {
   color: var(--clr-body-primary);
-  background: url('/assets/images/theWonderKid.png');
+  background: url('assets/images/theWonderKid.png');
   background-size: cover;
   display: grid;
   place-items: center;
