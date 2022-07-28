@@ -510,7 +510,62 @@ button {
 ::selection {
   background-color: chartreuse;
   color: black;
+  
+  background-clip: initial;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;  
 }
+
+/* ::-webkit-scrollbar {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  
+  overflow: visible !important;
+}
+
+::-webkit-scrollbar-track {
+  position: absolute;
+  background:rgb(33, 33, 33);
+  border-left: 5px dashed silver;
+  overflow: visible !important;
+  margin-block: 5rem
+}
+
+::-webkit-scrollbar-thumb {
+  position: relative;
+  background: silver;
+  border-radius: 100vw;
+  background-size: 10px;
+
+  background-position: 5px 0;
+  overflow: visible !important;
+
+}
+
+::-webkit-scrollbar-thumb::before {
+  content: 'vfdsbsfdbfdfd';
+  inset: 0;
+  background-color: red;
+  height: 303px;
+  width: 3330px;
+  overflow: visible !important;
+}
+
+::-webkit-scrollbar-corner {
+  background: rgb(23, 23, 23);
+  overflow: visible;
+}
+
+::-webkit-scrollbar-track-piece {
+    overflow: visible;
+}
+
+::-webkit-scrollbar-button {
+  background-color: black;
+} */
+
+/* TODO: https://www.youtube.com/watch?v=lvKK2fs6h4I */
 
 .secondary-header,
 .tertiary-header,
@@ -923,7 +978,7 @@ nav #nav-ul-wrapper ul::before {
   border-bottom-left-radius: 33px;
   border-bottom-right-radius: 33px;
   opacity: 50%;
-  /* TODO: */
+
   z-index: 0;
 } 
 
@@ -1034,7 +1089,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   content: '';
 
-  background: linear-gradient(to bottom, var(--rgb-gradient-opaque));
+  background: linear-gradient(to bottom, silver, transparent, transparent);
   border-radius: 50%;
   height: 100%;
   opacity: 55%;
