@@ -449,7 +449,7 @@ button {
   --clr-silver-surfer: silver;
   --clr-transparent: transparent;
   --clr-bg-solid: rgba(21, 21, 21);
-  --clr-bg-semi-transparent: rgba(0, 0, 0, 0.38);
+  --clr-bg-semi-transparent: rgba(0, 0, 0, 0.7);
 
   /* colorsMisc */
   --clr-section-div: white;
@@ -623,7 +623,7 @@ button {
   text-align: center;
 }
 
-.text-content-container p {
+.text-content-container {
   position: relative;
   text-shadow: var(--ts-clr-match);
 }
@@ -635,7 +635,11 @@ button {
   inset: 0;
 
   background: var(--clr-bg-semi-transparent);
-  border-radius: 33px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 55px;
+  border-bottom-right-radius: 55px;
+  box-shadow: 0 0 5px silver;
   opacity: 0;
   transition: 0.33s ease-in-out;
 
@@ -1572,21 +1576,21 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 @media only screen and (min-width: 768px) {
   .text-content-container::before {
-  content: '';
-  
-  position: absolute;
-  inset: 0;
+    content: '';
 
-  background: var(--clr-bg-semi-transparent);
-  border-radius: 55px;
-  border-top-left-radius: 111px;
-  border-bottom-right-radius: 111px;
-  padding: 55px 13px;
-  opacity: 0;
-  transition: 0.38s ease-in;
-  
-  z-index: -1;
-}
+    position: absolute;
+    inset: 0;
+
+    background: var(--clr-bg-semi-transparent);
+    border-radius: 55px;
+    border-top-left-radius: 111px;
+    border-bottom-right-radius: 111px;
+    padding: 55px 13px;
+    opacity: 0;
+    transition: 0.38s ease-in;
+
+    z-index: -1;
+  }
 
   #about #avatar-container {
     padding: 0 222px;
@@ -1599,6 +1603,13 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 }
 
 @media only screen and (min-width: 1024px) {
+  @supports (scrollbar-color: linear-gradient(to bottom, silver, white, silver) rgb(44, 44, 44)) {
+    * {
+      scrollbar-color: linear-gradient(to bottom, silver, white, silver) rgb(44, 44, 44);
+      scrollbar-width: thin;
+    }
+  }
+
   ::-webkit-scrollbar {
     height: 0;
     width: 0.38em;
@@ -1611,15 +1622,13 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   ::-webkit-scrollbar-thumb {
     border: 2.2px ridge silver;
-    background: linear-gradient(to bottom, silver, white, silver );
+    background: linear-gradient(to bottom, silver, white, silver);
     border-radius: 100vw;
   }
 
-  /* @supports (scrollbar-color) {
-    * {
-      scrollbar-color: red blue;
-    }
-  } */
+  #about .text-content-container:before {
+    transform: scale(1.1);
+  }
 
   .text-content-container p {
     padding: 0;
@@ -1646,7 +1655,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
     display: grid;
     grid-template-columns: 1fr 1fr;
     place-items: center;
-    gap: 33px;
+    gap: 55px;
     padding: 0 11vw;
   }
 
@@ -1667,7 +1676,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   #projects .project-content {
     display: flex;
     justify-content: center;
-    gap: 33px;
+    gap: 55px;
     align-items: center;
     padding: 0 11vw;   
   }
