@@ -677,10 +677,6 @@ figcaption {
   padding: 0 5vw;
 }
 
-main > .section:first-child {
-  padding-top: 0;
-}
-
 main > .section:last-child {
   margin-bottom: 8vh;
 }
