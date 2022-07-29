@@ -490,6 +490,7 @@ button {
   /* textShadowForPixelatedFont */
   --ts-clr-match: 0 0 0.5em;
   --ts-black: 0 0 0.3em black;
+
   --rgb-gradient: #ff1818, chartreuse, #1F51FF;
   --rgb-gradient-opaque: rgba(255, 24, 24, 0.555), rgba(128, 255, 0, 0.555), rgba(31, 81, 255, 0.555);
 } 
@@ -1114,22 +1115,27 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 }
 
 #about .japanese-emoji {
+  filter: drop-shadow(0 0 3px black);
   font-size: 1.5em;
   font-family: monospace;
   letter-spacing: normal;
+  
   vertical-align: 5px;
-  text-shadow: var(--ts-black);
 }
 
 #about .emoji-eyes {
   display: inline-block;
+
   animation: emoji-eyes 3s linear infinite alternate;
 }
 
 #about .emoji-rotate {
   display: inline-block;
+
+  filter: drop-shadow(0 0 3px black);
+  text-shadow: initial;
+
   animation: emoji-rotate 8s linear infinite;
-  text-shadow: var(--ts-black);
 }
 
 #about .nyc {
@@ -1571,6 +1577,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
     border-radius: 55px;
     border-top-left-radius: 111px;
     border-bottom-right-radius: 111px;
+    opacity: 0.38;
     padding: 55px 13px;
   }
 
