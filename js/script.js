@@ -49,3 +49,13 @@ const observer = new IntersectionObserver(
   { threshold: [1] }
 );
 observer.observe(stickyCheck);
+
+// document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+//   anchor.addEventListener("click", function (e) {
+//     e.preventDefault();
+
+//     document.querySelector(this.getAttribute("href")).scrollIntoView({
+//       behavior: "smooth",
+//     });
+//   });
+// });
