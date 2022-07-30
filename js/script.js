@@ -11,22 +11,9 @@ key.addEventListener('click', () => {
   }
 }); 
 
-
-const logoModalTrigger = document.querySelector(".logo-modal-trigger")
-let modalOpen = false;
-logoModalTrigger.addEventListener("click", () => {
-  if (!modalOpen) {
-    openBtnContainer.classList.add("open");
-    modalOpen = true;
-  } else {
-    openBtnContainer.classList.remove("open");
-    modalOpen = false;
-  }
-}); 
-
-
 const openBtnContainer = document.querySelector(".modal-trigger");
 const closeModal = document.querySelector(".close-btn");
+let modalOpen = false;
 
 openBtnContainer.addEventListener("click", () => {
   if (!modalOpen) {
