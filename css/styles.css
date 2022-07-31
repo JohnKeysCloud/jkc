@@ -1066,6 +1066,11 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   margin-bottom: 33px;
   padding: 0 55px;
   width: 100%;
+
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 #about #avatar-overflow-container {
@@ -1269,11 +1274,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   text-align: center;
 }
 
-#projects .full-project {
-  display: grid;
-}
-
-#projects .full-project .click-me-container {
+#projects .click-me-container {
   justify-self: center;
   
   position: relative;
@@ -1283,32 +1284,63 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   align-items: center;
   justify-content: center;
 
+  filter: drop-shadow(0 0 11px white);
+  user-select: none; /* Standard */
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+
   padding: 11px;
   margin-bottom: 13px;
+
+  animation: pulse 0.38s linear infinite alternate;
 }
 
-#projects .full-project .click-me-container h2 {
+#projects .click-me-container h2 {
   position: relative;
 
-  filter: drop-shadow(0 0 3px black);
   margin-bottom: 0;
+  text-shadow: 0 0 5px black;
 }
 
-#projects .full-project .click-me-container h2::before {
+#projects .click-me-container h2::before {
   position: absolute;
   inset: 0;
 
-  content: 'CLICK ME';
+  content: '';
 
   color: black;
   transform: scale(1.5);
   z-index: -1;
 }
 
-#projects .full-project .click-me-container img {
+#projects .click-me-container img {
   height: 77px;
   width: 77px;
+  filter: drop-shadow(0 0 5px black);
 }
+
+/* TODO: decide on click me styles */
+
+#projects .click-me-container.clicked {
+  position: relative;
+  animation: none;
+}
+
+#projects .click-me-container.clicked h2, 
+#projects .click-me-container.clicked img {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#projects .click-me-container.clicked::before {
+  position: absolute;
+  content: 'Nice 😏';
+  font-family: var(--ff-pixelated);
+  font-size: var(--fs-h3);
+  right: 50%;
+  transform: translateX(50%);
+} 
 
 /* projectBoxShadow */
 #projects .project-stack .project-stack-psuedo {
@@ -1771,6 +1803,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   #projects .full-project .click-me-container {
     flex-direction: row-reverse;
+    gap: 8px;
   }
 
   #projects .full-project .click-me-container img {

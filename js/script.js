@@ -12,12 +12,14 @@ key.addEventListener('click', () => {
 }); 
 
 const openBtnContainer = document.querySelector(".modal-trigger");
+const clickMe = document.querySelector(".click-me-container");
 const closeModal = document.querySelector(".close-btn");
 let modalOpen = false;
 
 openBtnContainer.addEventListener("click", () => {
   if (!modalOpen) {
     openBtnContainer.classList.add("open");
+    clickMe.classList.add("clicked")
     modalOpen = true;
   }
 }); 
@@ -27,6 +29,11 @@ closeModal.addEventListener('click', () => {
     modalOpen = false;
   }
 });
+
+
+
+
+
 
 const stickyCheck = document.querySelector("#navigation");
 const observer = new IntersectionObserver(
