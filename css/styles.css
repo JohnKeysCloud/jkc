@@ -450,6 +450,10 @@ button {
   --clr-transparent: transparent;
   --clr-bg-solid: rgba(21, 21, 21);
   --clr-bg-semi-transparent: rgba(0, 0, 0, 0.7);
+  --clr-neon-red: #e91113;
+  --clr-neon-orange: #fe8b0d;
+  --clr-neon-blue: #01f0ef; 
+  --clr-neon-pink: #dc80b1;
 
   /* colorsMisc */
   --clr-section-div: white;
@@ -488,7 +492,7 @@ button {
   /* variousStyles */
 
   /* textShadowForPixelatedFont */
-  --ts-clr-match: 0 0 0.5em;
+  --ts-clr-match: 0 0 0.55em;
   --ts-black: 0 0 0.3em black;
 
   --rgb-gradient: #ff1818, chartreuse, #1F51FF;
@@ -601,7 +605,7 @@ button {
 
   background: var(--clr-bg-solid);
   border-radius: 88px;
-  box-shadow: 0 0 0.33em var(--clr-body-primary);
+  box-shadow: 0 0 0.33em silver;
   padding: 5px 33px;
   margin: 0 8px;
   text-shadow: var(--ts-clr-match);
@@ -614,7 +618,6 @@ button {
   content: '';
   
   border-radius: 88px;
-  box-shadow: 0 0 1em silver;
   opacity: 0;
   transition: opacity 111ms ease-in;
 
@@ -1008,19 +1011,19 @@ nav #nav-ul-wrapper a {
 }
 
 nav #nav-ul-wrapper li:nth-of-type(1) a {
-  color: #e91113;
+  color: var(--clr-neon-red);
 }
 
 nav #nav-ul-wrapper li:nth-of-type(2) a {
-  color: #fe8b0d;
+  color: var(--clr-neon-orange);
 }
 
 nav #nav-ul-wrapper li:nth-of-type(3) a {
-  color: #01f0ef;
+  color: var(--clr-neon-blue);
 }
 
 nav #nav-ul-wrapper li:nth-of-type(4) a {
-  color: #dc80b1;
+  color: var(--clr-neon-pink);
 }
 
 nav #nav-ul-wrapper a:hover {
@@ -1057,6 +1060,14 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #about {
   position: relative;
+}
+
+#about .section-header-container .tertiary-header {
+  color: var(--clr-neon-orange);
+}
+
+#about .section-header-container h3::before {
+  box-shadow: 0 0 1em var(--clr-neon-orange);
 }
 
 #about #avatar-container {
@@ -1225,10 +1236,13 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   transform: translateY(8px) scale(1.3);
 }
 
-/* #project .project-description {
-  display: grid;
-  place-items: center;
-} */
+#projects .section-header-container .tertiary-header {
+  color: var(--clr-neon-blue);
+}
+
+#projects .section-header-container h3::before {
+  box-shadow: 0 0 1em var(--clr-neon-blue);
+}
 
 #projects .logo-stack {
   position: relative;
@@ -1240,6 +1254,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 
+  z-index: 1;
 }
 
 #projects .logo-stack .stack-still {
@@ -1274,7 +1289,9 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   text-align: center;
 }
 
-#projects .click-me-container {
+/* TODO: FINISH levelOne */
+
+#projects #levelOne {
   justify-self: center;
   
   position: relative;
@@ -1284,7 +1301,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   align-items: center;
   justify-content: center;
 
-  filter: drop-shadow(0 0 11px white);
+  filter: drop-shadow(0 0 1px white);
   user-select: none; /* Standard */
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
@@ -1293,17 +1310,17 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   padding: 11px;
   margin-bottom: 13px;
 
-  animation: pulse 0.38s linear infinite alternate;
+  animation: pulse 0.55s linear infinite alternate;
 }
 
-#projects .click-me-container h2 {
+#projects #levelOne h2 {
   position: relative;
 
   margin-bottom: 0;
   text-shadow: 0 0 5px black;
 }
 
-#projects .click-me-container h2::before {
+#projects #levelOne h2::before {
   position: absolute;
   inset: 0;
 
@@ -1314,33 +1331,48 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   z-index: -1;
 }
 
-#projects .click-me-container img {
+#projects #levelOne img {
   height: 77px;
   width: 77px;
   filter: drop-shadow(0 0 5px black);
 }
 
-/* TODO: decide on click me styles */
-
-#projects .click-me-container.clicked {
-  position: relative;
-  animation: none;
+#projects #click-me-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#projects .click-me-container.clicked h2, 
-#projects .click-me-container.clicked img {
+#projects #levelOne.clicked #click-me-container {
   opacity: 0;
   visibility: hidden;
+  transition: 0.38s ease-in-out;
 }
 
-#projects .click-me-container.clicked::before {
+#projects #levelOne #levelOneContainer {
   position: absolute;
-  content: 'Nice 😏';
-  font-family: var(--ff-pixelated);
-  font-size: var(--fs-h3);
-  right: 50%;
-  transform: translateX(50%);
-} 
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+
+  transform: scale(0) rotate(0);
+  transition: all 0.8s ease-in;
+
+    animation: pulse 0.55s linear infinite alternate;
+
+}
+
+#projects #levelOne.clicked #levelOneContainer {
+  opacity: 1;
+  transform: scale(1) rotate(360deg);
+  animation: none;
+}
 
 /* projectBoxShadow */
 #projects .project-stack .project-stack-psuedo {
@@ -1569,6 +1601,14 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #projects .project-stack .btn-container .uniform-link-container:hover .project-btn-label {
   animation: none;
+}
+
+#contact .section-header-container .tertiary-header {
+  color: var(--clr-neon-pink);
+}
+
+#contact .section-header-container h3::before {
+  box-shadow: 0 0 1em var(--clr-neon-pink);
 }
 
 #contact #contact-form {
@@ -1801,12 +1841,12 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
     padding: 2.5em 1.8em;
   }
 
-  #projects .full-project .click-me-container {
+  #projects .full-project #levelOne {
     flex-direction: row-reverse;
     gap: 8px;
   }
 
-  #projects .full-project .click-me-container img {
+  #projects .full-project #levelOne img {
     height: 55px;
     width: 55px;
   }
