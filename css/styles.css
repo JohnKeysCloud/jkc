@@ -1275,9 +1275,39 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #projects .full-project .click-me-container {
   justify-self: center;
+  
+  position: relative;
 
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px;
+  margin-bottom: 13px;
+}
+
+#projects .full-project .click-me-container h2 {
+  position: relative;
+
+  filter: drop-shadow(0 0 3px black);
+  margin-bottom: 0;
+}
+
+#projects .full-project .click-me-container h2::before {
+  position: absolute;
+  inset: 0;
+
+  content: 'CLICK ME';
+
+  color: black;
+  transform: scale(1.5);
+  z-index: -1;
+}
+
+#projects .full-project .click-me-container img {
+  height: 77px;
+  width: 77px;
 }
 
 /* projectBoxShadow */
@@ -1737,6 +1767,15 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   #projects .text-content-container {
     padding: 2.5em 1.8em;
+  }
+
+  #projects .full-project .click-me-container {
+    flex-direction: row-reverse;
+  }
+
+  #projects .full-project .click-me-container img {
+    height: 55px;
+    width: 55px;
   }
 
   #projects .project-stack {
