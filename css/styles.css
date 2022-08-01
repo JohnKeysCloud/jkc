@@ -1404,20 +1404,19 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   
   content: '';
 
-  box-shadow: 0 18px 21px 3px var(--clr-body-primary);
+  box-shadow: 0 11px 21px 3px var(--clr-body-primary);
   border-radius: inherit;
   opacity: 0;
   transition: all 0.38s ease-in-out;
 }
 
-#projects .project-stack .project-stack-psuedo.inception::before {
-  opacity: 1;
-  transform: scale(1.03);
-}
-
 #projects .project-stack .project-stack-psuedo:hover::before {
   opacity: 1;
   border-radius: inherit;
+}
+
+#projects .project-stack.inception .project-stack-psuedo::before {
+  opacity: 1;
 }
 
 #projects .project-stack .gif-container {
@@ -1848,7 +1847,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   #projects .project-stack .project-stack.inception {
     transform: scale(0.55) translateX(-50%);
 
-    position: relative;
+    /* position: relative; */
     width: 100vw;
   }
 
