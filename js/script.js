@@ -11,21 +11,37 @@ key.addEventListener('click', () => {
   }
 }); 
 
+
+const modalTriggerBtn = document.querySelector('#clickMeContainer');
+const inception = document.querySelector(".project-stack");
+let modalOpen = false;
+
+modalTriggerBtn.addEventListener("click", () => {
+  if (!modalOpen) {
+    openBtnContainer.classList.add("open");
+    inception.classList.add("inception");
+    clickMe.classList.add("clicked");
+    modalOpen = true;
+  }
+}); 
+
 const openBtnContainer = document.querySelector(".modal-trigger");
 const clickMe = document.querySelector("#levelOne");
 const closeModal = document.querySelector(".close-btn");
-let modalOpen = false;
+
 
 openBtnContainer.addEventListener("click", () => {
   if (!modalOpen) {
     openBtnContainer.classList.add("open");
     clickMe.classList.add("clicked")
+    inception.classList.add("inception");
     modalOpen = true;
   }
 }); 
 closeModal.addEventListener('click', () => {
   if (modalOpen) {
     openBtnContainer.classList.remove("open");
+    inception.classList.remove("inception");
     modalOpen = false;
   }
 });
