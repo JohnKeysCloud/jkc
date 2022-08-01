@@ -975,7 +975,6 @@ nav #nav-ul-wrapper ul {
   border: 3px ridge var(--clr-silver-surfer);
   border-right: none;
   border-top-left-radius: 111px;
-  overflow: hidden;
 
   border-bottom-left-radius: 55px;
   border-bottom-right-radius: 33px;
@@ -1013,7 +1012,6 @@ nav #nav-ul-wrapper ul::after {
   border-bottom-right-radius: 33px;
   border-bottom-left-radius: 55px;
   box-shadow: 0 0 21px 3px white;
-  overflow: hidden;
 
   z-index: 0;
 }
