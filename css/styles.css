@@ -866,7 +866,7 @@ main > .section:last-child {
 #key-hole {
   position: fixed;
   top: 33px;
-  right: -13px;
+  right: 0;
 
   filter: saturate(0) drop-shadow(0 0 8px white);
   height: 43px;
@@ -934,7 +934,6 @@ nav.is-pinned #key img:hover {
   opacity: 1;
   animation: key-jingle 0.38s linear alternate infinite;
   -webkit-animation: key-jingle 0.38s linear alternate infinite;
-
 } 
 
 nav.is-pinned #key.nav-toggle.open img {
