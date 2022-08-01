@@ -35,7 +35,6 @@ body {
   position: relative;
   font-family: var(--ff-body);
   margin: 0;
-  overflow-x: hidden;
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -976,6 +975,8 @@ nav #nav-ul-wrapper ul {
   border: 3px ridge var(--clr-silver-surfer);
   border-right: none;
   border-top-left-radius: 111px;
+  overflow: hidden;
+
   border-bottom-left-radius: 55px;
   border-bottom-right-radius: 33px;
   list-style-type: none;
@@ -1012,6 +1013,8 @@ nav #nav-ul-wrapper ul::after {
   border-bottom-right-radius: 33px;
   border-bottom-left-radius: 55px;
   box-shadow: 0 0 21px 3px white;
+  overflow: hidden;
+
   z-index: 0;
 }
 
@@ -1021,11 +1024,15 @@ nav #nav-ul-wrapper a {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   box-shadow: 0 0 18px white , inset 0 0 10px black;
+  /* toRemoveRightBoxShadowOverflow */
+  clip-path: inset(-100px 0px -100px -100px);
   font-family: var(--ff-nav);
   font-size: var(--fs-nav);
   letter-spacing: 1px;
+  
   padding: 11px 5px 11px 21px;
   text-shadow: var(--ts-clr-match);
+  
 
   z-index: 1;
   transition: transform 100ms ease-in-out;
