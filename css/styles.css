@@ -465,7 +465,7 @@ button {
   --clr-body-placeholder: white;
   --clr-section-header: white;
   --clr-submit-txt: red;
-  --clr-h4: chartreuse;
+  --clr-h4: white;
   --clr-silver-surfer: silver;
   --clr-transparent: transparent;
   --clr-bg-solid: rgba(21, 21, 21);
@@ -571,7 +571,7 @@ button {
   font-weight: var(--fw-bold-700);
   letter-spacing: -1px;
   word-spacing: -5px;
-  text-shadow: var(--ts-black);
+  text-shadow: var(--ts-clr-match);
 }
 
 .gradient-text {
@@ -1087,10 +1087,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   position: relative;
 }
 
-#about .section-header-container .tertiary-header {
-  color: var(--clr-neon-orange);
-}
-
 #about .section-header-container h3::before {
   box-shadow: 0 0 1em var(--clr-neon-orange);
 }
@@ -1270,10 +1266,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #about .tech-icon:hover > .icon-name {
   transform: translateY(8px) scale(1.3);
-}
-
-#projects .section-header-container .tertiary-header {
-  color: var(--clr-neon-blue);
 }
 
 #projects .section-header-container h3::before {
@@ -1660,10 +1652,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #projects .project-stack .btn-container .uniform-link-container:hover .project-btn-label {
   animation: none;
-}
-
-#contact .section-header-container .tertiary-header {
-  color: var(--clr-neon-pink);
 }
 
 #contact .section-header-container h3::before {
