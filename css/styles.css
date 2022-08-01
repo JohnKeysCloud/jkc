@@ -1176,6 +1176,17 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   animation: emoji-rotate 8s linear infinite;
 }
 
+#about .word-coding {
+  display: inline-block;
+  font-weight: 700;
+  filter: drop-shadow(0 0 3.3px black);
+  transition: transform 0.33ms ease-in-out;
+}
+
+#about .word-coding:hover {
+  transform: rotateY(21deg);
+}
+
 #about .nyc {
   font-family: bookman-jf-pro, serif;
   font-style: italic;
@@ -1322,7 +1333,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   filter: drop-shadow(0 0 5px black);
 }
 
-#projects #clickMeContainer {
+#projects #levelOne #tapMeContainer {  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1330,36 +1341,48 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   cursor: pointer;
 
+  transform: scale(1);
+  transition: all 0.33s ease-in;
+  transition-delay: 0.55s;
+
+  opacity: 1;
+  visibility: visible;
+
   animation: pulse 0.55s linear infinite alternate;
 }
 
-#projects #levelOne.clicked #clickMeContainer {
+#projects #levelOne.tapped #tapMeContainer {
+  transform: scale(0);
+  transition: all 0.33s ease-in;
+  
   opacity: 0;
   visibility: hidden;
-  transition: 0.11s ease-out;
 }
 
 #projects #levelOne #levelOneContainer {
   position: absolute;
   inset: 0;
-
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-
+  
   transform: scale(0) rotate(0);
-  transition: all 0.8s ease-in;
+  transition: all 0.33s ease-in;
+  transition-delay: 0.33s;
   z-index: 0;
 }
 
-#projects #levelOne.clicked #levelOneContainer {
+#projects #levelOne.tapped #levelOneContainer {
   opacity: 1;
+  visibility: visible;
 
-  transform: scale(1) rotate(0);
+  transform: scale(1) rotate(-360deg);
 }
 
 #projects .project-stack {
@@ -1822,11 +1845,11 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 /* TODO: finish this immediately */
 
-  #projects .project-stack .project-stack-psuedo.inception {
+  #projects .project-stack .project-stack.inception {
     transform: scale(0.55) translateX(-50%);
 
-  position: relative;
-  width: 100vw;
+    position: relative;
+    width: 100vw;
   }
 
   #projects .project-content {

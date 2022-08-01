@@ -12,7 +12,7 @@ key.addEventListener('click', () => {
 }); 
 
 
-const modalTriggerBtn = document.querySelector('#clickMeContainer');
+const modalTriggerBtn = document.querySelector('#tapMeContainer');
 const inception = document.querySelector(".project-stack");
 let modalOpen = false;
 
@@ -20,20 +20,20 @@ modalTriggerBtn.addEventListener("click", () => {
   if (!modalOpen) {
     openBtnContainer.classList.add("open");
     inception.classList.add("inception");
-    clickMe.classList.add("clicked");
+    tapMe.classList.add("tapped");
     modalOpen = true;
   }
 }); 
 
 const openBtnContainer = document.querySelector(".modal-trigger");
-const clickMe = document.querySelector("#levelOne");
+const tapMe = document.querySelector("#levelOne");
 const closeModal = document.querySelector(".close-btn");
 
 
 openBtnContainer.addEventListener("click", () => {
   if (!modalOpen) {
     openBtnContainer.classList.add("open");
-    clickMe.classList.add("clicked")
+    tapMe.classList.add("tapped")
     inception.classList.add("inception");
     modalOpen = true;
   }
@@ -41,6 +41,7 @@ openBtnContainer.addEventListener("click", () => {
 closeModal.addEventListener('click', () => {
   if (modalOpen) {
     openBtnContainer.classList.remove("open");
+    tapMe.classList.remove("tapped");
     inception.classList.remove("inception");
     modalOpen = false;
   }
