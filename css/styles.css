@@ -1325,8 +1325,12 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   text-align: center;
 }
 
-#projects .project-content {
+#projects .project-visual {
   position: relative;
+
+  transition: all 0.55s ease-in-out;
+
+  z-index: 1;
 }
 
 #projects #levelOne {
@@ -1369,23 +1373,21 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   align-items: center;
 
   cursor: pointer;
-
-  transform: scale(1);
-  transition: all 0.33s ease-in;
-  transition-delay: 0.33s;
-
+  
   opacity: 1;
   visibility: visible;
+  
+  transform: scale(1);
+  transition: all 0.33s ease-in-out;
 
   animation: pulse 0.55s linear infinite alternate;
 }
 
-#projects #levelOne.tapped #tapMeContainer {
-  transform: scale(0);
-  transition: all 0.33s ease-in;
-  
+#projects #levelOne.tapped #tapMeContainer { 
   opacity: 0;
   visibility: hidden;
+
+  transform: scale(0);
 }
 
 #projects #levelOne #levelOneContainer {
@@ -1402,10 +1404,10 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   pointer-events: none;
   
   transform: scale(0);
-  transition: all 0.33s ease-out;
-  z-index: 0;
 
   animation: hover 0.33s ease-in infinite alternate;
+
+  z-index: 0;
 }
 
 #projects #levelOne.tapped #levelOneContainer {
@@ -1413,18 +1415,17 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   visibility: visible;
   
   transform: scale(1);
-  transition: all 0.33s ease-out;
   transition-delay: 0.33s;
+}
+
+#projects .project-visual.inception #levelOneContainer {
+  filter: drop-shadow(0 0 5px skyblue);
 }
 
 #projects #levelOne #levelOneContainer #diamond {
   display: inline-block;
 
   animation: rough-rotate 0.99s linear infinite alternate;
-}
-
-#projects .project-stack {
-  position: relative;
 }
 
 /* projectBoxShadow */
@@ -1450,11 +1451,13 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #projects .project-stack .project-stack-psuedo:hover::before {
   opacity: 1;
-  border-radius: inherit;
 }
 
-#projects .project-stack.inception .project-stack-psuedo::before {
+#projects .project-visual.inception .project-stack-psuedo::before {
+  box-shadow: 0 0 18px black;
   opacity: 1;
+
+  z-index: 1;
 }
 
 #projects .project-stack .gif-container {
@@ -1788,6 +1791,41 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   #projects #levelOne.tapped #levelOneContainer {
     transform: scale(1);
   }
+
+  #projects .project-stack {
+    position: relative;
+  }
+
+  #projects .project-visual .project-stack-psuedo::after {
+    position: absolute;
+    inset: 0;
+
+    content:'';
+
+    background: url('../assets/images/cloudsabove.gif');
+    box-shadow: 0 0 30px white;
+    background-size: cover;
+    border: 8px ridge rgba(255, 255, 255, 0.555);
+    border-left: 8px ridge rgba(0, 0, 0, 0.647);
+    border-right: 8px ridge rgba(0, 0, 0, 0.647);
+    border-radius: inherit;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: scale(1);
+    transition: all 0.33s ease-out;
+
+    z-index: 0;
+  }
+
+  #projects .project-visual.inception .project-stack-psuedo::after {
+    box-shadow: 0 0 30px skyblue;
+    opacity: 1;
+    visibility: visible;
+
+    transform: scale(1.15);
+  }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -1888,15 +1926,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
     margin: 0;
   }
 
-  #projects .project-stack {
-    transition: all 1s ease-in;
-  }
-  
-  /* TODO: finish this immediately */
-  #projects .project-stack.inception {
-    transform: translateX(-19.5vw) scale(1.3);
-  }
-
   #projects .project-content {
     display: flex;
     align-items: center;
@@ -1934,6 +1963,14 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   #projects .project-stack {
     padding: 0;
+  }
+
+  #projects .project-visual.inception {
+    transform: scale(1.18);
+  }
+
+  #projects .project-visual.inception {
+    transform: scale(1.3) translateX(-35%);
   }
 }
 

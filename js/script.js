@@ -13,7 +13,7 @@ key.addEventListener('click', () => {
 
 
 const modalTriggerBtn = document.querySelector('#tapMeContainer');
-const inception = document.querySelector(".project-stack");
+const inception = document.querySelector(".project-visual");
 let modalOpen = false;
 
 modalTriggerBtn.addEventListener("click", () => {
