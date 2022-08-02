@@ -401,37 +401,37 @@ button {
     transform: scale(2.5) rotate(-60deg)
   }
   8% {
-    transform: translateY(-250px) translateX(-75px) scale(3) rotate(-60deg);
+    transform: translateY(-250px) translateX(0px) scale(3) rotate(-55);
   }
   16% {
-    transform: translateY(-500px) translateX(-150px) scale(4) rotate(-55deg);
+    transform: translateY(-500px) translateX(-100px) scale(4) rotate(-55deg);
   }
   24% {
-    transform: translateY(-750px) translateX(-225px) scale(4) rotate(-50deg);
+    transform: translateY(-750px) translateX(-150px) scale(4) rotate(-50deg);
   }
   32% {
-    transform: translateY(-1000px) translateX(-255px) scale(4) rotate(-45deg);
+    transform: translateY(-1000px) translateX(-155px) scale(4) rotate(-45deg);
   }
   40% {
-    transform: translateY(-1250px) translateX(-245px) scale(4) rotate(-43deg);
+    transform: translateY(-1250px) translateX(-160px) scale(4) rotate(-43deg);
   }
   48% {
-    transform: translateY(-1500px) translateX(-233px) scale(4) rotate(-40deg);
+    transform: translateY(-1500px) translateX(-155px) scale(4) rotate(-40deg);
   }
   56% {
-    transform: translateY(-1750px) translateX(-200px) scale(4) rotate(-37.5deg);
+    transform: translateY(-1750px) translateX(-130px) scale(4) rotate(-37.5deg);
   }
   64% {
-    transform: translateY(-2000px) translateX(-150px) scale(4) rotate(-40deg);
+    transform: translateY(-2000px) translateX(-88px) scale(4) rotate(-40deg);
   }
   72% {
-    transform: translateY(-2250px) translateX(-100px) scale(4) rotate(-42deg);
+    transform: translateY(-2250px) translateX(-25px) scale(4) rotate(-42deg);
   }
   80% {
-    transform: translateY(-2500px) translateX(-99px) scale(4) rotate(-44deg);
+    transform: translateY(-2500px) translateX(0) scale(4) rotate(-44deg);
   }
-  100% {
-    transform: translateY(-3333px) translateX(-99px) scale(4) rotate(-45deg);
+  to {
+    transform: translateY(-3888px) translateX(0) scale(4) rotate(-45deg);
   }
 }
 
@@ -1788,18 +1788,18 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   position: absolute;
   top: 8px;
-  left: 155px;
+  left: 65px;
 
 
   width: max-content;
   height: max-content;
 
-  /* opacity: 0;
-  visibility: hidden; */
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 
-  transform: scale(2.5) rotate(-45deg);
-  transition: opacity 11s ease-in;
+  transform: scale(2.5) rotate(-60deg);
+  transition: opacity 0.33s ease-in;
   
   z-index: 1;
 }
@@ -1808,7 +1808,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   opacity: 1;
   visibility: visible;
 
-  animation: rocket 5.5s linear forwards;
+  animation: rocket 10s linear forwards;
 }
 
 #contact > #contact-form .btn-container button::after {
