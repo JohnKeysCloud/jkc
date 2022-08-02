@@ -1343,6 +1343,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   justify-content: center;
 
   filter: drop-shadow(0 0 1px white);
+  margin-bottom: 11px;
 
   user-select: none; /* Standard */
   -webkit-user-select: none; /* Safari */        
@@ -1781,7 +1782,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   }
 
   #projects #levelOne {
-    margin-bottom: 21px;
+    margin-bottom: 33px;
   }
 
   #projects #levelOne #levelOneContainer {
@@ -1924,6 +1925,10 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 @media only screen and (min-width: 1200px) {
   .text-content-container {
     margin: 0;
+  }
+
+  #projects #levelOne {
+    margin-bottom: 18px;
   }
 
   #projects .project-content {
