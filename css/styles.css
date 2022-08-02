@@ -336,28 +336,6 @@ button {
   }
 }
 
-@keyframes leafInTheWind {
-  from {
-    transform: translateX(-150%) translateY(0) rotate(333deg) scale(0.33);
-  }
-  20% {
-    transform: translateX(-100%) translateY(150%) rotate(555deg) scale(0.33);
-  }
-  40% {
-    transform: translateX(0%)  translateY(150%) rotate(888deg) scale(0.33);
-  }
-  60% {
-    transform: translateX(88px) translateY(100%) rotate(1111deg) scale(0.33);
-  }
-  61% {
-    transform: translateX(88px) translateY(100%) rotate(3333deg) scale(0.33);
-  }
-  to {
-    transform: translateX(100vw) translateY(0) rotate(3050deg) scale(0.33);
-  }
-
-}
-
 @keyframes menu-pulse-L {
   from {
     transform: scale(1.1) rotate(-3deg);
@@ -415,6 +393,16 @@ button {
   to {
     transform: scale(1.38);
     color: red;
+  }
+}
+
+@keyframes rocket {
+  from{
+    transform: scale(4)
+  }
+
+  to {
+    transform: scale(4) translateX(-50%)
   }
 }
 
@@ -1620,7 +1608,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   margin-inline: auto;
 }
 
-#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img) {
+#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img,.close-img) {
   opacity: 0.8;
   width: 55%;
 
@@ -1632,12 +1620,12 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   transition: opacity 0.55s ease-in-out, transform 111ms ease-in-out;
 }
 
-#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img):hover {
+#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img,.close-img):hover {
   transform: scale(0.55);
   opacity: 1;
 }
 
-#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img):active {
+#projects .project-stack .btn-container .monogram-img:not(.live-img,.github-img,.close-img):active {
   transform: scale(0.77);
   opacity: 1;
 }
@@ -1646,7 +1634,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   opacity: 1;
 }
 
-#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-child(odd) {
+/* #projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-child(odd) {
   opacity: 0.1;
   animation: three-sixty 0.3s linear infinite reverse;
   -webkit-animation: three-sixty 0.3s linear infinite reverse;
@@ -1656,6 +1644,54 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   opacity: 0.38;
   animation: three-sixty 0.8s linear infinite;
   -webkit-animation: three-sixty 0.83s linear infinite;
+} */
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(odd) {
+  opacity: 0.1;
+  animation: three-sixty 0.3s linear infinite reverse;
+  -webkit-animation: three-sixty 0.3s linear infinite reverse;
+}
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(even) {
+  opacity: 0.38;
+  animation: three-sixty 0.8s linear infinite;
+  -webkit-animation: three-sixty 0.83s linear infinite;
+}
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(1) {
+  opacity: 0.38;
+  animation: three-sixty 0.8s linear infinite;
+  -webkit-animation: three-sixty 0.83s linear infinite;
+}
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(2) {
+  opacity: 0.1;
+  animation: three-sixty 0.8s linear infinite reverse;
+  -webkit-animation: three-sixty 0.83s linear infinite reverse;
+}
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(3) {
+  opacity: 0.38;
+  animation: three-sixty 0.8s linear infinite;
+  -webkit-animation: three-sixty 0.83s linear infinite;
+}
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(4) {
+  opacity: 0.1;
+  animation: three-sixty 0.8s linear infinite reverse;
+  -webkit-animation: three-sixty 0.83s linear infinite reverse;
+}
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(5) {
+  opacity: 0.38;
+  animation: three-sixty 0.8s linear infinite;
+  -webkit-animation: three-sixty 0.83s linear infinite;
+}
+
+#projects .project-stack .btn-container .uniform-link-container:hover ~ .monogram-img:nth-of-type(6) {
+  opacity: 0.1;
+  animation: three-sixty 0.8s linear infinite reverse;
+  -webkit-animation: three-sixty 0.83s linear infinite reverse;
 }
 
 #projects .project-stack .btn-container .uniform-link-container:hover .project-btn-label {
@@ -1704,37 +1740,45 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   justify-self: center;
 
   position: relative;
+  cursor: pointer;
 
-  border: 3px solid var(--clr-submit-txt); 
+  border: 3px solid var(--clr-silver-surfer); 
   border-radius: 33px;
-  box-shadow: inset 0 0 3px var(--clr-submit-txt); 
+  box-shadow: inset 0 0 3px var(--clr-silver-surfer); 
 
   /* projeCt root variable color switch on hover */
-  color: var(--clr-submit-txt);
-  text-shadow: 0 0 3px var(--clr-submit-txt);
+  color: var(--clr-silver-surfer);
+  text-shadow: 0 0 3px var(--clr-silver-surfer);
 
   padding: 8px 23px;
   width: max-content;
-
 }
 
 #contact > #contact-form .btn-container button::before {
+  content: '🚀 ';
+
   position: absolute;
-  content: url('../assets/images/leafInTheWind-L.png');
-  inset: 0;
-  border-radius: 33px;
+  top: 3px;
+  left: 165px;
 
-  height: 33px;
-  opacity: 0.55;
-  width: 33px;
 
-  transform: scale(0.33) translateX(-555%) translateY(-33%) rotate(-33deg);
+  width: max-content;
+  height: max-content;
+
+  /* opacity: 0;
+  visibility: hidden; */
+
+  transform: scale(3);
   transition: opacity 0.333s ease-in;
+  
+  z-index: 0;
 }
 
 #contact > #contact-form .btn-container button:hover::before {
-  animation: leafInTheWind 3.333s linear  forwards;
   opacity: 1;
+  visibility: visible;
+
+  animation: rocket 3.333s linear forwards;
 }
 
 #contact > #contact-form .btn-container button::after {
@@ -1742,16 +1786,21 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
   position: absolute;
   inset: 0;
-  opacity: 0;
-  border-radius: 33px;
+
   background: url(../assets/images/cloudsabove.gif);
-  /* background: linear-gradient(to bottom left, rgba(255, 0, 0, 0.222), rgba(128, 255, 0, 0.222), rgba(0, 0, 255, 0.222)); */
+  border-radius: 33px;
+  
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.33s ease-in;
+
   z-index: -1;
-  transition: all 0.3s ease-in ;
 } 
 
 #contact > #contact-form .btn-container button:hover::after {
   opacity: 1;
+  visibility: visible;
 }
 
 @media only screen and (min-width: 768px) {

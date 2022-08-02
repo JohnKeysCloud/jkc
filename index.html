@@ -171,7 +171,7 @@
                   <div class="btn-container">
                     <div class="cyclone-grid">
                       <button class="close-btn" aria-label="Close Button">
-                        <svg viewBox="0 0 24 24">
+                        <svg class="monogram-img close-img" viewBox="0 0 24 24">
                           <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                         </svg>
                       </button>
@@ -238,11 +238,11 @@
             <label for="name">Name</label>
             <input type="text" placeholder="FULL NAME" name="name" required>
             <label for="email">E-mail</label>
-            <input type="email" placeholder="E-MAIL" name="email" required>
+            <input type="email" placeholder="E-MAIL" name="email" pattern="([\w\.-]+)@([\w-]+)\.([a-zA-Z]{2,3})([\.][a-zA-Z]{2,3})?" required>
             <label for="message">Message</label>
             <textarea placeholder="WRITE STUFF HERE" name="message" required></textarea>
             <div class="btn-container">
-              <button type="submit" form="contact-form" disabled>submit</button>
+              <button type="submit" form="contact-form">submit</button>
               <span class="owl-maybe"></span>
               <span class="text-contrast"></span>
             </div>
