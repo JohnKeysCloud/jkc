@@ -1268,7 +1268,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   text-decoration: underline;
 }
 
-#about #chune-img {
+#about #definition-card {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1276,10 +1276,14 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   border-radius: 33px;
   box-shadow: 0 0 18px black;
   display: inline-block;
-  width: 333px;
-
+  width:100%;
+  font-size: 1.125rem;
+  color: white;
+  background-color: rgb(27,41,54);
   opacity: 0;
+  padding: 30px 20px;
   visibility: hidden;
+  text-align: start;
 
   animation: pop-up 0.38s linear alternate infinite;
   transition: all 0.38s ease-out;
@@ -1287,14 +1291,24 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   z-index: 1;
 }
 
-#about #chune-img:hover {
+#about #definition-card:hover {
   opacity: 0.95;
   visibility: visible;
 }
 
-#about #chune-text:hover ~ #chune-img {
+#about #chune-text:hover ~ #definition-card {
   opacity: 0.95;
   visibility: visible;
+}
+
+#about #definition-card dfn {
+  color: rgb(30,162,242);
+  font-weight: var(--fw-bold-700);
+  font-size: 3rem;
+}
+
+#about #definition-card .definition {
+  font-size: 2.25rem ;
 }
 
 #about .jkc-text {
