@@ -501,9 +501,9 @@ em {
   --clr-bg-solid: rgba(21, 21, 21);
   --clr-bg-semi-transparent: rgba(0, 0, 0, 0.7);
   --clr-neon-red: #e91113;
-  --clr-neon-orange: #fe8b0d;
-  --clr-neon-blue: #01f0ef; 
   --clr-neon-pink: #dc80b1;
+  --clr-neon-blue: #01f0ef; 
+  --clr-neon-orange: #fe8b0d;
 
   /* colorsMisc */
   --clr-section-div: white;
@@ -531,6 +531,7 @@ em {
   --fs-h2: clamp(1.5rem, 3.3vw, 2rem);
   --fs-h3: clamp(0.938rem, 2.5vw, 1.313rem);
   --fs-h4: clamp(1.125rem, 2.5vw, 1.313rem);
+  --fs-h5: clamp(0.8125rem, 2vw, 1.125rem);
   --fs-body: clamp(1rem, 2.8vw, 1.125rem);
   
   --fs-project-btn-label: clamp(1rem, 5vw, 2.1rem);
@@ -598,6 +599,16 @@ em {
   color: var(--clr-h4);
   font-family: var(--ff-pixelated);
   font-size: var(--fs-h4);
+  font-weight: var(--fw-bold-700);
+  letter-spacing: -1px;
+  word-spacing: -5px;
+  text-shadow: var(--ts-clr-match);
+}
+
+.quinary-header {
+  color: var(--clr-body-primary);
+  font-family: var(--ff-pixelated);
+  font-size: var(--fs-h5);
   font-weight: var(--fw-bold-700);
   letter-spacing: -1px;
   word-spacing: -5px;
@@ -771,6 +782,7 @@ main > .section:last-child {
   align-items: baseline;
   
   min-height: 100vh;
+  
   padding-top: 3vh;
   padding-bottom: 3vh;
   width: 100vw;
@@ -916,6 +928,8 @@ nav {
 
   height: 111px;
   width: 100vw;
+  
+
   pointer-events: none;
 
   transition: all 0.38s ease-in-out;
@@ -1078,7 +1092,7 @@ nav #nav-ul-wrapper li:nth-of-type(1) a {
 }
 
 nav #nav-ul-wrapper li:nth-of-type(2) a {
-  color: var(--clr-neon-orange);
+  color: var(--clr-neon-pink);
 }
 
 nav #nav-ul-wrapper li:nth-of-type(3) a {
@@ -1086,7 +1100,7 @@ nav #nav-ul-wrapper li:nth-of-type(3) a {
 }
 
 nav #nav-ul-wrapper li:nth-of-type(4) a {
-  color: var(--clr-neon-pink);
+  color: var(--clr-neon-orange);
 }
 
 nav #nav-ul-wrapper a:hover {
@@ -1126,7 +1140,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 }
 
 #about .section-header-container h3::before {
-  box-shadow: 0 0 1em var(--clr-neon-orange);
+  box-shadow: 0 0 1em var(--clr-neon-pink);
 }
 
 #about #avatar-container {
@@ -1824,8 +1838,12 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   animation: none;
 }
 
+#contact {
+  position: relative;
+}
+
 #contact .section-header-container h3::before {
-  box-shadow: 0 0 1em var(--clr-neon-pink);
+  box-shadow: 0 0 1em var(--clr-neon-orange);
 }
 
 #contact #contact-form {
@@ -1938,6 +1956,98 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 #contact > #contact-form .btn-container button:hover::after {
   opacity: 1;
   visibility: visible;
+}
+
+#fixed-socials {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  
+
+
+  z-index: 1;
+}
+
+#fixed-socials h5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+@keyframes cyclone-text-match {
+  from {
+    transform: translateX(2px);
+  }
+  50% {
+    transform: translateX(-8px)
+  }
+  to {
+    transform: translateX(2px);
+  }
+
+}
+
+#fixed-socials #onnect {
+  animation: 7s cyclone-text-match linear infinite alternate;
+} 
+
+
+
+#fixed-socials h5 img {
+  height: 55px;
+}
+
+#fixed-socials ul {
+  list-style: none;
+  display: flex;
+  gap: 11px;
+  margin-left: 10px;
+}
+
+#fixed-socials .socials-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: max-content;
+  gap: 8px;
+  opacity: 0.88;
+  filter: drop-shadow(0 0 5px)
+}
+
+
+@keyframes socials-text {
+  from {
+    transform: translateX(-3px);
+  }
+
+}
+
+
+#fixed-socials .socials-text {
+
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  font-size: 0.625rem;
+  letter-spacing: -2px;
+  font-family: var(--ff-pixelated);
+  margin: 3px 0 0 0;
+  text-transform: uppercase;
+
+  animation: 0.2s socials-text linear infinite alternate;
+}
+
+#fixed-socials .socials-links:hover > .socials-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+#fixed-socials .socials-icons {
+  width: 33px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -2089,6 +2199,26 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   #about #avatar-container {
     padding: 0;
   }
+
+  #about #fixed-socials {
+  position: absolute;
+  top: 50%;
+  left: initial;
+  transform: translateX(0) translateY(-50%);
+  
+  z-index: 1;
+  }
+
+  #fixed-socials .socials-links {
+  flex-direction: row;
+
+}
+
+  #about #fixed-socials ul {
+    flex-direction: column;
+  }
+
+  
 
   #about .text-content-container {
     margin: 0 0 33px 0;
