@@ -792,6 +792,7 @@ main > .section:last-child {
   display: grid;
   place-items: center;  
   padding-inline: 5vw;
+  width: 100vw;
 }
 
 #hero #cyclone {
@@ -885,14 +886,15 @@ main > .section:last-child {
 }
 
 #hero #press-start-btn {
-  font-family: var(--ff-pixelated);
-  margin: 0 auto;
-  letter-spacing: 1px;
+  color: chartreuse;
   font-size: var(--fs-press-start);
-  color: var(--clr-body-primary);
+  font-family: var(--ff-pixelated);
+  letter-spacing: 1px;
+  margin: 0 auto;
   text-shadow: var(--ts-clr-match);
-  transition: transform 0.3s ease-in;
   width: max-content;
+
+  transition: transform 0.3s ease-in;
 
   animation: press-start 0.8s linear alternate infinite;
   -webkit-animation: press-start 0.8s linear alternate infinite;
