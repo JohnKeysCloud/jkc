@@ -528,11 +528,12 @@ em {
 
   /* fontSize */
   --fs-h1: clamp(2.5rem, 10vw, 20.813rem);
-  --fs-h2: clamp(1.5rem, 3.3vw, 2rem);
+  --fs-h2: clamp(1.375rem, 3.3vw, 2rem);
   --fs-h3: clamp(0.938rem, 2.5vw, 1.313rem);
   --fs-h4: clamp(1.125rem, 2.5vw, 1.313rem);
   --fs-h5: clamp(1rem, 2.8vw, 1.125rem);
   --fs-body: clamp(1rem, 2.8vw, 1.125rem);
+  --fs-quote: clamp(0.8125rem, 2vw, 1rem);
   
   --fs-project-btn-label: clamp(1rem, 5vw, 2.1rem);
   --fs-icon-name: clamp(0.8125rem, 2vw, 1rem);
@@ -784,15 +785,13 @@ main > .section:last-child {
   align-items: baseline;
   
   min-height: 100vh;
-  
-  padding-top: 3vh;
-  padding-bottom: 3vh;
-  width: 100vw;
+  padding-top: 3vh; 
 }
 
 #hero #full-height-container {
   display: grid;
   place-items: center;  
+  padding-inline: 5vw;
 }
 
 #hero #cyclone {
@@ -820,6 +819,11 @@ main > .section:last-child {
   text-shadow: 0 0 8px black;
 }
 
+#hero p,
+#hero figcaption {
+  padding: 0;
+}
+
 #hero .welcome,
 #hero .qotd {
   font-family: var(--ff-accent);
@@ -836,30 +840,32 @@ main > .section:last-child {
 }
 
 #hero .header-link {
-  text-decoration: underline dotted 2.3px;
+  color: var(--clr-body-primary);
+  text-decoration: underline dotted 2.5px;
 }
 
-#hero .welcome h2 {
+#hero .welcome .secondary-header {
   text-align: center;
-  line-height: 1;
+  line-height: 1.2;
+
   margin-bottom: 11px;
 }
 
-#hero .welcome p {
+#hero .welcome #statement {
   font-size: var(--fs-body);
   font-weight: var(--fw-light); 
-  
-  margin-bottom: 11px;
+  line-height: 1.2;
+  margin-bottom: 22px;
 }
 
 #hero .qotd p {
-  font-size: var(--fs-body);
+  font-size: var(--fs-quote);
   font-weight: var(--fw-light);
   font-style: italic;
 }
 
 #hero .qotd figcaption {
-  font-size: var(--fs-body);
+  font-size: var(--fs-quote);
   font-weight: var(--fw-regular);
 }
 
@@ -909,7 +915,6 @@ main > .section:last-child {
 
 #hero #press-start-btn:hover ~ p {
   opacity: 0;
-  /* pointer-events: none; */
 }
 
 #key-hole {
@@ -2046,6 +2051,15 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
     opacity: 0.38;
   }
 
+  /* #hero .welcome {
+    padding: 0 11vw;
+  } */
+
+  #hero p,
+  #hero figcaption {
+    padding: 0 5vw;
+  }
+
   #about,
   #projects {  
     overflow-x: initial;
@@ -2157,18 +2171,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   #hero .welcome > p,
   #hero .qotd p,
   #hero figcaption {
-    /* border:2px solid red; */
-    padding: 0 18vw;
-  }
-
-  #hero .welcome > p {
-    text-align: start;
-    margin-bottom: 18px;
-  }
-  
-  #hero .qotd  p,
-  #hero .qotd > figcaption {
-    text-align: end;
+    padding: 0 11vw;
   }
 
   #about-content {
@@ -2218,6 +2221,8 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   .text-content-container {
     margin: 0;
   }
+
+
 
   #projects #levelOne {
     margin-bottom: 18px;
