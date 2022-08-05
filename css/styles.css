@@ -550,7 +550,7 @@ em {
   --rgb-gradient: #ff1818, chartreuse, #1F51FF;
   --rgb-gradient-opaque: rgba(255, 24, 24, 0.555), rgba(128, 255, 0, 0.555), rgba(31, 81, 255, 0.555);
 
-  --width-socials: clamp(33px, 8vw, 55px);
+  --width-socials: clamp(33px, 7vw, 48px);
 } 
 
 /* 
@@ -1156,16 +1156,16 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   position: relative;
 }
 
-#socials {
+#about #socials {
   position: absolute;
   top: 50%;
-  left: 11vw;
+  left: 3vw;
   transform: translateY(-50%);
 
   z-index: 1;
 }
 
-#socials #socials-list {
+#about #socials #socials-list {
   display: flex;
   flex-direction: column;
   
@@ -1176,52 +1176,92 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   list-style: none;
 }
 
-#socials .socials-links {
+#about #socials .socials-links {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
 
-  filter: drop-shadow(0 0 5px);
+  /* filter: drop-shadow(0 0 5px); */
 }
 
-#socials .socials-links:hover {
+#about #socials .socials-links:hover {
   opacity: 1;
 }
 
-@keyframes socials-text {
+/* @keyframes socials-text {
   from {
-    transform: translateX(-3px);
+    transform: translateX(0px);
   }
-}
+  50% {
+    transform: translateX(60px) rotate(360deg);
+  }
+  to {
+    transform: translateX(120px) rotate(720deg);
 
-#socials .socials-text {
+  }
+} */
+
+#about #socials .socials-text {
   display: none;
 
   font-family: var(--ff-pixelated);
-  font-size: 0.625rem;
+  font-size: 1rem;
   letter-spacing: -2px;
   margin-top: 3px;
   padding: 0;
-  text-transform: uppercase;
 
+  text-transform: uppercase;
+  transition: all 0.188s ease-in-out;
+  
+  transform: scale(0);
   opacity: 0;
   visibility: hidden;
 
-  animation: 0.2s socials-text linear infinite alternate;
+  /* animation: 10s socials-text linear infinite alternate; */
 }
 
-#socials .socials-icons {
+#about #socials .socials-links {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
   width: var(--width-socials);
 
-  transition: all 333ms ease-in;
+  transition: all 188ms ease-in-out;
 }
 
-#socials .socials-icons:hover {
-  transform: scale(1.3) rotateY(360deg);
+#about #socials .socials-links:hover {
+  filter: grayscale(0);
+  -webkit-filter: grayscale(0);
 }
 
-#socials .socials-icons:active {
+#about #socials .socials-icons {
+  transition: all 188ms ease-in-out;
+}
+
+#about #socials .socials-icons:hover {
+  transform: scale(1.8) rotate(360deg);
+}
+
+#about #socials .socials-text:hover ~ .socials-icons {
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+
+  transform: rotate(360deg);
+}
+
+#about #socials-list .socials-li:first-of-type .socials-links,
+#about #socials-list .socials-li:nth-of-type(5) .socials-links {
+  filter: brightness(777%) grayscale(100%);
+  -webkit-filter: brightness(777%) grayscale(100%);
+} 
+
+#about #socials-list .socials-li:first-of-type .socials-links:hover,
+#about #socials-list .socials-li:nth-of-type(5) .socials-links:hover {
+  filter: brightness(100%) grayscale(0%);
+  -webkit-filter: brightness(100%) grayscale(0%);
+}
+
+#about #socials .socials-icons:active {
   transform: translateX(3px);
 }
 
@@ -2184,13 +2224,55 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
     padding: 0 11vw;
   }
 
-  #socials .socials-text {
-    display: initial;
+  #about #socials {
+    position: absolute;
+    top: 50%;
+    left: -5vw;
+    transform: translateY(-50%);
+
+    z-index: 1;
   }
 
-  #socials .socials-links:hover > .socials-text {
-  opacity: 1;
-  visibility: visible;
+  #about #socials #socials-list {
+    gap: 33px;
+  }
+
+  #about #socials .socials-icons {
+    -webkit-filter: grayscale(100%);
+    width: var(--width-socials);
+
+  transition: all 333ms ease-in-out;
+  }
+
+  #about #socials .socials-links {
+    flex-direction: row-reverse;
+  }
+
+  #about #socials .socials-icons:hover {
+    filter: grayscale(0%) ;
+    transform: scale(3) rotate(360deg);
+  }
+
+  #about #socials-list .socials-li:first-of-type .socials-icons,
+  #about #socials-list .socials-li:nth-of-type(5) .socials-icons {
+    filter: brightness(777%) grayscale(100%);
+  } 
+
+  #about #socials-list .socials-li:first-of-type .socials-icons:hover,
+  #about #socials-list .socials-li:nth-of-type(5) .socials-icons:hover {
+    filter: brightness(100%) grayscale(0%);
+    transform: scale(3) rotate(360deg) ;
+  }
+
+  #about #socials .socials-text {
+    display: initial;
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #about #socials .socials-icons:hover ~ .socials-text {
+    opacity: 1;
   }
 
   #about #avatar-container {
