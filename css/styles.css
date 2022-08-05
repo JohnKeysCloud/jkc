@@ -544,7 +544,7 @@ em {
   /* variousStyles */
 
   /* textShadowForPixelatedFont */
-  --ts-clr-match: 0 0 0.55em;
+  --ts-clr-match: 0 0 0.3em;
   --ts-black: 0 0 0.3em black;
 
   --rgb-gradient: #ff1818, chartreuse, #1F51FF;
@@ -594,7 +594,7 @@ em {
   font-size: var(--fs-h3);
   font-family: var(--ff-pixelated);
   color: var(--clr-body-primary);
-  font-weight: bold;
+  font-weight: var(--fw-bold-700);
   letter-spacing: -1.5px;
 }
 
@@ -703,8 +703,12 @@ em {
 
 .text-content-container {
   position: relative;
-  text-shadow: var(--ts-clr-match);
+
   margin-bottom: 33px;
+}
+
+.text-content-container a {
+  text-shadow: var(--ts-clr-match);
 }
 
 .text-content-container {
@@ -718,7 +722,7 @@ em {
   inset: 0;
 
   background: var(--clr-bg-semi-transparent);
-  box-shadow: 0 0 15px white, inset 0 0 21px black;
+  box-shadow: 0 0 15px black, inset 0 0 21px black;
   opacity: 0;
   transition: 0.33s ease-in-out;
 
@@ -1339,14 +1343,37 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 }
 
 #about .word-coding {
+  position: relative;
+
   display: inline-block;
-  font-weight: 700;
-  filter: drop-shadow(0 0 3.3px red);
-  transition: transform 0.33ms ease-in-out;
+  font-weight: var(--fw-bold-700);
+  opacity: 1;
+  transition: all 111ms ease-in-out;
 }
 
 #about .word-coding:hover {
-  transform: rotateY(8deg);
+  transform: translateY(-18px);
+}
+
+#about .word-coding::before {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+
+  content: 'LEVEL TWO';
+
+  color: var(--clr-neon-pink);
+  font-size: 0.655rem;
+  filter: drop-shadow(0 0 1px var(--clr-neon-pink));
+
+
+  transition: all 111ms ease-in-out;
+}
+
+#about .word-coding:hover::before {
+  opacity: 1;
+  transform: translateY(25px);
 }
 
 #about .nyc {
@@ -1447,7 +1474,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #about .jkc-text {
   font-size: var(--fs-h2);
-  font-weight: bold;
+  font-weight: var(--fw-bold-700);
   filter: drop-shadow(0 0 3.3px black);
 }
 
@@ -1952,7 +1979,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   color: var(--clr-body-primary);
   font-size: var(--fs-body);
   font-family: var(--ff-priamry);
-  /* font-weight: var(--fw-bold-700); */
   margin: 0 auto;
   padding: 13px 33px;
   text-align: center;
@@ -2051,6 +2077,10 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   .text-content-container {
     padding: 0.8em;
     margin: 0 11vh 55px 11vh;
+  }
+
+  .text-content-container::before {
+    box-shadow: 0 0 15px white, inset 0 0 21px black;
   }
 
   .text-content-container::before {
