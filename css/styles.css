@@ -1440,7 +1440,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   font-size: 1.125rem;
   opacity: 0;
   padding: 30px 20px;
-  pointer-events: none;
+  /* pointer-events: none; */
   text-align: start;
   text-shadow: none;
   visibility: hidden;
@@ -1452,7 +1452,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   user-select: none; /* Standard */
 
   animation: pop-up 3.3s linear alternate infinite;
-  transition: all 0.55s ease-out;
+  transition: all 0.38s ease-in;
 
   z-index: 1;
 }
