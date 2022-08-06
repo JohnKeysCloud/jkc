@@ -1179,7 +1179,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   box-shadow: 0 0 1em var(--clr-neon-pink);
 }
 
-#about-left {
+#about #about-left {
   position: relative;
 }
 
@@ -1416,7 +1416,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   font-feature-settings:"swsh";
 }
 
-#about #chune-container {  
+#about #chune-container { 
   z-index: 1;
 }
 
@@ -1431,18 +1431,20 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   top: 50%;
   left: 50%;
 
+  display: inline-block;
+
+  background-color: rgb(27,41,54);
   border-radius: 33px;
   box-shadow: 0 0 18px black;
-  display: inline-block;
-  width:100%;
-  font-size: 1.125rem;
   color: white;
-  background-color: rgb(27,41,54);
+  font-size: 1.125rem;
   opacity: 0;
   padding: 30px 20px;
-  visibility: hidden;
+  pointer-events: none;
   text-align: start;
   text-shadow: none;
+  visibility: hidden;
+  width:100%;
 
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
