@@ -98,12 +98,12 @@ em {
 
 @font-face {
   font-family: "goshaSansRegular";
-  src: url(../assets/fonts/goshaSansRegular.otf);
+  src: url('../assets/fonts/goshaSansRegular.otf');
 }
 
 @font-face {
   font-family: "pixeBoy";
-  src: url(../assets/fonts/pixeBoy.woff2);
+  src: url('../assets/fonts/pixeBoy.woff2');
 }
 
 /* 
