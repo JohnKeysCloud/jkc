@@ -600,8 +600,8 @@ em {
   -webkit-text-fill-color: initial;  
 }
 
-:focus,
-:focus-visible {
+:focus:not(button),
+:focus-visible{
   outline: ridge 2px chartreuse;
   outline-offset: -5px;
 }
