@@ -600,6 +600,12 @@ em {
   -webkit-text-fill-color: initial;  
 }
 
+:focus,
+:focus-visible {
+  outline: ridge 2px chartreuse;
+  outline-offset: -5px;
+}
+
 .secondary-header,
 .tertiary-header,
 .quarternary-header {
@@ -789,6 +795,48 @@ body {
   background-size: cover;
   display: grid;
   place-items: center;
+}
+
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible {
+  outline: chartreuse ridge 2.2px;
+  outline-offset: 3px;
+}
+
+@keyframes autofill {
+    0%,100% {
+      color: #666;
+      background: transparent;
+    }
+}
+
+@-webkit-keyframes autofill {
+    0%,100% {
+      color: #666;
+      background: transparent;
+    }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  animation-delay: 1s;
+  -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+  animation-name: autofill;
+  -webkit-animation-name: autofill;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+box-shadow: 0 0 0 30px chartreuse inset !important;
+-webkit-box-shadow: 0 0 0 30px chartreuse inset !important;
 }
 
 p,
