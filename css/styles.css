@@ -529,8 +529,8 @@ em {
   --clr-inky: #01f0ef; 
   --clr-clyde: #fe8b0d;
   --clr-sue: #9d199d;
-  --clr-pacman: #ffea54;
   --clr-funky: #7fff00;
+  --clr-pacman: #ffea54;
 
   /* colorsMisc */
   --clr-section-div: white;
@@ -1356,12 +1356,12 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 } 
 
 #about #socials-list .socials-li:nth-child(6) .socials-links {
-  color: var(--clr-pacman);
+  color: var(--clr-funky);
   text-shadow: var(--ts-clr-match);
 } 
 
 #about #socials-list .socials-li:nth-child(7) .socials-links {
-  color: var(--clr-funky);
+  color: var(--clr-pacman);
   text-shadow: var(--ts-clr-match);
 } 
 
