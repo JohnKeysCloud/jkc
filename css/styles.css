@@ -254,6 +254,51 @@ em {
   }
 }
 
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  31% {
+    opacity: 1;
+  }
+  44% {
+    opacity: 0;
+  }
+  47% {
+    opacity: 1;
+  }
+  67% {
+    opacity: 0;
+  }
+  68% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+  }
+  71% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 0;
+  }
+  73% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes hover {
   from {
     opacity: 0.33;
@@ -1501,40 +1546,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   animation: emoji-rotate 8s linear infinite;
 }
 
-#about .word-coding {
-  position: relative;
-
-  display: inline-block;
-  font-weight: var(--fw-bold-700);
-  opacity: 1;
-  transition: all 111ms ease-in-out;
-}
-
-#about .word-coding:hover {
-  transform: translateY(-18px);
-}
-
-#about .word-coding::before {
-  position: absolute;
-  inset: 0;
-
-  opacity: 0;
-
-  content: 'LEVEL TWO';
-
-  color: var(--clr-pinky);
-  font-size: 0.655rem;
-  filter: drop-shadow(0 0 1px var(--clr-pinky));
-
-
-  transition: all 111ms ease-in-out;
-}
-
-#about .word-coding:hover::before {
-  opacity: 1;
-  transform: translateY(25px);
-}
-
 #about .nyc {
   font-family: bookman-jf-pro, serif;
   font-style: italic;
@@ -1632,6 +1643,47 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 #about #definition-card .definition-ext {
   font-size: 1.313rem;
 }
+
+#about #music-link {
+  position: relative;
+
+  font-size: 1.33rem;
+
+  color: rgba(255, 255, 255, 0.618);
+
+  animation: flicker 3.3s linear alternate infinite;
+}
+
+#about #music-link:hover {
+  animation: hover 0.555s linear infinite alternate; 
+}
+
+#about #music-link::before {
+  position: absolute;
+  inset: 0;
+  
+  content: 'MUSIC';
+
+  filter: drop-shadow(0 0 10px black);
+
+  animation: flicker 3.3s linear alternate infinite;
+}
+
+#about #music-link::after {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+  content: url('../assets/images/musicNote.gif');
+  transform: scale(0.04) translateX(900px) translateY(-800px) rotate(33deg);
+
+  transition: opacity 777ms ease-in-out;
+}
+
+#about #music-link:hover::after {
+  opacity: 0.88;
+}
+
 
 #about .jkc-text {
   font-size: var(--fs-h2);
