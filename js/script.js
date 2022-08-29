@@ -76,12 +76,12 @@ let pikaNumberGif = document.getElementById('pikaNumber-gif');
 pikaNumberText.addEventListener('click', projectToggle);
 
 function projectToggle() {
+
   pikaNumberGif.style.setProperty("filter", "saturate(0)");
 
   pikaNumberText.style.setProperty('opacity', '0.5');
   pikaNumberText.style.setProperty('cursor', 'initial');
   
-
   projectMobileVisual.style.setProperty('z-index', '1');
   projectMobileVisual.style.setProperty("transform", "translate(-50%, -50%) scale(1.4) rotate(0deg)");
 
@@ -92,7 +92,7 @@ function projectToggle() {
   linkContainer.style.setProperty('visibility', 'visible');
 
   document.documentElement.style.setProperty('--js-opacity', '1');
-  document.documentElement.style.setProperty('--project-filter', 'drop-shadow(0 11px 11px var(--clr-binky))');
+  document.documentElement.style.setProperty('--project-filter', 'drop-shadow(0 11px 11px black)');
 
   cloudClose.addEventListener('click', () => {
     pikaNumberGif.style.setProperty("filter", "saturate(1)");
@@ -105,7 +105,7 @@ function projectToggle() {
     
     cloudClose.style.setProperty('opacity', '0');
     cloudClose.style.setProperty("visibility", "hidden");
-    
+
     linkContainer.style.setProperty("opacity", "0");
     linkContainer.style.setProperty("visibility", "hidden");
 
@@ -113,3 +113,10 @@ function projectToggle() {
     document.documentElement.style.setProperty('--project-filter', 'drop-shadow(0 0 11px #ffd73f)');
   });
 };
+
+// const width  = window.innerWidth || document.documentElement.clientWidth || 
+// document.body.clientWidth;
+// const height = window.innerHeight|| document.documentElement.clientHeight|| 
+// document.body.clientHeight;
+
+// console.log(width, height);
