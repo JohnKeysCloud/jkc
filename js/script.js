@@ -92,7 +92,7 @@ function projectToggle() {
   linkContainer.style.setProperty('visibility', 'visible');
 
   document.documentElement.style.setProperty('--js-opacity', '1');
-  document.documentElement.style.setProperty('--project-filter', 'drop-shadow(0 11px 11px black)');
+  document.documentElement.style.setProperty('--project-filter', 'drop-shadow(0 11px 11px var(--clr-binky))');
 
   cloudClose.addEventListener('click', () => {
     pikaNumberGif.style.setProperty("filter", "saturate(1)");
@@ -110,7 +110,7 @@ function projectToggle() {
     linkContainer.style.setProperty("visibility", "hidden");
 
     document.documentElement.style.setProperty("--js-opacity", "0");
-    document.documentElement.style.setProperty('--project-filter', 'drop-shadow(0 0 11px #ffd73f)');
+    document.documentElement.style.setProperty('--project-filter', 'drop-shadow(none)');
   });
 };
 
