@@ -638,8 +638,8 @@ em {
   /* fontSize */
   --fs-h1: clamp(2.5rem, 10vw, 20.813rem);
   --fs-h2: clamp(1.313rem, 3.3vw, 2rem);
-  --fs-h3: clamp(0.938rem, 2.5vw, 1.313rem);
-  --fs-h4: clamp(1.125rem, 2.5vw, 1.313rem);
+  --fs-h3: clamp(1.125rem, 2.5vw, 1.313rem);
+  --fs-h4: clamp(0.938rem, 2.5vw, 1.313rem);
   --fs-h5: clamp(1rem, 2.8vw, 1.125rem);
   --fs-body: clamp(1rem, 2.8vw, 1.125rem);
   --fs-quote: clamp(0.8125rem, 2vw, 1rem);
@@ -715,6 +715,7 @@ em {
   font-size: var(--fs-h3);
   font-weight: var(--fw-bold-700);
   letter-spacing: -1.5px;
+  text-shadow: var(--ts-clr-match);
 }
 
 .quarternary-header {
@@ -723,7 +724,6 @@ em {
   font-size: var(--fs-h4);
   font-weight: var(--fw-bold-700);
   letter-spacing: -1px;
-  text-shadow: var(--ts-clr-match);
   word-spacing: -5px;
 }
 
@@ -983,6 +983,7 @@ figcaption {
   color: var(--clr-xl-header);
   font-family: var(--ff-primary);
   font-size: var(--fs-h1);
+  /* line-height: 1.5; */
   text-shadow: 0 0 8px black;
 }
 
