@@ -278,18 +278,6 @@ em {
   }
 }
 
-@keyframes emoji-eyes {
-  from {
-    transform: rotate(90deg);
-  }
-}
-
-@keyframes emoji-rotate {
-  from {
-    transform: rotate(-360deg);
-  }
-}
-
 @keyframes flicker {
   from {
     opacity: 1;
@@ -740,9 +728,12 @@ em {
 .gradient-text {
   background: linear-gradient(to right, var(--rgb-gradient));
   background-clip: text ;
+  padding: 0;
+  margin-inline: auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: none;
+  width: max-content;
 }
 
 .section {
@@ -1564,21 +1555,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   -webkit-animation: wave 0.38s linear alternate infinite;
 }
 
-#about .japanese-emoji {
-  filter: drop-shadow(0 0 3px black);
-  font-size: 1.5em;
-  font-family: monospace;
-  letter-spacing: normal;
-  
-  vertical-align: 5px;
-}
-
-#about .emoji-eyes {
-  display: inline-block;
-
-  animation: emoji-eyes 3s linear infinite alternate;
-}
-
 #about .emoji-rotate {
   display: inline-block;
 
@@ -1600,96 +1576,10 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   font-feature-settings:"swsh";
 }
 
-#about #chune-container { 
-  z-index: 1;
-}
-
-#about #chune-text {
-  color: white;
-  cursor: pointer; 
-  text-decoration: underline;
-}
-
-#about #definition-card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  display: inline-block;
-
-  background-color: rgb(27,41,54);
-  border-radius: 33px;
-  box-shadow: 0 0 18px black;
-  color: white;
-  font-size: 1.125rem;
-  opacity: 0;
-  padding: 30px 20px;
-  /* pointer-events: none; */
-  text-align: start;
-  text-shadow: none;
-  visibility: hidden;
-  width:100%;
-
-  -webkit-user-select: none; /* Safari */        
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
-
-  animation: pop-up 3.3s linear alternate infinite;
-  transition: all 0.38s ease-in;
-
-  z-index: 1;
-}
-
-#about #definition-card:hover {
-  opacity: 0.95;
-  visibility: visible;
-}
-
-#about #chune-text:hover ~ #definition-card {
-  opacity: 0.95;
-  visibility: visible;
-}
-
-#about #definition-card .urban-dictionary {
-  position: absolute;
-  top: 0;
-  right: 23px;
-
-  filter: drop-shadow(0 0 10px white);
-  opacity: 0.88;
-  width: 125px;
-
-  transition: all 111ms ease-in;
-}
-
-#about #definition-card .urban-dictionary:hover {
-  opacity: 1;
-  transform: rotate(8deg) scale(1.1);
-}
-
-#about #definition-card .urban-dictionary:active {
-  transform: rotate(8deg) rotateY(21deg) scale(1) translateY(3px);
-}
-
-#about #definition-card dfn {
-  color: rgb(30,162,242);
-  font-weight: var(--fw-bold-700);
-  font-size: 3rem;
-}
-
-#about #definition-card .definition {
-  font-size: 2.25rem;
-}
-
-#about #definition-card .definition-ext {
-  font-size: 1.313rem;
-}
-
 #about #music-link {
   position: relative;
 
-  font-size: 1.33rem;
+  font-size: 2rem;
 
   color: rgba(255, 255, 255, 0.618);
 
@@ -1704,9 +1594,9 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   position: absolute;
   inset: 0;
   
-  content: 'MUSIC';
+  content: '🎤';
 
-  filter: drop-shadow(0 0 10px black);
+  filter: drop-shadow(0 0 10px chartreuse);
 
   animation: flicker 3.3s linear alternate infinite;
 }
@@ -1727,7 +1617,8 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 }
 
 #about .jkc-text {
-  font-size: var(--fs-h2);
+  color: #FFFCEF;
+  font-size: var(--fs-h3);
   font-weight: var(--fw-bold-700);
   filter: drop-shadow(0 0 3.3px black);
 }
