@@ -563,12 +563,30 @@ em {
 }
 
 @keyframes wave {
-  from {
-    transform: rotate(24deg) scale(1.8);
+  0% { 
+    transform: scale(1.8) rotate( 0.0deg); 
   }
-  to {
-    transform: rotate(0deg) scale(1.8);
-  } 
+  10% { 
+    transform: scale(1.8) rotate(14.0deg); 
+  }  /* The following five values can be played with to make the waving more or less extreme */
+  20% { 
+    transform: scale(1.8) rotate(-8.0deg); 
+  }
+  30% { 
+    transform: scale(1.8) rotate(14.0deg); 
+  }
+  40% { 
+    transform: scale(1.8) rotate(-4.0deg); 
+  }
+  50% { 
+    transform: scale(1.8) rotate(10.0deg); 
+  }
+  60% { 
+    transform: scale(1.8) rotate( 0.0deg); 
+  }  /* Reset for the last half to pause */
+  100% { 
+    transform: scale(1.8) rotate( 0.0deg); 
+  }
 }
 
 /* 
@@ -1550,9 +1568,11 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   letter-spacing: 5px;
   text-shadow: none;
   vertical-align: 5px;
-
-  animation: wave 0.38s linear alternate infinite;
-  -webkit-animation: wave 0.38s linear alternate infinite;
+  
+  animation: wave 2.5s infinite;
+  -webkit-animation: wave 2.5s infinite;
+  transform-origin: 70% 70%;       
+  /*  Pivot around the bottom-left palm */
 }
 
 #about .emoji-rotate {
