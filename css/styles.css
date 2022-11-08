@@ -1001,24 +1001,15 @@ figcaption {
   padding: 0;
 }
 
-#hero .welcome,
-#hero .qotd {
-  font-family: var(--ff-accent);
-}
-
 #hero .welcome {
   text-align: center;
 }
 
-#hero .qotd {
-  text-align: center;
-
-  margin-bottom: 33px;
-}
-
-#hero .header-link {
-  color: var(--clr-body-primary);
-  text-decoration: underline dotted 2.5px;
+#hero .welcome #statement {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-light); 
+  line-height: 1.2;
+  margin-bottom: 22px;
 }
 
 #hero .welcome .secondary-header {
@@ -1028,11 +1019,15 @@ figcaption {
   margin-bottom: 11px;
 }
 
-#hero .welcome #statement {
-  font-size: var(--fs-body);
-  font-weight: var(--fw-light); 
-  line-height: 1.2;
-  margin-bottom: 22px;
+#hero .welcome,
+#hero .qotd {
+  font-family: var(--ff-accent);
+}
+
+#hero .qotd {
+  text-align: center;
+
+  margin-bottom: 33px;
 }
 
 #hero .qotd p {
@@ -1044,6 +1039,11 @@ figcaption {
 #hero .qotd figcaption {
   font-size: var(--fs-quote);
   font-weight: var(--fw-regular);
+}
+
+#hero .header-link {
+  color: var(--clr-body-primary);
+  text-decoration: underline dotted 2.5px;
 }
 
 #hero #press-start-container {
@@ -2723,9 +2723,12 @@ footer #cyclone-container:hover p {
   }
 
   #hero .welcome > p,
-  #hero .qotd p,
   #hero figcaption {
     padding: 0 11vw;
+  }
+  #hero .qotd p {
+    margin-inline: auto;
+    max-width: 700px;
   }
 
   #about #about-top {
