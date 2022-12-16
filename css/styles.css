@@ -1702,10 +1702,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   margin-bottom: 0px;
 } 
 
-#projects #tcny-project-content .project-description {
-  padding: 0 11vw;
-}
-
 #projects .section-header-container h3::before {
   box-shadow: 0 0 1em var(--clr-inky);
 }
@@ -2443,16 +2439,16 @@ footer #cyclone-container:hover p {
   }
 
   #projects .project-stack {
-    position: relative;
-
-    padding: 0 11vw;
     border-radius: 21%;
+    padding: 0 11vw;
+    position: relative;
   }
-
+  
   #projects #tcny-project-content {
     margin-bottom: 88px;
+    padding: 0 11vw;
   }
-
+  
   #projects #unpinned-projects {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
