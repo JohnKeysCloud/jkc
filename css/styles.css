@@ -2734,11 +2734,7 @@ footer #cyclone-container:hover p {
 }
 
 @media only screen and (min-width: 1400px) {
-  #projects .project-content {
-    /* padding: 0 15vw; */
-  }
-
-    #projects .text-content-container {
+  #projects .text-content-container {
     margin: 0;
     padding: 1.8em 2.5em;
   }
