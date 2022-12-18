@@ -1696,6 +1696,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 #projects .project-header {
   font-family: var(--ff-primary);
   font-size: clamp(1.313rem, 3vw, 1.75rem);
+  z-index: 1;
 }
 
 #projects .project-content:last-child {
@@ -2143,6 +2144,64 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
     place-items: center;
 
     height: 300px;
+}
+
+#projects video {
+  border-radius: 11px;
+  box-shadow: 0 0 18px white;  
+  margin-bottom: 11px;
+  margin-inline: auto;
+  transition: all 380ms ease-in-out;
+  width: min(275px, 33vw);
+  /* border: 2px solid red; */
+  margin-bottom: 33px;
+}
+
+#projects video:hover {
+  transform: rotate(3deg);
+  /* opacity: 0.3; */
+} 
+
+#projects .project-buttons {
+  width: 100%;
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: center;
+  gap: 21px;
+
+}
+
+
+#projects .projects-code-link {
+    display: grid;
+  place-items: center;
+  /* border: 3px ridge silver; */
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px var(--clr-binky);
+  border-bottom: 8px ridge silver;
+  color: var(--clr-binky);
+  padding: 8px 13px;
+  margin-bottom: 18px;
+  font-size: clamp(0.655rem, 3vw, 0.8313rem);
+  height: 77px;
+  width: 77px;
+  cursor: pointer;
+}
+
+#projects .projects-demo-link {
+  display: grid;
+  place-items: center;
+  border-bottom: 8px ridge silver;
+  border-radius: 50%;
+  box-shadow: inset 0 0 3px black;
+  margin-bottom: 18px;
+  background-color: var(--clr-funky);
+  padding: 8px 13px;
+  color: black;
+  font-size: clamp(0.655rem, 3vw, 0.8313rem);
+  height: 77px;
+  width: 77px;
+  cursor: pointer;
 }
 
 #contact {
@@ -2729,9 +2788,9 @@ footer #cyclone-container:hover p {
   }
 }
 
-@media only screen and (min-width: 1400px) {
+/* @media only screen and (min-width: 1400px) {
   #projects .text-content-container {
     margin: 0;
     padding: 1.8em 2.5em;
   }
-}
+} */
