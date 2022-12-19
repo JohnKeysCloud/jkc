@@ -951,7 +951,7 @@ code {
 }
 
 .project-content-container:hover::before {
-  opacity: 1;
+  opacity: 0.77;
 }
 
 #tcny-text-content-container {
@@ -1421,6 +1421,10 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #about {
   position: relative;
+}
+
+#about #hello-world-text {
+  margin-bottom: 0;
 }
 
 #about .section-header-container h3::before {
@@ -2627,8 +2631,8 @@ footer #cyclone-container:hover p {
     border-radius: 55px;
     border-top-left-radius: 111px;
     border-bottom-right-radius: 111px;
-    box-shadow: 0 0 15px white, inset 0 0 21px black;
-    opacity: 0.88;
+    box-shadow: 0 0 8px white, inset 0 0 21px black;
+    opacity: 0.5;
   }
 
   #hero p,
@@ -2867,10 +2871,6 @@ footer #cyclone-container:hover p {
   #about .project-content-container {
     margin: 0 0 33px 0;
     padding: 0; 
-  }
-
-  #about .project-content-container:before {
-    transform: scale(1.1, 1.12);
   }
 
   #about #stack {
