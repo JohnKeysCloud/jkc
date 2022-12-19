@@ -2734,7 +2734,7 @@ footer #cyclone-container:hover p {
   #projects .project-buttons {
     -webkit-transform: rotate(11deg);
     transform: rotate(11deg);
-    margin-bottom: 33px;
+    margin-bottom: 11px;
   }
   
   #projects .project-btn-text {
