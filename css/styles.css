@@ -1045,11 +1045,6 @@ figcaption {
   filter: drop-shadow(0 0 11px white);
   pointer-events: none;
 
-  -webkit-user-select: none; /* Safari */        
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
-
   animation: cyclone-infinite 18.888s linear infinite;
   -webkit-animation: cyclone-infinite 18.888s linear infinite;
   
@@ -2293,10 +2288,6 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   width: min(88%, 233px);
 }
 
-#projects .project-buttons:hover::before {
-  opacity: 1;
-}
-
 #projects .project-buttons::before {
   border-radius: 88px;
   box-shadow: inset 0 0 21px white;
@@ -2309,6 +2300,31 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   transition: opacity 380ms ease-in-out;
 }
 
+#projects .project-buttons:hover::before {
+  opacity: 1;
+}
+
+#projects .project-buttons:active::before {
+  opacity: 0;
+}
+
+#projects .project-buttons::after {
+  border-radius: 88px;
+  box-shadow: inset 0 0 21px chartreuse;
+  content: '';
+  position: absolute;
+  height: 100%;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  /* transition: opacity 111ms ease-in-out; */
+  z-index: -1;
+}
+
+#projects .project-buttons:active::after {
+  opacity: 1;
+}
+
 #projects .project-btn-text {
   display: inline-block;
   transition: all 3.33s ease-in-out;
@@ -2316,6 +2332,14 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
 
 #projects .projects-code-link,
 #projects .projects-demo-link {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: hvr-icon-pulse;
+  animation-name: hvr-icon-pulse;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
   border-bottom: 8px ridge silver;
   border-radius: 50%;
   cursor: pointer;
@@ -2325,16 +2349,11 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   padding: 8px 13px;
   place-items: center;
   text-shadow: none;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
   width: 88px;
-
-  -webkit-animation-name: hvr-icon-pulse;
-  animation-name: hvr-icon-pulse;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
 }  
 
 #projects .projects-code-link:hover,
@@ -2342,6 +2361,14 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   opacity: 1;
   -webkit-animation-duration: 0.21s;
   animation-duration: 0.21s;
+}
+
+#projects .projects-code-link:active,
+#projects .projects-demo-link:active {
+  -webkit-animation: none;
+  animation: none;
+  -webkit-transform: scale(0.88);
+  transform: scale(0.88);
 }
 
 #projects .projects-code-link {
