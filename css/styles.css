@@ -962,6 +962,10 @@ code {
   text-shadow: var(--ts-clr-match);
 }
 
+.text-content {
+  padding: 24px;
+}
+
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ stylinOnEm pressStart                                                 │
@@ -2612,7 +2616,11 @@ footer #cyclone-container:hover p {
 
 @media only screen and (min-width: 768px) {
   .project-content-container {
-    padding: 0.8em;
+    padding: 1rem;
+  }
+
+  #projects .text-content {
+    padding: 1rem 2rem;
   }
   
   .project-content-container::before {
@@ -2918,10 +2926,6 @@ footer #cyclone-container:hover p {
 
   #projects .logo-stack {
     margin: 0;
-  }
-
-  #projects .project-content-container {
-    padding: 2.5em 1.8em;
   }
 
   #projects #levelOne #levelOneContainer,
