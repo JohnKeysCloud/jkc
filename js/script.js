@@ -3,6 +3,7 @@ const inception = document.querySelector('.project-visual');
 const key = document.getElementById('key-img')
 const modalTriggerBtn = document.querySelector('#tapMeContainer');
 const nav = document.querySelector("#navigation");
+const navButtons = document.querySelectorAll('nav li');
 const navModal = document.querySelector('.nav-toggle');
 const observer = new IntersectionObserver(
   ([e]) => {
@@ -14,6 +15,11 @@ const openBtnContainer = document.querySelector('.modal-trigger');
 const tapMe = document.querySelector('#levelOne');
 const tcnyModalCloseButton = document.querySelector('.close-btn');
 let modalOpen = false;
+
+
+
+navButtons.forEach(button => button.addEventListener('click', () => key.click()));
+
 
 function toggleNav() {
   navModal.classList.toggle('open');
