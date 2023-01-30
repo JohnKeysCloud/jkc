@@ -5,12 +5,6 @@ const modalTriggerBtn = document.querySelector('#tapMeContainer');
 const nav = document.querySelector("#navigation");
 const navButtons = document.querySelectorAll('nav li');
 const navModal = document.querySelector('.nav-toggle');
-const observer = new IntersectionObserver(
-  ([e]) => {
-    return e.target.classList.toggle('is-pinned', e.intersectionRatio < 1);
-  },
-  { threshold: [1] }
-);
 const openBtnContainer = document.querySelector('.modal-trigger');
 const tapMe = document.querySelector('#levelOne');
 const tcnyModalCloseButton = document.querySelector('.close-btn');
@@ -39,6 +33,16 @@ function deactivateLevelOne() {
   }
 }
 
+const observer = new IntersectionObserver(
+  ([e]) => {
+    return e.target.classList.toggle('is-pinned', e.intersectionRatio < 1);
+  },
+  { threshold: [1] }
+);
+
+observer.observe(nav);
+
+// scrolls section into view smoothly
 anchors.forEach((anchor) => {
   anchor.addEventListener("click", function(e) {
     e.preventDefault();
@@ -49,13 +53,12 @@ anchors.forEach((anchor) => {
   });
 });
 
+// resets key on nav anchor click
 navButtons.forEach((button) =>
   button.addEventListener('click', () => key.click())
 );
-observer.observe(nav);
-key.addEventListener('click', toggleNav); 
-tcnyModalCloseButton.addEventListener('click', deactivateLevelOne);
-openBtnContainer.addEventListener('click', initiateLevelOne);
 
-modalTriggerBtn.addEventListener("click", initiateLevelOne);
+key.addEventListener('click', toggleNav); 
 openBtnContainer.addEventListener('click', initiateLevelOne);
+modalTriggerBtn.addEventListener("click", initiateLevelOne);
+tcnyModalCloseButton.addEventListener('click', deactivateLevelOne);
