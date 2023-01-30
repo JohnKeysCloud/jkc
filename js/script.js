@@ -17,14 +17,9 @@ const tcnyModalCloseButton = document.querySelector('.close-btn');
 let modalOpen = false;
 
 
-
-navButtons.forEach(button => button.addEventListener('click', () => key.click()));
-
-
 function toggleNav() {
   navModal.classList.toggle('open');
 }
-key.addEventListener('click', toggleNav); 
 
 function initiateLevelOne() {
   if (!modalOpen) {
@@ -34,8 +29,6 @@ function initiateLevelOne() {
     modalOpen = true;
   }
 }
-modalTriggerBtn.addEventListener("click", initiateLevelOne);
-openBtnContainer.addEventListener("click", initiateLevelOne);
 
 function deactivateLevelOne() {
   if (modalOpen) {
@@ -45,7 +38,6 @@ function deactivateLevelOne() {
     modalOpen = false;
   }
 }
-tcnyModalCloseButton.addEventListener('click', deactivateLevelOne);
 
 anchors.forEach((anchor) => {
   anchor.addEventListener("click", function(e) {
@@ -57,11 +49,13 @@ anchors.forEach((anchor) => {
   });
 });
 
+navButtons.forEach((button) =>
+  button.addEventListener('click', () => key.click())
+);
 observer.observe(nav);
+key.addEventListener('click', toggleNav); 
+tcnyModalCloseButton.addEventListener('click', deactivateLevelOne);
+openBtnContainer.addEventListener('click', initiateLevelOne);
 
-// const width  = window.innerWidth || document.documentElement.clientWidth || 
-// document.body.clientWidth;
-// const height = window.innerHeight|| document.documentElement.clientHeight|| 
-// document.body.clientHeight;
-
-// console.log(width, height);
+modalTriggerBtn.addEventListener("click", initiateLevelOne);
+openBtnContainer.addEventListener('click', initiateLevelOne);
