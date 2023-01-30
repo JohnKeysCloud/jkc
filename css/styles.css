@@ -2506,6 +2506,7 @@ nav #nav-ul-wrapper li:nth-of-type(4) a::before {
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
+  width: max-content;
 }
 
 #projects #tcny-links-container .tcny-links:last-of-type {
@@ -3581,9 +3582,8 @@ footer #cyclone-container:hover p {
   }
 
   #projects #tcny-links-container .tcny-current::before {
-  content: '(see right)';
-  width: max-content;
-}
+    content: '(see right)';
+  }
 
   #projects .logo-stack {
     margin: 0;
