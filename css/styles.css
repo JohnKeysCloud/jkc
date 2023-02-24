@@ -1939,7 +1939,6 @@ nav #nav-ul-wrapper a {
   font-family: var(--ff-nav);
   font-size: var(--fs-nav);
   letter-spacing: 1px;
-  opacity: 0.88;
   padding: 11px 5px 11px 21px;
   pointer-events: auto;
   position: relative;
@@ -1950,7 +1949,7 @@ nav #nav-ul-wrapper a {
 }
 
 nav #nav-ul-wrapper a:hover {
-  opacity: 1;
+  opacity: 0.88;
   transform: scaleY(1.1);
 }
 
