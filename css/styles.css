@@ -1692,6 +1692,12 @@ figcaption {
   text-align: center;
 }
 
+#hero .welcome #companies-header,
+#hero .welcome #companies-header .header-link{
+  color: rgb(222, 222, 222);
+  text-shadow: 0 0 8px;
+}
+
 #hero .welcome #statement {
   font-size: var(--fs-body);
   font-weight: var(--fw-light); 
