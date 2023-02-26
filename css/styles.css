@@ -2846,7 +2846,7 @@ nav #nav-ul-wrapper a:hover::before {
   position: relative;
   -webkit-transition: all 380ms ease-in-out;
   transition: all 380ms ease-in-out;
-  width: clamp(233px, 18vw, 400px);
+  width: clamp(233px, 18vw, 288px);
 }
 
 #projects video:hover {
@@ -3593,6 +3593,12 @@ footer #cyclone-container:hover p {
 }
 
 @media only screen and (min-width: 1400px) {
+
+  section {
+    max-width: 1555px;
+    margin-inline: auto;
+  }
+
   #about #about-top {
     align-items: center;
     display: flex;
