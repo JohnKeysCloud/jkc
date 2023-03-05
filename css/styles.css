@@ -1388,7 +1388,7 @@ em {
   --fw-bold-700: 700;
 
   /* fontSize */
-  --fs-h1: clamp(2.5rem, 10vw, 20.813rem);
+  --fs-h1: clamp(2.5rem, 10vw, 8.8rem);
   --fs-h2: clamp(1.313rem, 3.3vw, 2rem);
   --fs-h3: clamp(1.125rem, 2.5vw, 1.313rem);
   --fs-h4: clamp(0.938rem, 2.5vw, 1.313rem);
