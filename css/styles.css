@@ -3587,8 +3587,8 @@ footer #cyclone-container:hover p {
   }
 
   #projects .project-visual.inception {
-    -webkit-transform: scale(1.3) translateX(-35%);
-    transform: scale(1.3) translateX(-35%);
+    -webkit-transform: scale(1.3) translateX(-45%);
+    transform: scale(1.3) translateX(-45%);
   }
 }
 
