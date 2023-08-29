@@ -1353,7 +1353,7 @@ em {
   --clr-submit-txt: red;
   --clr-silver-surfer: silver;
   --clr-transparent: transparent;
-  --clr-bg-solid: rgba(21, 21, 21);
+  --clr-bg-solid: rgb(21, 21, 21);
   --clr-bg-semi-transparent: rgba(0, 0, 0, 0.80);
 
   /* Puck-Man */
@@ -1595,8 +1595,7 @@ code {
  */
 
 body {
-  background: url('../assets/images/theWonderKid.png');
-  background-size: cover;
+  background: var(--clr-bg-solid);
   color: var(--clr-body-primary);
   cursor: url('../assets/images/cursor-cloud.png'), auto;
   display: grid;
