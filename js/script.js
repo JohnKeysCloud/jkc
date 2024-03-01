@@ -55,5 +55,5 @@ navButtons.forEach((button) =>
 footerYear.innerHTML = currentYear;
 key.addEventListener('click', toggleNav); 
 openBtnContainer.addEventListener('click', initiateLevelOne);
-modalTriggerBtn.addEventListener("click", initiateLevelOne);
+modalTriggerBtn.addEventListener('click', initiateLevelOne);
 tcnyModalCloseButton.addEventListener('click', deactivateLevelOne);

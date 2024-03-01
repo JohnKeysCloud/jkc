@@ -1353,7 +1353,7 @@ em {
   --clr-submit-txt: red;
   --clr-silver-surfer: silver;
   --clr-transparent: transparent;
-  --clr-bg-solid: rgb(21, 21, 21);
+  --clr-bg-solid: radial-gradient(ellipse at bottom, #1b2735 0%,#090a0f 100%);
   --clr-bg-semi-transparent: rgba(0, 0, 0, 0.80);
 
   /* Puck-Man */
@@ -1636,11 +1636,6 @@ input:-webkit-autofill:active {
 
 figcaption {
   padding: 0 5vw;
-}
-
-#bg-opacity-container {
-  background-color: rgba(0, 0, 0, 0.555);
-  height: 100%;
 }
 
 #about,
