@@ -2150,11 +2150,12 @@ nav #nav-ul-wrapper a:hover::before {
   justify-content: center;
   margin-bottom: 33px;
   margin-inline: auto;
+  padding-inline: 9vw;
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
-  width: min(100%, 388px);
+  width: min(100%, 666px);
 }
 
 #about #avatar-overflow-container {
@@ -2300,13 +2301,17 @@ nav #nav-ul-wrapper a:hover::before {
 
 #about #stack {
   display: grid;
+  gap: 3rem;
   grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
-  margin-inline:auto;
-  width: min(500px, 100%);
+  margin-inline: auto;
+  padding-inline: 3rem;
+
+  width: min(666px, 100%);
 }
 
 #about .tech-icon {
   display: grid;
+  gap: 0.5rem;
   text-align: center; 
 }
 
@@ -2327,8 +2332,8 @@ nav #nav-ul-wrapper a:hover::before {
 }
 
 #about .tech-icon:hover > .icon-name {
-  -webkit-transform: translateY(-2px) scale(1.3);
-  transform: translateY(-2px) scale(1.3);
+  -webkit-transform: translateY(3px) scale(1.3);
+  transform: translateY(3px) scale(1.3);
 }
 
 .project-content-container {
@@ -3444,7 +3449,7 @@ footer #cyclone-container:hover p {
     display: flex;
     flex-direction: column;
     gap: 88px;
-    padding: 0 11vw;
+    padding: 0 6vw;
   }
 
   #about #about-right .project-content-container {
