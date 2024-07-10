@@ -38,7 +38,7 @@
           </figure>
         </div>
         <div id="press-start-container">
-          <a id="press-start-btn" href="#navigation" role="button">
+          <a id="press-start-btn" href="#nav" role="button">
             PRESS START
           </a>
           <p>// Click to Continue</p>
@@ -46,28 +46,28 @@
       </div>
     </header>
 
-    <nav id="navigation">
-      <button id="key" class="nav-toggle" aria-label="Menu Button">
-        <img id="key-img" src="assets/images/keyFinal-horizonal.svg" alt="Master Key">
+    <nav id="nav">
+      <button id="nav-key-button" aria-label="Menu Button">
+        <img id="nav-key-image" src="assets/images/keyFinal-horizonal.svg" alt="Master Key">
       </button>
       <div id="nav-ul-wrapper">
         <ul>
-          <li>
+          <li class="nav-list-item">
             <a href="#hero">
               TOP
             </a>
           </li>
-          <li>
+          <li class="nav-list-item">
             <a href="#about">
               ABOUT
             </a>
           </li>
-          <li>
+          <li class="nav-list-item">
             <a href="#projects">
               PROJECTS
             </a>
           </li>
-          <li>
+          <li class="nav-list-item">
             <a href="#contact">
               CONTACT
             </a>
@@ -276,9 +276,9 @@
               </div>
             </div>
           </div>
-          <div class="project-visual">
-            <div id="levelOne">
-              <div id="tapMeContainer">
+          <div id="tcny-widget-container">
+            <div id="tcny-widget-text-container">
+              <div id="tcny-tap-here-container">
                 <h3 class="tertiary-header">TAP HERE</h3>
                 <img src="assets/images/arrowDown.png" alt="Down Arrow">
               </div>
@@ -289,7 +289,7 @@
             </div>
             <div class="project-stack">
               <div class="project-stack-pseudo">
-                <div class="gif-container modal-trigger">
+                <div id="tcny-widget-visual-container" class="gif-container">
                   <video id="tcny-preview-video" height="1064px" width="1920px" alt="Time Capsule NY site preview" autoplay loop muted playsinline>
                       <source src="assets/videos/tcnyv3_H.264.mp4" type="video/mp4">
                       <source src="assets/videos/tcnyv3_VP9.webm" type="video/webm">
@@ -297,7 +297,7 @@
                 </div>
                 <div class="btn-container">
                   <div class="cyclone-grid">
-                    <button class="close-btn" aria-label="Close Button">
+                    <button id="tcny-level-one-close-button" aria-label="Close Button">
                       <svg class="monogram-img close-img" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                       </svg>

@@ -1802,7 +1802,7 @@ nav {
   z-index: 3;
 }
 
-nav #key {
+nav #nav-key-button {
   display: grid;
   height: 100%;
   overflow-x: hidden;
@@ -1812,34 +1812,31 @@ nav #key {
   width: 100%;
 }
 
-nav #key img {
+nav #nav-key-button img {
   cursor: url('../assets/images/pointer-cloud.png'), pointer;
   filter: drop-shadow(0 0 13px var(--clr-body-primary));
   opacity: 1;
   pointer-events: auto;
   width: 11rem;
-}
-
-nav #key.nav-toggle img {
   -webkit-animation: key-jingle 0.38s linear alternate infinite;
   animation: key-jingle 0.38s linear alternate infinite;
   -webkit-transition: all 0.38s ease-in-out;
   transition: all 0.38s ease-in-out;
 }
 
-nav #key img:hover {
+nav #nav-key-button img:hover {
   -webkit-animation: key-hover 7.77s linear infinite;
   animation: key-hover 7.77s linear infinite;
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 } 
 
-nav #key.nav-toggle.open img {
+nav #nav-key-button.engaged img {
   animation: key 0.8s linear alternate forwards;
   -webkit-animation: key 0.8s linear alternate forwards;
 }
 
-nav.is-pinned #key img {
+nav.is-pinned #nav-key-button img {
   -webkit-animation: none;
   animation: none;
   opacity: 0.7;
@@ -1847,20 +1844,20 @@ nav.is-pinned #key img {
   transition: opacity 0.38s ease-in;
 } 
 
-nav.is-pinned #key img:hover {
+nav.is-pinned #nav-key-button img:hover {
   -webkit-animation: key-jingle 0.38s linear alternate infinite;
   animation: key-jingle 0.38s linear alternate infinite;
   opacity: 1;
 } 
 
-nav.is-pinned #key.nav-toggle.open img {
+nav.is-pinned #nav-key-button.engaged img {
   -webkit-animation: key 0.8s linear alternate forwards;
   animation: key 0.8s linear alternate forwards;
   opacity: 1;
 }
 
 /* keyAnimation */
-nav .nav-toggle.open img {
+nav #nav-key-button.engaged img {
   -webkit-animation: key 0.8s linear alternate forwards;
   animation: key 0.8s linear alternate forwards;
 }
@@ -1875,7 +1872,7 @@ nav #nav-ul-wrapper {
   visibility: hidden;
 }
 
-nav .nav-toggle.open ~ #nav-ul-wrapper {
+nav #nav-key-button.engaged ~ #nav-ul-wrapper {
   opacity: 1;
   visibility: visible;
 }
@@ -2437,14 +2434,14 @@ nav #nav-ul-wrapper a:hover::before {
   text-align: center;
 }
 
-#projects .project-visual {
+#projects #tcny-widget-container {
   position: relative;
   -webkit-transition: all 0.55s ease-in-out;
   transition: all 0.55s ease-in-out;
   z-index: 1;
 }
 
-#projects #levelOne {
+#projects #tcny-widget-text-container {
   align-items: center;
   display: flex;
   filter: drop-shadow(0 0 1px white);
@@ -2460,13 +2457,13 @@ nav #nav-ul-wrapper a:hover::before {
   z-index: 1;
 }
 
-#projects #levelOne h3 {
+#projects #tcny-widget-text-container h3 {
   margin-bottom: 0;
   position: relative;
   text-shadow: 0 0 5px black;
 }
 
-#projects #levelOne img {
+#projects #tcny-widget-text-container img {
   -webkit-filter: drop-shadow(0 0 5px black);
   filter: drop-shadow(0 0 5px black);
   height: 77px;
@@ -2513,7 +2510,7 @@ nav #nav-ul-wrapper a:hover::before {
   text-decoration: none;
 }
 
-#projects #levelOne #tapMeContainer {
+#projects #tcny-widget-text-container #tcny-tap-here-container {
   align-items: center;
   -webkit-animation: pulse 0.55s linear infinite alternate;
   animation: pulse 0.55s linear infinite alternate;
@@ -2529,14 +2526,14 @@ nav #nav-ul-wrapper a:hover::before {
   visibility: visible;
 }
 
-#projects #levelOne.tapped #tapMeContainer { 
+#projects #tcny-widget-container.active #tcny-tap-here-container { 
   opacity: 0;  
   -webkit-transform: scale(0);
   transform: scale(0);
   visibility: hidden;
 }
 
-#projects #levelOne #levelOneContainer {
+#projects #tcny-widget-text-container #levelOneContainer {
   align-items: center;
   -webkit-animation: hover 0.33s ease-in infinite alternate;
   animation: hover 0.33s ease-in infinite alternate;
@@ -2553,7 +2550,7 @@ nav #nav-ul-wrapper a:hover::before {
   z-index: 0;
 }
 
-#projects #levelOne.tapped #levelOneContainer {
+#projects #tcny-widget-container.active #levelOneContainer {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
@@ -2562,12 +2559,12 @@ nav #nav-ul-wrapper a:hover::before {
   visibility: visible;
 }
 
-#projects .project-visual.inception #levelOneContainer {
+#projects #tcny-widget-container.active #levelOneContainer {
   -webkit-filter: drop-shadow(0 0 5px skyblue);
   filter: drop-shadow(0 0 5px skyblue);
 }
 
-#projects #levelOne #levelOneContainer #diamond {
+#projects #tcny-widget-text-container #levelOneContainer #diamond {
   -webkit-animation: rough-rotate 0.99s linear infinite alternate;
   animation: rough-rotate 0.99s linear infinite alternate;
   display: inline-block;
@@ -2596,7 +2593,7 @@ nav #nav-ul-wrapper a:hover::before {
   opacity: 1;
 }
 
-#projects .project-visual.inception .project-stack-pseudo::before {
+#projects #tcny-widget-container.active .project-stack-pseudo::before {
   box-shadow: 0 0 18px black;
   opacity: 1;
   z-index: 1;
@@ -2608,7 +2605,7 @@ nav #nav-ul-wrapper a:hover::before {
   z-index: 1;
 }
 
-#projects .project-stack .modal-trigger {
+#projects .project-stack #tcny-widget-visual-container {
   cursor: url('../assets/images/pointer-cloud.png'), pointer;
 }
 
@@ -2640,7 +2637,7 @@ nav #nav-ul-wrapper a:hover::before {
   z-index: 2;
 }
 
-#projects .project-stack .modal-trigger.open ~ .btn-container {
+#projects #tcny-widget-container.active .btn-container {
   opacity: 1;
   visibility: visible;
 }
@@ -2654,7 +2651,7 @@ nav #nav-ul-wrapper a:hover::before {
   transform: scale(0.8);
 }
 
-#projects .project-stack .close-btn {
+#projects .project-stack #tcny-level-one-close-button {
   color: var(--clr-tcny-accent);
   cursor: url('../assets/images/pointer-cloud.png'), pointer;
   display: grid;
@@ -2670,19 +2667,19 @@ nav #nav-ul-wrapper a:hover::before {
   width: 100%;
 }
 
-#projects .project-stack .close-btn:hover {
+#projects .project-stack #tcny-level-one-close-button:hover {
   -webkit-transform: scale(1.3) rotate(-540deg);
   transform: scale(1.3) rotate(-540deg);
 }
 
-#projects .project-stack .close-btn svg {
+#projects .project-stack #tcny-level-one-close-button svg {
   grid-area: svg;
   height: 88%;
   opacity: 0.8;
   width: 88%;
 }
 
-#projects .project-stack .close-btn:hover > svg {
+#projects .project-stack #tcny-level-one-close-button:hover > svg {
   opacity: 1;
 }
 
@@ -3333,26 +3330,26 @@ footer #cyclone-container:hover p {
     margin-bottom: 0;
   }
   
-  #projects #levelOne {
+  #projects #tcny-widget-text-container {
     margin-bottom: 33px;
   }
 
-  #projects #levelOne #levelOneContainer {
+  #projects #tcny-widget-text-container #levelOneContainer {
     -webkit-transform: scale(0);
     transform: scale(0);
   }
 
-  #projects #levelOne.tapped #levelOneContainer {
+  #projects #tcny-widget-container.active #levelOneContainer {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
 
-  #projects .project-visual.inception {
+  #projects #tcny-widget-container.active {
     -webkit-transform: scale(1.03);
     transform: scale(1.03);
   }
 
-  #projects .project-visual .project-stack-pseudo::after {
+  #projects #tcny-widget-container .project-stack-pseudo::after {
     background: url('../assets/images/cloudsabove.gif') center / cover no-repeat;
     border-left: 8px ridge rgba(0, 0, 0, 0.647);
     border-radius: inherit;
@@ -3371,7 +3368,7 @@ footer #cyclone-container:hover p {
     z-index: 0;
   }
 
-  #projects .project-visual.inception .project-stack-pseudo::after {
+  #projects #tcny-widget-container.active .project-stack-pseudo::after {
     box-shadow: 0 0 30px skyblue;
     opacity: 1;
     -webkit-transform: scale(1.15);
@@ -3542,7 +3539,7 @@ footer #cyclone-container:hover p {
     transform: translate(-50%, -50%) scale(1) translateX(calc(50% + 50px));
   }
   
-  #projects #levelOne {
+  #projects #tcny-widget-text-container {
     margin-bottom: 18px;
   }
 
@@ -3571,8 +3568,8 @@ footer #cyclone-container:hover p {
     margin: 0;
   }
 
-  #projects #levelOne #levelOneContainer,
-  #projects #levelOne #tapMeContainer {
+  #projects #tcny-widget-text-container #levelOneContainer,
+  #projects #tcny-widget-text-container #tcny-tap-here-container {
     align-items: center;
     display: flex;
     flex-direction: row-reverse;
@@ -3580,7 +3577,7 @@ footer #cyclone-container:hover p {
     justify-content: center;
   }
 
-  #projects .project-visual #levelOne img {
+  #projects #tcny-widget-container #tcny-widget-text-container img {
     height: 55px;
     width: 55px;
   }
@@ -3589,7 +3586,7 @@ footer #cyclone-container:hover p {
     padding: 0;
   }
 
-  #projects .project-visual.inception {
+  #projects #tcny-widget-container.active {
     -webkit-transform: scale(1.3) translateX(-45%);
     transform: scale(1.3) translateX(-45%);
   }
