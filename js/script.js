@@ -31,7 +31,7 @@ function toggleLevelOne() {
 }
 
 function toggleNav() {
-	elementSet.withListeners.navKeyButton().classList.toggle('engaged');
+	elementSet.withListeners.navKeyButton().classList.toggle('active');
 }
 
 function smoothScoll(e) {
