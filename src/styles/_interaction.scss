@@ -1,0 +1,13 @@
+// Keyboard focus mirrors hover; hover itself is gated so a tap doesn't leave
+// the element stuck in its engaged state on touch screens.
+@mixin engaged {
+  &:focus-visible {
+    @content;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}

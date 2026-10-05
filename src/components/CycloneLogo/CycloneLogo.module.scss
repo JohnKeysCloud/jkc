@@ -1,0 +1,98 @@
+.root {
+  display: block;
+  filter: drop-shadow(0 0 11px white);
+  inline-size: clamp(188px, 38vw, 233px);
+  isolation: isolate;
+  position: relative;
+  user-select: none;
+
+  // The logo is near-black; the halo keeps it legible against the night sky.
+  &::before {
+    background: radial-gradient(
+      closest-side,
+      rgb(205 214 232 / 28%),
+      rgb(205 214 232 / 8%) 75%,
+      transparent
+    );
+    content: "";
+    inset: -10%;
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+.image {
+  block-size: auto;
+  display: block;
+  inline-size: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .root {
+    animation: cyclone-infinite 18.888s linear infinite;
+  }
+}
+
+.root.isPaused {
+  animation-play-state: paused;
+}
+
+@keyframes cyclone-infinite {
+  from,
+  10%,
+  20%,
+  30%,
+  40%,
+  to {
+    opacity: 0.5;
+    transform: translateY(3.3svh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+  }
+
+  5%,
+  15%,
+  25%,
+  35%,
+  45%,
+  95% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotateX(0) rotate(0) scale(0.7);
+  }
+
+  50%,
+  85%,
+  90% {
+    opacity: 1;
+    transform: translateY(1svh) translateX(0) rotateX(720deg) rotate(0) scale(1);
+  }
+
+  55% {
+    transform: translateY(1svh) translateX(18vw) rotateX(720deg) rotate(360deg)
+      scale(1);
+  }
+
+  60% {
+    transform: translateY(1svh) translateX(-18vw) rotateX(720deg) rotate(720deg)
+      scale(1);
+  }
+
+  65% {
+    transform: translateY(1svh) translateX(18vw) rotateX(720deg) rotate(360deg)
+      scale(1);
+  }
+
+  70% {
+    transform: translateY(1svh) translateX(-18vw) rotateX(720deg) rotate(0)
+      scale(1);
+  }
+
+  75% {
+    transform: translateY(1svh) translateX(18vw) rotateX(720deg) rotate(1080deg)
+      scale(1);
+  }
+
+  80% {
+    transform: translateY(1svh) translateX(-18vw) rotateX(720deg)
+      rotate(-1080deg) scale(1);
+  }
+}

@@ -1,0 +1,231 @@
+@use "../../styles/interaction" as *;
+
+$field-radius: 0.75rem;
+$funky-haze: rgb(127 255 0 / 15%);
+$night-veil: rgb(9 10 15 / 55%);
+$enter: 240ms ease-out;
+
+.trigger {
+  border: 1px solid rgb(255 252 232 / 25%);
+  border-radius: 999px;
+  font-size: clamp(0.875rem, 2.2vw, 1rem);
+  margin-block-start: 2rem;
+  padding: 0.75rem 1.5rem;
+  transition:
+    border-color 150ms ease-out,
+    color 150ms ease-out,
+    transform 150ms ease-out;
+
+  @include engaged {
+    border-color: var(--color-funky);
+    color: var(--color-funky);
+    transform: translateY(-2px);
+  }
+}
+
+// The dialog is the glass panel itself, so the UA's scroll overflow can't
+// clip its shadow; the box fills it edge to edge, so only true backdrop
+// clicks land on the dialog element.
+.dialog {
+  backdrop-filter: var(--glass-blur);
+  background: var(--glass-fill), $night-veil;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--glass-radius);
+  box-shadow:
+    var(--glass-highlight),
+    0 24px 64px rgb(0 0 0 / 50%),
+    0 0 48px rgb(157 25 157 / 22%);
+  color: var(--color-mashumaro);
+  inline-size: min(34rem, calc(100vw - 2rem));
+  margin: auto;
+  max-inline-size: none;
+  padding: 0;
+  text-align: start;
+
+  // Dims the page into the same neon haze the city glows with.
+  &::backdrop {
+    backdrop-filter: blur(4px);
+    background:
+      radial-gradient(
+        70% 45% at 50% 110%,
+        rgb(220 128 177 / 20%),
+        transparent 75%
+      ),
+      rgb(9 10 15 / 72%);
+  }
+
+  &[open] {
+    animation: rise-in $enter;
+  }
+
+  &[open]::backdrop {
+    animation: fade-in $enter;
+  }
+}
+
+.box {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.75rem;
+}
+
+// Equal outer tracks keep the title centered on the panel, not in the space
+// the close button leaves.
+.header {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.title {
+  color: var(--color-funky);
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  grid-column: 2;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-shadow: 0 0 0.5em currentcolor;
+  text-transform: uppercase;
+}
+
+.close {
+  block-size: 2rem;
+  border-radius: 50%;
+  color: var(--color-mashumaro-muted);
+  display: grid;
+  font-size: 0.875rem;
+  inline-size: 2rem;
+  justify-self: end;
+  line-height: 1;
+  place-items: center;
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgb(233 17 19 / 14%);
+    color: var(--color-binky);
+  }
+}
+
+.form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.label {
+  color: var(--color-mashumaro-muted);
+  font-family: var(--font-pixel);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.input {
+  background: rgb(9 10 15 / 45%);
+  border: 1px solid var(--glass-edge);
+  border-radius: $field-radius;
+  font-size: 1rem;
+  padding: 0.625rem 0.875rem;
+  transition:
+    border-color 150ms ease-out,
+    box-shadow 150ms ease-out;
+
+  // Text fields always mark where typing goes, however focus arrived.
+  &:focus {
+    border-color: var(--color-funky);
+    box-shadow: 0 0 0 3px $funky-haze;
+    outline: none;
+  }
+
+  &:user-invalid {
+    border-color: var(--color-binky);
+  }
+}
+
+.input.multiline {
+  min-block-size: 8rem;
+  resize: vertical;
+}
+
+.feedback {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  min-block-size: 1.3em;
+}
+
+// A neon pill, in step with the "Send a message" trigger that opens it.
+.submit {
+  background-color: rgb(127 255 0 / 8%);
+  border: 1px solid var(--color-funky);
+  border-radius: 999px;
+  color: var(--color-funky);
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  justify-self: center;
+  letter-spacing: 0.08em;
+  padding: 0.875rem 1.5rem;
+  text-shadow: 0 0 0.5em $funky-haze;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out,
+    transform 150ms ease-out;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background-color: var(--color-funky);
+    color: var(--color-night);
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.6;
+  }
+}
+
+.sent {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+
+  > .submit {
+    justify-self: end;
+  }
+}
+
+.sentTitle {
+  color: var(--color-funky);
+  font-family: var(--font-pixel);
+  font-size: 0.875rem;
+  text-shadow: 0 0 0.5em currentcolor;
+  text-transform: uppercase;
+}
+
+.sentBody {
+  color: var(--color-mashumaro-muted);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}

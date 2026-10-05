@@ -1,0 +1,1 @@
+export { PlayerPortrait } from "./PlayerPortrait";

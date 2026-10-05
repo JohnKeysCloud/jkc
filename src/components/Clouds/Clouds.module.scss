@@ -1,0 +1,79 @@
+// `--cloud-part` (0 = closed, 1 = fully parted) is set on an ancestor when
+// scroll-driven animations are unsupported; otherwise the `--descent` view
+// timeline drives the same motion in lockstep with scrolling.
+
+@use "../../styles/descent" as *;
+
+.root {
+  --cloud-pixel: clamp(4px, 0.8vw, 7px);
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+// The scroll-driven parting and the time-driven bob live on separate elements:
+// iOS Safari drops clouds that mix both timelines in one transform stack.
+.drifter {
+  inline-size: calc(var(--drifter-width) * var(--cloud-pixel));
+  position: absolute;
+  transform: translateX(calc(var(--cloud-part) * var(--drifter-travel)));
+}
+
+.shape {
+  animation: bob 1.6s steps(1, end) infinite;
+  display: block;
+  inline-size: 100%;
+
+  .drifter:nth-of-type(even) > & {
+    animation-delay: -0.8s;
+  }
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 calc(var(--cloud-pixel) * -1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drifter {
+    opacity: calc(1 - var(--cloud-part));
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .drifter {
+    animation: part-ways $ease-in-out-sine both;
+    animation-range: $part-range;
+    animation-timeline: --descent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drifter {
+      animation-name: fade-away;
+    }
+  }
+}
+
+@keyframes part-ways {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(var(--drifter-travel));
+  }
+}
+
+@keyframes fade-away {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

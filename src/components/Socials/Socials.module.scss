@@ -1,0 +1,162 @@
+@use "../../styles/interaction" as *;
+
+$rail: "(width >= 1024px)";
+$row: "(width < 1024px)";
+$snap: 188ms ease-in-out;
+$wobble-stagger: 0.12s;
+
+.root {
+  --tile-size: 2rem;
+  margin-block-start: 2rem;
+
+  @media (max-height: 700px) {
+    margin-block-start: 1.25rem;
+  }
+
+  // Rides the left edge of the scene, beside the card.
+  @media #{$rail} {
+    --tile-size: clamp(2.25rem, min(3.2vw, 6svh), 3rem);
+    inset-block-start: 50%;
+    inset-inline-start: clamp(1.5rem, 6vw, 6rem);
+    margin-block-start: 0;
+    position: absolute;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+}
+
+.list {
+  display: flex;
+  gap: 0.875rem;
+  justify-content: center;
+
+  @media #{$rail} {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: clamp(0.75rem, 2.4svh, 1.25rem);
+  }
+}
+
+.link {
+  aspect-ratio: 1;
+  color: var(--social-accent);
+  display: block;
+  inline-size: var(--tile-size);
+  position: relative;
+  text-decoration: none;
+  transition: transform $snap;
+
+  @include engaged {
+    transform: scale(1.1) rotate(-3deg);
+    z-index: 1;
+
+    .icon {
+      filter: grayscale(0) brightness(1) drop-shadow(0 0 10px currentcolor);
+      opacity: 1;
+      transform: scale(1.8) rotate(360deg);
+    }
+
+    @media #{$rail} {
+      .label {
+        opacity: 1;
+        transform: translate(0, -50%) scale(1);
+
+        @media (prefers-reduced-motion: no-preference) {
+          animation: label-flicker 333ms linear infinite alternate;
+        }
+      }
+    }
+  }
+
+  &:active {
+    transform: scale(0.88) rotate(3deg);
+  }
+}
+
+// Filter lists match at rest and engaged so the browser can interpolate them.
+.icon {
+  display: block;
+  filter: grayscale(1) brightness(var(--social-rest-brightness))
+    drop-shadow(0 0 0 transparent);
+  inset: 0;
+  opacity: 0.7;
+  position: absolute;
+  transition:
+    filter $snap,
+    opacity $snap,
+    transform $snap;
+}
+
+.tile {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  inset: 0;
+  position: absolute;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: tile-wobble 2.4s ease-in-out infinite;
+    animation-delay: calc(var(--social-index) * #{$wobble-stagger});
+  }
+}
+
+.label {
+  @media #{$row} {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  // Slides out from behind the tile, clearing it at full hover scale.
+  @media #{$rail} {
+    font-family: var(--font-pixel);
+    font-size: 0.875rem;
+    inset-block-start: 50%;
+    inset-inline-start: calc(100% + var(--tile-size) * 0.4 + 0.75rem);
+    letter-spacing: -1px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    text-shadow: 0 0 0.3em currentcolor;
+    text-transform: uppercase;
+    transform: translate(-1.5rem, -50%) scale(0);
+    transform-origin: left center;
+    transition:
+      opacity $snap,
+      transform $snap;
+    white-space: nowrap;
+  }
+}
+
+// Rebuilt from the original GIF loop: dip and tilt left, swell and tilt
+// right, then rest.
+@keyframes tile-wobble {
+  from,
+  5%,
+  72%,
+  to {
+    transform: none;
+  }
+
+  24% {
+    transform: rotate(-6deg) scale(0.85);
+  }
+
+  41% {
+    transform: rotate(0) scale(1.1);
+  }
+
+  50% {
+    transform: rotate(4deg) scale(1.16);
+  }
+}
+
+@keyframes label-flicker {
+  from {
+    opacity: 0;
+  }
+}

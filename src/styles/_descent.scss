@@ -1,0 +1,11 @@
+// Scroll timing for the `--descent` view timeline, shared by every layer it
+// drives. `@/lib/descent` mirrors these for browsers without scroll timelines.
+
+$ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
+// Scroll the stage stays pinned while the clouds part.
+$pinned-travel: 140svh;
+// Mirrors `PART_HOLD` / `PART_TAIL`. Absolute so the footer dock band past the
+// pin doesn't stretch the parting.
+$part-range: contain ($pinned-travel * 0.12) contain ($pinned-travel * 0.88);
+// From the pin's release to the page's end, while the footer docks.
+$dock-range: contain $pinned-travel contain 100%;

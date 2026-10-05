@@ -1,0 +1,80 @@
+@use "../../styles/descent" as *;
+
+.root {
+  --cloud-part: 1;
+  block-size: calc(100svh + #{$pinned-travel} + var(--dock-band));
+  position: relative;
+  view-timeline-name: --descent;
+}
+
+// Runs a dock band past the viewport, painted in svh so the city's neon haze
+// carries on below the fold. Once the pin releases, that band scrolls up
+// behind the glass footer instead of exposing the page background.
+.stage {
+  background:
+    radial-gradient(
+      70% 45svh at 50% 112svh,
+      rgb(220 128 177 / 30%),
+      rgb(157 25 157 / 16%) 45%,
+      transparent 75%
+    ),
+    radial-gradient(
+      45% 35svh at 80% 114svh,
+      rgb(1 240 239 / 16%),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 30svh at 18% 114svh,
+      rgb(1 240 239 / 10%),
+      transparent 70%
+    ),
+    linear-gradient(to bottom, var(--color-dusk), var(--color-night) 100svh);
+  block-size: calc(100svh + var(--dock-band));
+  inset-block-start: 0;
+  position: sticky;
+}
+
+.frame {
+  block-size: 100svh;
+  display: grid;
+  position: relative;
+}
+
+.scene {
+  display: grid;
+  opacity: clamp(0, calc(var(--cloud-part) * 1.6 - 0.3), 1);
+  place-items: center;
+  position: relative;
+  transform: translateY(calc((1 - var(--cloud-part)) * 6svh));
+}
+
+// The browser syncs this to the scroll position itself, so the card can't lag
+// behind a touch scroll the way scroll-event updates do on iOS.
+@supports (animation-timeline: view()) {
+  .scene {
+    animation: scene-arrive $ease-in-out-sine both;
+    animation-range: $part-range;
+    animation-timeline: --descent;
+  }
+}
+
+// Mirrors the fallback: opacity = clamp(0, part * 1.6 - 0.3, 1).
+@keyframes scene-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(6svh);
+  }
+
+  18.75% {
+    opacity: 0;
+  }
+
+  81.25% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

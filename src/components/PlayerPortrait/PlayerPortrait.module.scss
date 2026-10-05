@@ -1,0 +1,100 @@
+// `--portrait-ratio` and the `--photo-inset-*` pair are set inline from the
+// cloud's circle bounds.
+
+$breathe-stagger: -0.35s;
+
+.root {
+  aspect-ratio: var(--portrait-ratio);
+  filter: drop-shadow(0 0 10px rgb(217 225 242 / 45%));
+  inline-size: clamp(10rem, min(62vw, 33svh), 18rem);
+  margin-block-end: 1.25rem;
+  position: relative;
+  user-select: none;
+
+  // Short phones (e.g. iPhone SE) need the whole card inside one screen.
+  @media (max-height: 700px) {
+    inline-size: clamp(7.5rem, min(62vw, 20svh), 18rem);
+    margin-block-end: 0.75rem;
+  }
+}
+
+.defs {
+  block-size: 0;
+  inline-size: 0;
+  position: absolute;
+}
+
+.puff {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.rim,
+.window {
+  inset: 0;
+  position: absolute;
+}
+
+.rim {
+  background: linear-gradient(
+    160deg,
+    var(--color-mashumaro),
+    #d9e1f2 45%,
+    #8ea3d6
+  );
+}
+
+.photo {
+  block-size: calc(100% - 2 * var(--photo-inset-block));
+  display: block;
+  inline-size: calc(100% - 2 * var(--photo-inset-inline));
+  inset-block-start: var(--photo-inset-block);
+  inset-inline-start: var(--photo-inset-inline);
+  object-fit: cover;
+  object-position: 50% 0;
+  position: absolute;
+  transform-origin: 50% 0;
+}
+
+.window::after {
+  background: black;
+  content: "";
+  inset: 0;
+  mix-blend-mode: saturation;
+  pointer-events: none;
+  position: absolute;
+}
+
+// Gated so a tap on touch screens doesn't leave the color stuck on.
+@media (hover: hover) {
+  .root:hover .window::after {
+    opacity: 0;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .photo {
+    transition: transform 500ms ease-out;
+  }
+
+  .window::after {
+    transition: opacity 500ms ease-out;
+  }
+
+  .root:hover {
+    .puff {
+      animation: breathe 2.4s ease-in-out infinite;
+      animation-delay: calc(var(--puff-index) * #{$breathe-stagger});
+    }
+
+    .photo {
+      transform: scale(1.06);
+    }
+  }
+}
+
+@keyframes breathe {
+  50% {
+    transform: scale(1.06);
+  }
+}

@@ -1,0 +1,314 @@
+$color-shift: 333ms ease-out;
+// How long the "powered by" block takes to light up and fade back.
+$engage: 0.8s ease-in;
+$glass-reveal: 450ms;
+$pane-padding-top: 0.875rem;
+// How high the "powered by:" label rises while the logo performs, and the
+// extra glass above the resting pane that clears it (or the signature).
+$label-lift: 58px;
+$label-headroom: 3rem;
+// Once the signature is revealed, the label drops this far toward the
+// now-still logo, making room for the signature just above it.
+$label-settle: 2.25rem;
+// One pass of the logo's flourish; it plays there and back once per hover.
+// `FooterPane` waits out both passes before revealing the signature.
+$logo-pass: 3.3s;
+// How far above and to each side of its resting box the logo reaches at the
+// peak of its flourish (raised 33px, scaled 1.7×).
+$logo-reach-up: 2.75rem;
+$logo-reach-out: 1.25rem;
+$egg-fade-in: 1.2s;
+$egg-fade-out: 0.3s;
+
+// How far the glass reaches above the resting pane. Registered so it can
+// transition.
+@property --glass-stretch {
+  inherits: false;
+  initial-value: 0px;
+  syntax: "<length>";
+}
+
+// How far the glass's top edge sits below its engaged spot. Stowed flat on
+// the page's bottom edge, less its 1px top border so that doesn't poke past.
+@property --glass-stow {
+  inherits: false;
+  initial-value: calc(100% - 1px);
+  syntax: "<length-percentage>";
+}
+
+// Pulled up over the descent's dock band, so it rises with the last stretch
+// of scroll over the skyline rather than below it. Its height leaves room for
+// the hover flourishes; the pane inside is packed to the bottom.
+.root {
+  align-items: center;
+  block-size: var(--dock-band);
+  display: flex;
+  flex-direction: column;
+  inline-size: fit-content;
+  justify-content: flex-end;
+  margin-block-start: calc(-1 * var(--dock-band));
+  margin-inline: auto;
+  max-inline-size: calc(100% - 1.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+// Column-reversed so the credits stack above the logo. Hugs its content, so
+// the glass only reaches higher when something actually floats up there.
+// `FooterPane` sets `data-egg-revealed` while the signature is out.
+.pane {
+  align-items: center;
+  display: flex;
+  flex-direction: column-reverse;
+  isolation: isolate;
+  padding: $pane-padding-top 1.75rem 0;
+  position: relative;
+
+  // Glass, flattened against the page's bottom edge until the footer is
+  // engaged, then rising from it. Grows from the bottom rather than sliding,
+  // so the stowed pane never hangs below the page or needs clipping (which
+  // would also clip its shadow). Hit-testable, so the pointer counts as
+  // inside the pane anywhere over the glass.
+  &::before {
+    backdrop-filter: var(--glass-blur);
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-edge);
+    border-block-end: 0;
+    border-start-end-radius: var(--glass-radius);
+    border-start-start-radius: var(--glass-radius);
+    box-shadow:
+      var(--glass-highlight),
+      0 -12px 32px rgb(0 0 0 / 35%);
+    content: "";
+    inset: calc(var(--glass-stow) - var(--glass-stretch)) 0 0;
+    opacity: 0;
+    position: absolute;
+    transition:
+      --glass-stow $glass-reveal ease-out,
+      --glass-stretch $glass-reveal ease-out,
+      opacity $glass-reveal ease-out;
+    z-index: -1;
+  }
+
+  .root:hover &::before,
+  .root:focus-within &::before {
+    --glass-stow: 0%;
+    opacity: 1;
+  }
+
+  // Stretches up to take in the raised label while the logo performs, then
+  // the signature once it's out.
+  &:has(.poweredBy:hover, .signature:focus-visible)::before,
+  &[data-egg-revealed]::before {
+    --glass-stretch: #{$label-headroom};
+  }
+}
+
+.poweredBy {
+  align-items: center;
+  display: flex;
+  filter: drop-shadow(0 0 3px var(--color-mashumaro));
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.55;
+  padding-block-end: 15px;
+  position: relative;
+  transition: opacity $engage;
+
+  // The flourish carries the logo up out of this box. Keep the airspace it
+  // travels through hoverable while it performs, so a pointer that follows
+  // it isn't stranded (ending the hover and the signature countdown) when
+  // the logo drops back to rest.
+  @media (prefers-reduced-motion: no-preference) {
+    .pane:not([data-egg-revealed]) &:hover::before {
+      content: "";
+      inset: (-$logo-reach-up) (-$logo-reach-out) 0;
+      position: absolute;
+    }
+  }
+
+  // Engaged while the logo performs, and held still once the signature is
+  // out, until the pointer leaves the pane.
+  &:hover,
+  .pane[data-egg-revealed] & {
+    opacity: 1;
+  }
+
+  // The credits step aside meanwhile.
+  &:hover ~ .credits,
+  .pane[data-egg-revealed] & ~ .credits {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.poweredByLabel {
+  color: var(--color-binky);
+  font-family: var(--font-footer);
+  font-size: 0.813rem;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  line-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  text-shadow: 0 0 3px black;
+  transform: translateX(-50%) translateY(0) scale(1.8);
+  transition:
+    color $engage,
+    opacity $engage,
+    transform $engage;
+  white-space: nowrap;
+
+  .poweredBy:hover &,
+  .pane[data-egg-revealed] & {
+    color: var(--color-funky);
+    opacity: 1;
+    transform: translateX(-50%) translateY(-$label-lift) scale(1.8);
+  }
+
+  .pane[data-egg-revealed] & {
+    transform: translateX(-50%)
+      translateY(calc(#{$label-settle} - #{$label-lift})) scale(1.8);
+    transition:
+      color $engage,
+      opacity $engage,
+      transform $egg-fade-in ease-out;
+  }
+}
+
+.logo {
+  aspect-ratio: 211 / 96;
+  background: url("/cyclone-studios.webp") center / contain no-repeat;
+  block-size: 1.5625rem;
+  display: block;
+
+  .poweredBy:hover &,
+  .pane[data-egg-revealed] & {
+    filter: drop-shadow(0 3px 10px var(--color-mashumaro));
+  }
+
+  // Comes to rest as the signature surfaces, and isn't replayed while it's
+  // out, leaving a still target.
+  @media (prefers-reduced-motion: no-preference) {
+    .pane:not([data-egg-revealed]) .poweredBy:hover & {
+      animation: powered-by $logo-pass ease-in 2 alternate;
+    }
+  }
+}
+
+.credits {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  // As above… so below.
+  &:active {
+    transform: rotate(180deg);
+  }
+}
+
+.copyright {
+  color: var(--color-mashumaro);
+  font-family: var(--font-footer);
+  font-size: 0.938rem;
+  transition: color $color-shift;
+
+  &:hover {
+    color: var(--color-funky);
+  }
+}
+
+// Easter egg: surfaces like a thought above the "powered by:" label only
+// after the pointer has held the logo through its flourish, then stays put
+// until the pointer leaves the pane. Only opacity and transforms change, so
+// nothing reflows.
+.signature {
+  color: var(--color-binky);
+  font-family: var(--font-footer);
+  font-size: 0.938rem;
+  font-weight: 700;
+  inline-size: max-content;
+  inset-block-end: 100%;
+  inset-inline: 0;
+  line-height: 1.5rem;
+  margin-inline: auto;
+  opacity: 0;
+  // Untouchable while hidden, but still in the tab order: keyboard focus
+  // reveals it outright.
+  pointer-events: none;
+  position: absolute;
+  text-decoration: none;
+  text-shadow: 0 0 11px black;
+  transform: translateY(0.5rem) scale(0.85);
+  transition:
+    color $color-shift,
+    opacity $egg-fade-out ease-in,
+    transform $egg-fade-out ease-in;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: thought-drift 3.6s ease-in-out infinite alternate;
+  }
+
+  .pane[data-egg-revealed] > & {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition:
+      color $color-shift,
+      opacity $egg-fade-in ease-out,
+      transform $egg-fade-in ease-out;
+  }
+
+  // Caught: settles under the pointer (or keyboard focus) until released.
+  &:hover,
+  &:focus-visible {
+    animation-play-state: paused;
+    color: var(--color-funky);
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition:
+      color $color-shift,
+      opacity 200ms ease-out,
+      transform 200ms ease-out;
+  }
+}
+
+@keyframes powered-by {
+  from {
+    transform: translateY(0) scale(1) rotate(0);
+  }
+
+  10% {
+    transform: translateY(-33px) scale(1) rotate(0);
+  }
+
+  20%,
+  80% {
+    transform: translateY(-33px) scale(1.7) rotate(-1080deg);
+  }
+
+  90% {
+    transform: translateY(-33px) scale(1) rotate(0);
+  }
+
+  to {
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes thought-drift {
+  from {
+    translate: -0.75rem 0;
+  }
+
+  50% {
+    translate: 0 -0.3rem;
+  }
+
+  to {
+    translate: 0.75rem 0;
+  }
+}

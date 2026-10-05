@@ -1,0 +1,131 @@
+$hello-gradient: #ff1818, var(--color-funky), #1f51ff;
+$phone: "(width < 640px)";
+$wide: "(width >= 640px)";
+
+.root {
+  align-content: center;
+  display: grid;
+  justify-items: center;
+  margin-inline: auto;
+  max-inline-size: 40rem;
+  padding: clamp(1.5rem, 6svh, 4rem) 1.5rem;
+  padding-block-start: var(--key-band);
+  text-align: center;
+}
+
+.greeting {
+  align-items: center;
+  display: flex;
+  font-family: var(--font-pixel);
+  font-size: clamp(1.125rem, 2.5vw, 1.313rem);
+  font-weight: 700;
+  gap: 0.75em;
+  letter-spacing: -1.5px;
+  line-height: 1.2;
+  margin-block-end: 0.75rem;
+
+  @media (max-height: 700px) {
+    font-size: 0.875rem;
+  }
+}
+
+.greetingText {
+  background: linear-gradient(to right, $hello-gradient);
+  background-clip: text;
+  color: transparent;
+}
+
+// Pivots around the palm.
+.wave {
+  display: inline-block;
+  filter: drop-shadow(0 0 3px black);
+  transform: translateX(8px) scale(1.8);
+  transform-origin: 70% 70%;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: wave 2.5s infinite;
+  }
+}
+
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: translateX(8px) scale(1.8) rotate(0deg);
+  }
+
+  10%,
+  30% {
+    transform: translateX(8px) scale(1.8) rotate(14deg);
+  }
+
+  20% {
+    transform: translateX(8px) scale(1.8) rotate(-8deg);
+  }
+
+  40% {
+    transform: translateX(8px) scale(1.8) rotate(-4deg);
+  }
+
+  50% {
+    transform: translateX(8px) scale(1.8) rotate(10deg);
+  }
+}
+
+.handle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 9vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-shadow: 0 0 0.4em rgb(0 0 0 / 60%);
+}
+
+.role {
+  color: var(--color-mashumaro-muted);
+  font-size: clamp(0.875rem, 2.2vw, 1rem);
+  margin-block-start: 0.75rem;
+}
+
+.studio {
+  color: var(--color-mashumaro);
+  text-decoration: underline dotted 1px;
+  text-underline-offset: 0.3em;
+  transition: color 150ms ease-out;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-funky);
+  }
+}
+
+.separator {
+  margin-inline: 0.6em;
+}
+
+// Phones get the short form so the role line has room to stay on one row.
+.locationName {
+  @media #{$phone} {
+    display: none;
+  }
+}
+
+.locationShort {
+  text-decoration: none;
+
+  @media #{$wide} {
+    display: none;
+  }
+}
+
+.statement {
+  color: var(--color-mashumaro-muted);
+  font-size: clamp(0.8125rem, 2vw, 0.9375rem);
+  font-style: italic;
+  font-weight: 300;
+  margin-block-start: 1.75rem;
+
+  @media (max-height: 700px) {
+    margin-block-start: 1rem;
+  }
+}

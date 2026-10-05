@@ -1,0 +1,178 @@
+$keyhole-size: 2.6875rem;
+// Transparent margin around the key art, which runs edge to edge in its
+// viewBox. Mobile browsers snap the glowing, jingling key to whole pixels and
+// would otherwise shave its top and bottom.
+$key-bleed: 0.25rem;
+$turn: 800ms;
+$reveal: 600ms;
+
+.root {
+  display: contents;
+}
+
+// Hidden (not just transparent) until revealed so the key can't be tabbed to
+// or tapped while the clouds are still parting; visibility flips only after
+// the fade-out ends.
+.band,
+.keyhole {
+  opacity: 0;
+  transition:
+    opacity $reveal ease-out,
+    visibility 0s linear $reveal;
+  visibility: hidden;
+}
+
+.root.isRevealed {
+  .band,
+  .keyhole {
+    opacity: 1;
+    transition:
+      opacity $reveal ease-out,
+      visibility 0s;
+    visibility: visible;
+  }
+}
+
+// Strip across the top of the card's frame, in the room the card leaves
+// above itself, so it rides along with the card rather than floating over
+// it. The key travels to its right edge, so horizontal overflow is clipped
+// while the glow can still bleed vertically.
+.band {
+  block-size: var(--key-band);
+  display: grid;
+  inset: 0 0 auto;
+  overflow-x: clip;
+  pointer-events: none;
+  place-items: center;
+  position: absolute;
+  z-index: 3;
+}
+
+.key {
+  aspect-ratio: 811.893 / 274;
+  background: url("/key/master-key.svg") center / contain no-repeat content-box
+    border-box;
+  box-sizing: content-box;
+  filter: drop-shadow(0 0 13px var(--color-mashumaro));
+  inline-size: 11rem;
+  padding: $key-bleed;
+  pointer-events: auto;
+
+  @media (max-height: 700px) {
+    inline-size: 8.5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: key-jingle 0.38s linear infinite alternate;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .key:hover {
+    animation: key-hover 7.77s linear infinite;
+  }
+}
+
+// Declared after hover so a turned key ignores it.
+.key.isInserted {
+  animation: key-insert $turn linear var(--key-offset) both;
+}
+
+.key.isWithdrawing {
+  animation: key-withdraw $turn linear var(--key-offset) reverse both;
+}
+
+.keyhole {
+  aspect-ratio: 188 / 617;
+  background: url("/key/keyhole-half.webp") center / contain no-repeat;
+  block-size: $keyhole-size;
+  filter: saturate(0) drop-shadow(0 0 8px white);
+  inset-block-start: calc(var(--key-band) / 2 - #{$keyhole-size} / 2);
+  inset-inline-end: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+@mixin insert-path {
+  from {
+    transform: translateX(0) rotate(3deg) scaleY(1);
+  }
+
+  33% {
+    transform: translateX(48vw) rotate(0deg) scaleY(0.5);
+  }
+
+  55% {
+    transform: translateX(48vw) rotate(3deg) scaleY(0.5);
+  }
+
+  to {
+    transform: translateX(48vw) rotateY(0) scaleY(1);
+  }
+}
+
+@keyframes key-insert {
+  @include insert-path;
+}
+
+// Same path, played in reverse; a distinct name restarts the animation.
+@keyframes key-withdraw {
+  @include insert-path;
+}
+
+@keyframes key-jingle {
+  from {
+    transform: rotate(3deg);
+  }
+
+  to {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes key-hover {
+  from {
+    transform: scale(1) rotate(0);
+  }
+
+  10% {
+    transform: scale(0.45) rotate(0);
+  }
+
+  20% {
+    transform: scale(0.45) rotate(-3turn);
+  }
+
+  40% {
+    transform: scale(0.45) rotate(-1turn);
+  }
+
+  45% {
+    transform: scale(1) rotate(-1turn);
+  }
+
+  50% {
+    transform: scale(1) rotate(-1turn) translateY(-11px);
+  }
+
+  60% {
+    transform: scale(1) rotate(-1turn) translateY(0) rotateY(33deg);
+  }
+
+  70% {
+    transform: scale(1) rotate(-1turn) translateY(-11px) rotateY(0deg);
+  }
+
+  80% {
+    transform: scale(1) rotate(-1turn) translateY(0) rotateY(33deg);
+  }
+
+  88% {
+    transform: scale(1) rotate(-1turn) translateY(-11px) rotateY(0deg);
+  }
+
+  to {
+    transform: scale(1) rotate(-1turn) translateY(0) rotateY(0deg);
+  }
+}

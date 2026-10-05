@@ -1,0 +1,156 @@
+:root {
+  --color-binky: #e91113;
+  --color-clyde: #fe8b0d;
+  --color-dusk: #1b2735;
+  --color-error: #ff6b6b;
+  --color-funky: #7fff00;
+  --color-inky: #01f0ef;
+  --color-mashumaro: #fffce8;
+  --color-mashumaro-muted: rgb(255 252 232 / 62%);
+  --color-night: #090a0f;
+  --color-pacman: #ffea54;
+  --color-pinky: #dc80b1;
+  --color-sue: #9d199d;
+  --cursor-default: url("/cursors/cursor-cloud.png"), auto;
+  --cursor-pointer: url("/cursors/pointer-cloud.png"), pointer;
+  // Scroll past the pinned card that lifts it to make room for the footer;
+  // also the footer's height.
+  --dock-band: 8.25rem;
+  --font-display: var(--font-museo), "Hiragino Sans", sans-serif;
+  --font-footer: var(--font-pixe-boy), monospace;
+  --font-mono: var(--font-roboto-mono), ui-monospace, monospace;
+  --font-pixel: var(--font-press-start), ui-monospace, monospace;
+  // Frosted panel chrome shared by the footer and the message dialog.
+  --glass-blur: blur(14px) saturate(140%);
+  --glass-edge: rgb(255 252 232 / 14%);
+  --glass-fill: linear-gradient(
+    to bottom,
+    rgb(255 252 232 / 9%),
+    rgb(255 252 232 / 3%)
+  );
+  --glass-highlight: inset 0 1px 0 rgb(255 252 232 / 18%);
+  --glass-radius: 1.5rem;
+  // Height of the strip atop the card that the master key rides in.
+  --key-band: 6.9375rem;
+
+  @media (max-height: 700px) {
+    --key-band: 5.25rem;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scrollbar-color: var(--color-mashumaro) var(--color-night);
+  scrollbar-width: thin;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+// The thumb shifts from moonlight to city glow to PRESS START green on the way down.
+@supports (animation-timeline: scroll()) {
+  html {
+    animation: scrollbar-descent linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes scrollbar-descent {
+  50% {
+    scrollbar-color: var(--color-pinky) var(--color-night);
+  }
+
+  to {
+    scrollbar-color: var(--color-funky) var(--color-night);
+  }
+}
+
+// Safari without `scrollbar-color` falls back to the legacy pseudo-elements.
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    background: var(--color-night);
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      var(--color-mashumaro),
+      var(--color-pinky),
+      var(--color-funky)
+    );
+    border: 2px solid var(--color-night);
+  }
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background-color: var(--color-night);
+  color: var(--color-mashumaro);
+  cursor: var(--cursor-default);
+  font-family: var(--font-mono);
+  line-height: 1.5;
+  min-block-size: 100svh;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  cursor: var(--cursor-pointer);
+}
+
+button,
+input,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: var(--cursor-pointer);
+}
+
+ul {
+  list-style: none;
+}
+
+::selection {
+  background-color: var(--color-funky);
+  color: var(--color-night);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-funky);
+  outline-offset: 4px;
+}
+
+.srOnly {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

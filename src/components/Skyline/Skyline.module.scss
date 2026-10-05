@@ -1,0 +1,150 @@
+@use "../../styles/descent" as *;
+
+$beacon-red: #ff2a4f;
+$far-haze: #161538;
+$near-ink: #040509;
+$neon-rim: rgb(220 128 177 / 65%);
+$neon-bloom: rgb(157 25 157 / 45%);
+
+// Matches `VIEW_HEIGHT` in `geometry.ts`; the grid's width crops to fit.
+$grid-rows: 44;
+// How far the city sinks as the footer docks, as a share of the dock band.
+$dock-sink: 0.4;
+
+// Rests on the stage's bottom edge, a dock band below the fold, so it only
+// meets the page's bottom edge once the footer has docked. Where scroll
+// timelines run, it rises into full view behind the card instead.
+.root {
+  --sky-pixel: clamp(4.5px, 0.3vw, 5.5px);
+  block-size: calc(#{$grid-rows} * var(--sky-pixel));
+  inset: auto 0 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.silhouette,
+.lights {
+  block-size: 100%;
+  inline-size: 100%;
+  inset: 0;
+  position: absolute;
+}
+
+// Neon edge light where the rooftops meet the haze.
+.silhouette {
+  filter: drop-shadow(0 -1px 0 $neon-rim) drop-shadow(0 0 10px $neon-bloom);
+}
+
+.far {
+  fill: $far-haze;
+}
+
+.near {
+  fill: $near-ink;
+}
+
+.crown {
+  fill: var(--color-pinky);
+}
+
+.window {
+  opacity: 0.85;
+
+  &.isAmber {
+    fill: var(--color-pacman);
+  }
+
+  &.isCyan {
+    fill: var(--color-inky);
+  }
+
+  &.isMagenta {
+    fill: var(--color-pinky);
+  }
+}
+
+.beacon {
+  fill: $beacon-red;
+}
+
+// Stepped, so the lights only repaint when they switch.
+@media (prefers-reduced-motion: no-preference) {
+  .window.isTwinkling {
+    animation: twinkle var(--twinkle-duration) steps(1, end)
+      var(--twinkle-delay) infinite;
+  }
+
+  .beacon {
+    animation: beacon 2.4s steps(1, end) infinite;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  // Climbs out of the dock band as the clouds part, landing on the fold
+  // beneath the card, then holds there while the page scrolls on to the
+  // footer. Clipped, so the city settling inside can't extend the page.
+  .root {
+    animation:
+      skyline-rise $ease-in-out-sine both,
+      skyline-hold linear both;
+    animation-range: $part-range, $dock-range;
+    // One per animation: a single shared value compiles their durations to
+    // 0s instead of auto, snapping each straight to its end.
+    animation-timeline: --descent, --descent;
+    overflow: clip;
+  }
+
+  // Parallax: the city drifts down as the footer rides up over it.
+  @media (prefers-reduced-motion: no-preference) {
+    .silhouette,
+    .lights {
+      animation: skyline-settle linear both;
+      animation-range: $dock-range;
+      animation-timeline: --descent;
+    }
+  }
+}
+
+@keyframes skyline-rise {
+  to {
+    translate: 0 calc(-1 * var(--dock-band));
+  }
+}
+
+@keyframes skyline-hold {
+  to {
+    transform: translateY(var(--dock-band));
+  }
+}
+
+@keyframes skyline-settle {
+  to {
+    transform: translateY(calc(var(--dock-band) * #{$dock-sink}));
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+
+  70% {
+    opacity: 0.1;
+  }
+
+  85% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes beacon {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.15;
+  }
+}
