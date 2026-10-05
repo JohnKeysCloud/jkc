@@ -31,9 +31,6 @@ const description = `${site.handle}: ${site.role.toLowerCase()} at ${site.studio
 export const metadata: Metadata = {
   title: `${site.handle} · ${site.mark}`,
   description,
-  icons: {
-    icon: { url: "/cyclone-favicon.gif", type: "image/gif" },
-  },
   openGraph: {
     title: site.handle,
     description,
