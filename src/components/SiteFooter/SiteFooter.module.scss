@@ -55,7 +55,9 @@ $egg-fade-out: 0.3s;
 
 // Column-reversed so the credits stack above the logo. Hugs its content, so
 // the glass only reaches higher when something actually floats up there.
-// `FooterPane` sets `data-egg-revealed` while the signature is out.
+// `FooterPane` sets `data-egg-dwelling` while the countdown runs, so a tap
+// engages the trigger even where touch leaves no `:hover` behind, and
+// `data-egg-revealed` while the signature is out.
 .pane {
   align-items: center;
   display: flex;
@@ -91,7 +93,9 @@ $egg-fade-out: 0.3s;
   }
 
   .root:hover &::before,
-  .root:focus-within &::before {
+  .root:focus-within &::before,
+  &[data-egg-dwelling]::before,
+  &[data-egg-revealed]::before {
     --glass-stow: 0%;
     opacity: 1;
   }
@@ -99,6 +103,7 @@ $egg-fade-out: 0.3s;
   // Stretches up to take in the raised label while the logo performs, then
   // the signature once it's out.
   &:has(.poweredBy:hover, .signature:focus-visible)::before,
+  &[data-egg-dwelling]::before,
   &[data-egg-revealed]::before {
     --glass-stretch: #{$label-headroom};
   }
@@ -130,12 +135,14 @@ $egg-fade-out: 0.3s;
   // Engaged while the logo performs, and held still once the signature is
   // out, until the pointer leaves the pane.
   &:hover,
+  .pane[data-egg-dwelling] &,
   .pane[data-egg-revealed] & {
     opacity: 1;
   }
 
   // The credits step aside meanwhile.
   &:hover ~ .credits,
+  .pane[data-egg-dwelling] & ~ .credits,
   .pane[data-egg-revealed] & ~ .credits {
     opacity: 0;
     visibility: hidden;
@@ -161,6 +168,7 @@ $egg-fade-out: 0.3s;
   white-space: nowrap;
 
   .poweredBy:hover &,
+  .pane[data-egg-dwelling] &,
   .pane[data-egg-revealed] & {
     color: var(--color-funky);
     opacity: 1;
@@ -184,6 +192,7 @@ $egg-fade-out: 0.3s;
   display: block;
 
   .poweredBy:hover &,
+  .pane[data-egg-dwelling] &,
   .pane[data-egg-revealed] & {
     filter: drop-shadow(0 3px 10px var(--color-mashumaro));
   }
@@ -191,7 +200,8 @@ $egg-fade-out: 0.3s;
   // Comes to rest as the signature surfaces, and isn't replayed while it's
   // out, leaving a still target.
   @media (prefers-reduced-motion: no-preference) {
-    .pane:not([data-egg-revealed]) .poweredBy:hover & {
+    .pane:not([data-egg-revealed]) .poweredBy:hover &,
+    .pane[data-egg-dwelling]:not([data-egg-revealed]) & {
       animation: powered-by $logo-pass ease-in 2 alternate;
     }
   }
