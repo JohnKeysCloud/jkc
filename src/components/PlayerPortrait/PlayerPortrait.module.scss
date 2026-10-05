@@ -56,17 +56,17 @@ $breathe-stagger: -0.35s;
   transform-origin: 50% 0;
 }
 
-.window::after {
-  background: black;
-  content: "";
-  inset: 0;
-  mix-blend-mode: saturation;
-  pointer-events: none;
-  position: absolute;
-}
-
-// Gated so a tap on touch screens doesn't leave the color stuck on.
+// Touch screens can't hover to reveal the color, so they always show it.
 @media (hover: hover) {
+  .window::after {
+    background: black;
+    content: "";
+    inset: 0;
+    mix-blend-mode: saturation;
+    pointer-events: none;
+    position: absolute;
+  }
+
   .root:hover .window::after {
     opacity: 0;
   }
