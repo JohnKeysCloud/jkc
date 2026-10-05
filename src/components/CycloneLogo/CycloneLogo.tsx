@@ -11,7 +11,7 @@ const LOGO = {
 };
 
 export function CycloneLogo() {
-  const rootRef = useRef<HTMLPictureElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(true);
 
   useEffect(() => {
@@ -30,21 +30,23 @@ export function CycloneLogo() {
   }, []);
 
   return (
-    <picture
+    <div
       ref={rootRef}
       className={isInView ? styles.root : `${styles.root} ${styles.isPaused}`}
     >
-      <source media="(prefers-reduced-motion: reduce)" srcSet={LOGO.still} />
-      <img
-        alt=""
-        className={styles.image}
-        decoding="async"
-        draggable={false}
-        fetchPriority="high"
-        height={LOGO.height}
-        src={LOGO.animated}
-        width={LOGO.width}
-      />
-    </picture>
+      <picture className={styles.logo}>
+        <source media="(prefers-reduced-motion: reduce)" srcSet={LOGO.still} />
+        <img
+          alt=""
+          className={styles.image}
+          decoding="async"
+          draggable={false}
+          fetchPriority="high"
+          height={LOGO.height}
+          src={LOGO.animated}
+          width={LOGO.width}
+        />
+      </picture>
+    </div>
   );
 }

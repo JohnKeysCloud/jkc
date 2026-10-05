@@ -1,6 +1,13 @@
+@use "sass:math";
+
+$flip-quarter-turns: 8;
+$flip-span: 5%;
+// Chrome stops drawing the transform, and streaks the glow, when a keyframe
+// scales to exactly 0, so edge-on frames keep a sliver.
+$flip-edge-on: 0.02;
+
 .root {
   display: block;
-  filter: drop-shadow(0 0 11px white);
   inline-size: clamp(188px, 38vw, 233px);
   isolation: isolate;
   position: relative;
@@ -22,6 +29,14 @@
   }
 }
 
+// The glow shares an element with the animation so the halo isn't re-rendered
+// through the filter every frame. The halo runs the same animation to stay in
+// step.
+.logo {
+  display: block;
+  filter: drop-shadow(0 0 11px white);
+}
+
 .image {
   block-size: auto;
   display: block;
@@ -29,13 +44,40 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .root {
+  .root::before,
+  .logo {
     animation: cyclone-infinite 18.888s linear infinite;
+    // Without a stable layer, Chrome leaves stale strips of the glow at the
+    // layer edges whenever the animated image repaints mid-animation.
+    will-change: transform;
   }
 }
 
-.root.isPaused {
+.isPaused::before,
+.isPaused > .logo {
   animation-play-state: paused;
+}
+
+// Two full flips about the horizontal axis, keyframed as 2D squashes: with no
+// perspective, `rotateX(a)` draws as `scaleY(cos(a))`. iOS Safari drops the
+// whole transform at this size when `rotateX` is combined with the rest.
+@mixin flip-frames($start, $lift-from, $lift-to, $scale-from, $scale-to) {
+  @for $step from 1 to $flip-quarter-turns {
+    $progress: math.div($step, $flip-quarter-turns);
+    $lift: $lift-from + ($lift-to - $lift-from) * $progress;
+    $scale: $scale-from + ($scale-to - $scale-from) * $progress;
+    $squash: math.round(math.cos(90deg * $step));
+    @if $squash == 0 {
+      $squash: $flip-edge-on;
+    }
+
+    #{$start + $flip-span * $progress} {
+      transform: translateY($lift)
+        translateX(0)
+        rotate(0)
+        scale($scale, $scale * $squash);
+    }
+  }
 }
 
 @keyframes cyclone-infinite {
@@ -46,7 +88,7 @@
   40%,
   to {
     opacity: 0.5;
-    transform: translateY(3.3svh) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    transform: translateY(3.3svh) translateX(0) rotate(0) scale(0.7);
   }
 
   5%,
@@ -56,43 +98,41 @@
   45%,
   95% {
     opacity: 1;
-    transform: translateY(0) translateX(0) rotateX(0) rotate(0) scale(0.7);
+    transform: translateY(0) translateX(0) rotate(0) scale(0.7);
   }
+
+  @include flip-frames(45%, 0svh, 1svh, 0.7, 1);
 
   50%,
   85%,
   90% {
     opacity: 1;
-    transform: translateY(1svh) translateX(0) rotateX(720deg) rotate(0) scale(1);
+    transform: translateY(1svh) translateX(0) rotate(0) scale(1);
   }
 
   55% {
-    transform: translateY(1svh) translateX(18vw) rotateX(720deg) rotate(360deg)
-      scale(1);
+    transform: translateY(1svh) translateX(18vw) rotate(360deg) scale(1);
   }
 
   60% {
-    transform: translateY(1svh) translateX(-18vw) rotateX(720deg) rotate(720deg)
-      scale(1);
+    transform: translateY(1svh) translateX(-18vw) rotate(720deg) scale(1);
   }
 
   65% {
-    transform: translateY(1svh) translateX(18vw) rotateX(720deg) rotate(360deg)
-      scale(1);
+    transform: translateY(1svh) translateX(18vw) rotate(360deg) scale(1);
   }
 
   70% {
-    transform: translateY(1svh) translateX(-18vw) rotateX(720deg) rotate(0)
-      scale(1);
+    transform: translateY(1svh) translateX(-18vw) rotate(0) scale(1);
   }
 
   75% {
-    transform: translateY(1svh) translateX(18vw) rotateX(720deg) rotate(1080deg)
-      scale(1);
+    transform: translateY(1svh) translateX(18vw) rotate(1080deg) scale(1);
   }
 
   80% {
-    transform: translateY(1svh) translateX(-18vw) rotateX(720deg)
-      rotate(-1080deg) scale(1);
+    transform: translateY(1svh) translateX(-18vw) rotate(-1080deg) scale(1);
   }
+
+  @include flip-frames(90%, 1svh, 0svh, 1, 0.7);
 }
