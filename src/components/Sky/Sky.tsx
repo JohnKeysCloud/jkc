@@ -1,7 +1,7 @@
 import { CycloneLogo } from "@/components/CycloneLogo";
+import { Epigraph } from "@/components/Epigraph";
 import { Moon } from "@/components/Moon";
 import { PressStart } from "@/components/PressStart";
-import { site } from "@/content/site";
 import styles from "./Sky.module.scss";
 
 type SkyProps = {
@@ -21,14 +21,7 @@ export function Sky({ targetId }: SkyProps) {
           </p>
         </div>
       </div>
-      <figure className={styles.epigraph}>
-        <blockquote className={styles.epigraphText}>
-          <p>{site.epigraph.text}</p>
-        </blockquote>
-        <figcaption className={styles.epigraphSource}>
-          — {site.epigraph.source}
-        </figcaption>
-      </figure>
+      <Epigraph className={styles.epigraph} />
     </header>
   );
 }

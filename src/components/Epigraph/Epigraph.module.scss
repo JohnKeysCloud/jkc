@@ -1,0 +1,93 @@
+// Every quote is laid out in the same cell, so the block always takes the
+// tallest quote's height and the hero never jumps between quotes.
+.root {
+  color: var(--color-mashumaro-muted);
+  display: grid;
+  font-size: clamp(0.8125rem, 2vw, 0.9375rem);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.7;
+  text-wrap: balance;
+}
+
+.sizer,
+.quote {
+  grid-area: 1 / 1;
+}
+
+.sizer {
+  visibility: hidden;
+}
+
+.quote {
+  align-self: center;
+}
+
+$drift-period: 4s;
+$drift-height: 0.12em;
+// Each word trails the one before it, so the ripple rolls along the line.
+$drift-lag: -0.22s;
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.letter {
+  display: inline-block;
+}
+
+// Uneven periods, so the two sparkles drift in and out of step.
+$twinkle-period: 2.8s;
+$twinkle-period-trailing: 3.7s;
+$twinkle-lag-trailing: -1.4s;
+
+@media (prefers-reduced-motion: no-preference) {
+  .word {
+    animation: drift $drift-period ease-in-out infinite;
+    animation-delay: calc(var(--word-index) * #{$drift-lag});
+  }
+
+  .sparkle {
+    animation: twinkle $twinkle-period ease-in-out infinite;
+
+    &:last-child {
+      animation-delay: $twinkle-lag-trailing;
+      animation-duration: $twinkle-period-trailing;
+    }
+  }
+}
+
+@keyframes drift {
+  50% {
+    translate: 0 (-$drift-height);
+  }
+}
+
+// Rests most of the loop, then dims, tilts, and pops back like a glint.
+@keyframes twinkle {
+  from,
+  60%,
+  to {
+    opacity: 1;
+    rotate: 0deg;
+    scale: 1;
+  }
+
+  70% {
+    opacity: 0.55;
+    rotate: -12deg;
+    scale: 0.8;
+  }
+
+  80% {
+    opacity: 1;
+    rotate: 10deg;
+    scale: 1.15;
+  }
+
+  90% {
+    rotate: -4deg;
+    scale: 0.96;
+  }
+}

@@ -20,7 +20,7 @@ export const site = {
   greeting: "Hello World",
   handle: "johnKeysCloud",
   mark: "ジKC",
-  role: "Metaphysicist",
+  role: "Software Engineer",
   studio: {
     name: "Cyclone Studios",
     href: "https://www.cyclonestud.io/",
@@ -36,10 +36,6 @@ export const site = {
   signature: {
     text: "As above, so billow",
     href: "https://www.windows93.net/",
-  },
-  epigraph: {
-    text: "“To live is to risk it all; otherwise you're just an inert chunk of randomly assembled molecules drifting wherever the universe blows you…”",
-    source: "Rick Sanchez",
   },
   socials: [
     {

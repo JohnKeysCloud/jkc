@@ -37,7 +37,7 @@ $occluder-far-turn: 45deg;
   filter: drop-shadow(0 0 14px rgb(217 225 242 / 35%));
   inline-size: clamp(3.5rem, 9vw, 6rem);
   inset-block-start: clamp(1rem, 4svh, 2.5rem);
-  inset-inline-start: clamp(1rem, 4vw, 2.5rem);
+  inset-inline-end: clamp(1rem, 4vw, 2.5rem);
   position: absolute;
   user-select: none;
   z-index: 2;

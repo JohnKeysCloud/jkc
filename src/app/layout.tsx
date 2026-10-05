@@ -26,7 +26,7 @@ const pixeBoy = localFont({
   src: "./fonts/pixe-boy.woff2",
 });
 
-const description = `${site.handle}: ${site.role.toLowerCase()} of ${site.studio.name}, ${site.location.name}.`;
+const description = `${site.handle}: ${site.role.toLowerCase()} at ${site.studio.name}, ${site.location.name}.`;
 
 export const metadata: Metadata = {
   title: `${site.handle} · ${site.mark}`,

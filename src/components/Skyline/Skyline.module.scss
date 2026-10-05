@@ -80,18 +80,17 @@ $dock-sink: 0.4;
 }
 
 @supports (animation-timeline: view()) {
-  // Climbs out of the dock band as the clouds part, landing on the fold
-  // beneath the card, then holds there while the page scrolls on to the
-  // footer. Clipped, so the city settling inside can't extend the page.
+  // Climbs up from below the fold as the clouds part, then holds on the
+  // viewport's bottom edge while the page scrolls on to the footer. Fixed
+  // rather than tracked by a scroll range, which iOS sizes against the wrong
+  // viewport once its toolbar collapses. Clipped, so the rooftop bloom can't
+  // glow along the bottom edge while the city waits below the fold.
   .root {
-    animation:
-      skyline-rise $ease-in-out-sine both,
-      skyline-hold linear both;
-    animation-range: $part-range, $dock-range;
-    // One per animation: a single shared value compiles their durations to
-    // 0s instead of auto, snapping each straight to its end.
-    animation-timeline: --descent, --descent;
+    animation: skyline-rise $ease-in-out-sine both;
+    animation-range: $part-range;
+    animation-timeline: --descent;
     overflow: clip;
+    position: fixed;
   }
 
   // Parallax: the city drifts down as the footer rides up over it.
@@ -106,14 +105,8 @@ $dock-sink: 0.4;
 }
 
 @keyframes skyline-rise {
-  to {
-    translate: 0 calc(-1 * var(--dock-band));
-  }
-}
-
-@keyframes skyline-hold {
-  to {
-    transform: translateY(var(--dock-band));
+  from {
+    translate: 0 100%;
   }
 }
 

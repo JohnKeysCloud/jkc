@@ -1,6 +1,9 @@
 $hello-gradient: #ff1818, var(--color-funky), #1f51ff;
 $phone: "(width < 640px)";
 $wide: "(width >= 640px)";
+$card-gutter: 1.5rem;
+// Width of the phone role line, in ems, with a little slack.
+$role-line-ems: 25;
 
 .root {
   align-content: center;
@@ -8,7 +11,7 @@ $wide: "(width >= 640px)";
   justify-items: center;
   margin-inline: auto;
   max-inline-size: 40rem;
-  padding: clamp(1.5rem, 6svh, 4rem) 1.5rem;
+  padding: clamp(1.5rem, 6svh, 4rem) $card-gutter;
   padding-block-start: var(--key-band);
   text-align: center;
 }
@@ -85,6 +88,15 @@ $wide: "(width >= 640px)";
   color: var(--color-mashumaro-muted);
   font-size: clamp(0.875rem, 2.2vw, 1rem);
   margin-block-start: 0.75rem;
+
+  // Shrinks to keep the line on one row across common phone widths.
+  @media #{$phone} {
+    font-size: clamp(
+      0.75rem,
+      calc((100vw - 2 * #{$card-gutter}) / #{$role-line-ems}),
+      0.875rem
+    );
+  }
 }
 
 .studio {
@@ -124,6 +136,7 @@ $wide: "(width >= 640px)";
   font-style: italic;
   font-weight: 300;
   margin-block-start: 1.75rem;
+  text-wrap: balance;
 
   @media (max-height: 700px) {
     margin-block-start: 1rem;

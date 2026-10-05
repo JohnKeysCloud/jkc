@@ -19,6 +19,8 @@ $star-field-far:
   grid-template-rows: 1fr auto;
   isolation: isolate;
   min-block-size: 100svh;
+  // The epigraph's letters scatter past the screen edges between quotes.
+  overflow-x: clip;
   place-items: center;
   position: relative;
 
@@ -84,29 +86,9 @@ $star-field-far:
 }
 
 .epigraph {
-  display: grid;
-  gap: 0.875rem;
-  justify-items: center;
   max-inline-size: 40rem;
   padding: 2rem 1.5rem 2.5rem;
   text-align: center;
-}
-
-.epigraphText {
-  color: var(--color-mashumaro-muted);
-  font-size: clamp(0.8125rem, 2vw, 0.9375rem);
-  font-style: italic;
-  font-weight: 300;
-  line-height: 1.7;
-  text-wrap: balance;
-}
-
-.epigraphSource {
-  color: var(--color-mashumaro-muted);
-  font-family: var(--font-pixel);
-  font-size: 0.5625rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 @keyframes blink {
