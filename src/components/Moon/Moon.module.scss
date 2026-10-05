@@ -49,11 +49,8 @@ $shade-feather: 10%;
   z-index: 2;
 }
 
-// The glow stays off the button: wrapped around the animating corona, iOS
-// re-renders it every frame of the eclipse and the moon shifts.
 .surface {
   display: block;
-  filter: drop-shadow(0 0 14px rgb(217 225 242 / 35%));
 }
 
 .image {
@@ -62,8 +59,12 @@ $shade-feather: 10%;
   inline-size: 100%;
 }
 
+// Carries the glow as a box-shadow, not a `drop-shadow` filter: iOS draws a
+// filter around the animated moon as a gray square until it repaints, and
+// re-renders one wrapped around the corona every frame of the eclipse.
 .disc {
   border-radius: 50%;
+  box-shadow: 0 0 28px rgb(217 225 242 / 35%);
   inset: $disc-inset;
   overflow: hidden;
   position: absolute;
