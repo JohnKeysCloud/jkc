@@ -1,0 +1,8 @@
+# Overrides the site's build settings in the Netlify UI, which still describe
+# the v1 static site. Publishing `.next` makes Netlify run its Next.js adapter.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
