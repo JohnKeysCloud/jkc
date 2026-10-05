@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { MuseoModerno, Press_Start_2P, Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 import { site } from "@/content/site";
 import "./globals.scss";
 
@@ -53,7 +54,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       lang="en"
       className={`${museo.variable} ${pressStart.variable} ${robotoMono.variable} ${pixeBoy.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <ConsoleGreeting />
+      </body>
     </html>
   );
 }
