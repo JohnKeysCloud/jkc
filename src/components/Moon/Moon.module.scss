@@ -13,6 +13,8 @@ $ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
 $ease-in-cubic: cubic-bezier(0.32, 0, 0.67, 0);
 $occluder-far-scale: 0.5;
 $occluder-far-turn: 45deg;
+// Feathers the dusk out over the bottom of the hero so it has no hard edge.
+$shade-feather: 10%;
 
 // The shade must size against the hero, not this wrapper.
 .root {
@@ -24,6 +26,11 @@ $occluder-far-turn: 45deg;
   background-image: $eclipse-stars;
   background-size: 260px 260px;
   inset: 0;
+  mask-image: linear-gradient(
+    to bottom,
+    black 100% - $shade-feather,
+    transparent
+  );
   opacity: 0;
   pointer-events: none;
   position: absolute;
