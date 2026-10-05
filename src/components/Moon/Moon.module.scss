@@ -126,7 +126,8 @@ $shade-feather: 10%;
   }
 }
 
-.root.isEclipsing {
+// The hero sets `--eclipse-duration`, so the quote's glow keeps the same time.
+.root[data-eclipsing] {
   .shade {
     animation: eclipse-dusk var(--eclipse-duration) ease-in-out both;
   }

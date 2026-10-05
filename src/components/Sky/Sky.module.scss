@@ -12,6 +12,12 @@ $star-field-far:
   radial-gradient(1px 1px at 5% 72%, white 50%, transparent),
   radial-gradient(1px 1px at 91% 88%, white 50%, transparent),
   radial-gradient(1px 1px at 44% 12%, white 50%, transparent);
+$eclipse-glow:
+  0 0 0.15em rgb(255 255 255 / 60%),
+  0 0 0.8em rgb(255 255 255 / 45%);
+$eclipse-glow-out:
+  0 0 0.15em rgb(255 255 255 / 0%),
+  0 0 0.8em rgb(255 255 255 / 0%);
 
 .root {
   background: linear-gradient(to bottom, var(--color-night), var(--color-dusk));
@@ -85,10 +91,27 @@ $star-field-far:
   user-select: none;
 }
 
+// Sits above the eclipse shade, so the quote shines through the dusk.
 .epigraph {
   max-inline-size: 40rem;
   padding: 2rem 1.5rem 2.5rem;
+  position: relative;
   text-align: center;
+  z-index: 2;
+}
+
+// Haloes the quote while the moon is eclipsed. On the quote's children, since
+// the epigraph itself runs the scroll-away animation; the glow inherits down
+// to every letter.
+.root:has([data-eclipsing]) .epigraph > * {
+  animation: eclipse-glow var(--eclipse-duration) ease-in-out both;
+
+  // Animations are flattened globally under reduced motion, so hold the glow
+  // for the eclipse's still totality instead.
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    text-shadow: $eclipse-glow;
+  }
 }
 
 @keyframes blink {
@@ -100,6 +123,21 @@ $star-field-far:
 @keyframes twinkle {
   to {
     opacity: 0.75;
+  }
+}
+
+// In step with the moon's `eclipse-dusk`, so the glow peaks at totality.
+@keyframes eclipse-glow {
+  from,
+  22%,
+  80%,
+  to {
+    text-shadow: $eclipse-glow-out;
+  }
+
+  40%,
+  60% {
+    text-shadow: $eclipse-glow;
   }
 }
 

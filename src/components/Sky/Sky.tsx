@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
 import { CycloneLogo } from "@/components/CycloneLogo";
 import { Epigraph } from "@/components/Epigraph";
 import { Moon } from "@/components/Moon";
 import { PressStart } from "@/components/PressStart";
+import { ECLIPSE_MS } from "@/lib/eclipse";
 import styles from "./Sky.module.scss";
 
 type SkyProps = {
@@ -10,7 +12,10 @@ type SkyProps = {
 
 export function Sky({ targetId }: SkyProps) {
   return (
-    <header className={styles.root}>
+    <header
+      className={styles.root}
+      style={{ "--eclipse-duration": `${ECLIPSE_MS}ms` } as CSSProperties}
+    >
       <Moon />
       <div className={styles.content}>
         <CycloneLogo />

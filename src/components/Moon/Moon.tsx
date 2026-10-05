@@ -1,6 +1,7 @@
 "use client";
 
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ECLIPSE_MS } from "@/lib/eclipse";
 import { haptic } from "@/lib/haptics";
 import styles from "./Moon.module.scss";
 
@@ -10,9 +11,6 @@ const MOON = {
   width: 350,
   height: 350,
 };
-
-/** Drives both the CSS keyframes and the reset, so reduced-motion visitors (whose animations are flattened globally) still see totality for the same span. */
-const ECLIPSE_MS = 7000;
 
 export function Moon() {
   const [isEclipsing, setIsEclipsing] = useState(false);
@@ -41,12 +39,7 @@ export function Moon() {
   };
 
   return (
-    <div
-      className={
-        isEclipsing ? `${styles.root} ${styles.isEclipsing}` : styles.root
-      }
-      style={{ "--eclipse-duration": `${ECLIPSE_MS}ms` } as CSSProperties}
-    >
+    <div className={styles.root} data-eclipsing={isEclipsing || undefined}>
       <div className={styles.shade} aria-hidden="true" />
       <button
         aria-label="Eclipse the moon"
