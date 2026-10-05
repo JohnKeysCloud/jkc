@@ -102,8 +102,7 @@ $enter: 240ms ease-out;
     background-color 150ms ease-out,
     color 150ms ease-out;
 
-  &:hover,
-  &:focus-visible {
+  @include engaged {
     background-color: rgb(233 17 19 / 14%);
     color: var(--color-binky);
   }
@@ -178,11 +177,12 @@ $enter: 240ms ease-out;
     color 150ms ease-out,
     transform 150ms ease-out;
 
-  &:hover:not(:disabled),
-  &:focus-visible {
-    background-color: var(--color-funky);
-    color: var(--color-night);
-    transform: translateY(-2px);
+  &:not(:disabled) {
+    @include engaged {
+      background-color: var(--color-funky);
+      color: var(--color-night);
+      transform: translateY(-2px);
+    }
   }
 
   &:active:not(:disabled) {

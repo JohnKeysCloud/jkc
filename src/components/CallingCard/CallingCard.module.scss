@@ -1,3 +1,5 @@
+@use "../../styles/interaction" as *;
+
 $hello-gradient: #ff1818, var(--color-funky), #1f51ff;
 $phone: "(width < 640px)";
 $wide: "(width >= 640px)";
@@ -105,8 +107,7 @@ $role-line-ems: 25;
   text-underline-offset: 0.3em;
   transition: color 150ms ease-out;
 
-  &:hover,
-  &:focus-visible {
+  @include engaged {
     color: var(--color-funky);
   }
 }
