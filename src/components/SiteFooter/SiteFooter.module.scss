@@ -1,6 +1,7 @@
 $color-shift: 333ms ease-out;
 // How long the "powered by" block takes to light up and fade back.
-$engage: 0.8s ease-in;
+$engage-time: 0.8s;
+$engage: $engage-time ease-in;
 $glass-reveal: 450ms;
 $pane-padding-top: 0.875rem;
 // How high the "powered by:" label rises while the logo performs, and the
@@ -85,11 +86,18 @@ $egg-fade-out: 0.3s;
     inset: calc(var(--glass-stow) - var(--glass-stretch)) 0 0;
     opacity: 0;
     position: absolute;
+    // The stretch moves in step with the label it makes room for.
     transition:
       --glass-stow $glass-reveal ease-out,
-      --glass-stretch $glass-reveal ease-out,
+      --glass-stretch $engage,
       opacity $glass-reveal ease-out;
     z-index: -1;
+
+    // Disengaged, it holds until everything inside has settled back to rest,
+    // so nothing is left drifting over bare page.
+    @media (prefers-reduced-motion: no-preference) {
+      transition-delay: $engage-time, 0s, $engage-time;
+    }
   }
 
   .root:hover &::before,
@@ -98,6 +106,7 @@ $egg-fade-out: 0.3s;
   &[data-egg-revealed]::before {
     --glass-stow: 0%;
     opacity: 1;
+    transition-delay: 0s;
   }
 
   // Stretches up to take in the raised label while the logo performs, then
