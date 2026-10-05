@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { ECLIPSE_MS } from "@/lib/eclipse";
 import { haptic } from "@/lib/haptics";
+import { useAnimatedImage } from "@/lib/useAnimatedImage";
 import styles from "./Moon.module.scss";
 
 const MOON = {
@@ -15,6 +16,8 @@ const MOON = {
 export function Moon() {
   const [isEclipsing, setIsEclipsing] = useState(false);
   const timeoutRef = useRef<number | null>(null);
+  // The still paints first so the heavy animation stays off the critical path.
+  const isAnimated = useAnimatedImage(MOON.animated);
 
   useEffect(
     () => () => {
@@ -47,18 +50,21 @@ export function Moon() {
         onClick={startEclipse}
         type="button"
       >
-        <picture className={styles.surface}>
-          <source
-            media="(prefers-reduced-motion: reduce)"
-            srcSet={MOON.still}
-          />
+        <picture
+          className={[styles.surface, isAnimated && styles.isAnimated]
+            .filter(Boolean)
+            .join(" ")}
+          style={
+            { "--moon-animated": `url(${MOON.animated})` } as CSSProperties
+          }
+        >
           <img
             alt=""
             className={styles.image}
             decoding="async"
             draggable={false}
             height={MOON.height}
-            src={MOON.animated}
+            src={MOON.still}
             width={MOON.width}
           />
         </picture>

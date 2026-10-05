@@ -1,10 +1,14 @@
 @use "sass:math";
+@use "../../styles/animated-overlay" as *;
 
 $flip-quarter-turns: 8;
 $flip-span: 5%;
 // Chrome stops drawing the transform, and streaks the glow, when a keyframe
 // scales to exactly 0, so edge-on frames keep a sliver.
 $flip-edge-on: 0.02;
+// The loop's opening pose, also held until the animated logo has loaded.
+$rest-opacity: 0.5;
+$rest-transform: translateY(3.3svh) translateX(0) rotate(0) scale(0.7);
 
 .root {
   display: block;
@@ -37,6 +41,10 @@ $flip-edge-on: 0.02;
   filter: drop-shadow(0 0 11px white);
 }
 
+.isAnimated > .logo {
+  @include animated-overlay(var(--logo-animated));
+}
+
 .image {
   block-size: auto;
   display: block;
@@ -44,12 +52,20 @@ $flip-edge-on: 0.02;
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  // Starts the loop only once the animated logo is laid over the still, so it
+  // lands at the still's size and isn't counted as a later, larger page paint.
   .root::before,
   .logo {
-    animation: cyclone-infinite 18.888s linear infinite;
+    opacity: $rest-opacity;
+    transform: $rest-transform;
     // Without a stable layer, Chrome leaves stale strips of the glow at the
     // layer edges whenever the animated image repaints mid-animation.
     will-change: transform;
+  }
+
+  .isAnimated::before,
+  .isAnimated > .logo {
+    animation: cyclone-infinite 18.888s linear infinite;
   }
 }
 
@@ -87,8 +103,8 @@ $flip-edge-on: 0.02;
   30%,
   40%,
   to {
-    opacity: 0.5;
-    transform: translateY(3.3svh) translateX(0) rotate(0) scale(0.7);
+    opacity: $rest-opacity;
+    transform: $rest-transform;
   }
 
   5%,

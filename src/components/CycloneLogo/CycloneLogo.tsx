@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { useAnimatedImage } from "@/lib/useAnimatedImage";
 import styles from "./CycloneLogo.module.scss";
 
 const LOGO = {
@@ -13,6 +14,11 @@ const LOGO = {
 export function CycloneLogo() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(true);
+  // The still paints first, so the page's largest paint isn't waiting on the
+  // far heavier animation, which is laid over it once it can play. Laid over
+  // rather than swapped in, so the still's `src` (what Lighthouse times)
+  // never changes.
+  const isAnimated = useAnimatedImage(LOGO.animated);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -32,10 +38,16 @@ export function CycloneLogo() {
   return (
     <div
       ref={rootRef}
-      className={isInView ? styles.root : `${styles.root} ${styles.isPaused}`}
+      className={[
+        styles.root,
+        isAnimated && styles.isAnimated,
+        !isInView && styles.isPaused,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{ "--logo-animated": `url(${LOGO.animated})` } as CSSProperties}
     >
       <picture className={styles.logo}>
-        <source media="(prefers-reduced-motion: reduce)" srcSet={LOGO.still} />
         <img
           alt=""
           className={styles.image}
@@ -43,7 +55,7 @@ export function CycloneLogo() {
           draggable={false}
           fetchPriority="high"
           height={LOGO.height}
-          src={LOGO.animated}
+          src={LOGO.still}
           width={LOGO.width}
         />
       </picture>

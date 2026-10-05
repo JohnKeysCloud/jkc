@@ -1,3 +1,5 @@
+@use "../../styles/animated-overlay" as *;
+
 // Stars that only come out while the sky is dark at totality.
 $eclipse-stars:
   radial-gradient(1.5px 1.5px at 8% 14%, white 50%, transparent),
@@ -51,6 +53,10 @@ $shade-feather: 10%;
 
 .surface {
   display: block;
+}
+
+.isAnimated {
+  @include animated-overlay(var(--moon-animated));
 }
 
 .image {

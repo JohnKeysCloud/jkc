@@ -1,0 +1,21 @@
+// Long enough for a freshly laid overlay to paint before its still hides.
+$still-handoff: 100ms;
+
+// Lays an animated image over the element's still `<img>` once
+// `useAnimatedImage` reports it ready. The still hides a beat later rather
+// than showing through, since the animated frames don't match it.
+@mixin animated-overlay($image) {
+  position: relative;
+
+  &::after {
+    background: $image center / 100% 100% no-repeat;
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+
+  > img {
+    transition: visibility 0s linear $still-handoff;
+    visibility: hidden;
+  }
+}
