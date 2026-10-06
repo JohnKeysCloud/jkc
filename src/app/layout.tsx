@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { MuseoModerno, Press_Start_2P, Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
+import { SoundToggle } from "@/components/SoundToggle";
 import { site } from "@/content/site";
 import "./globals.scss";
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${museo.variable} ${pressStart.variable} ${robotoMono.variable} ${pixeBoy.variable}`}
     >
       <body>
+        <SoundToggle />
         {children}
         <ConsoleGreeting />
       </body>

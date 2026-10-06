@@ -1,3 +1,5 @@
+@use "../../styles/corner" as *;
+@use "../../styles/descent" as *;
 @use "../../styles/interaction" as *;
 
 $rail: "(width >= 1024px)";
@@ -13,14 +15,17 @@ $wobble-stagger: 0.12s;
     margin-block-start: 1.25rem;
   }
 
-  // Rides the left edge of the scene, beside the card.
+  // Rides the left edge of the scene, beside the card. Centred between bands
+  // that clear the fixed sound toggle, so on short screens the rail stops
+  // short of the toggle's corner instead of sliding under it.
   @media #{$rail} {
     --tile-size: clamp(2.25rem, min(3.2vw, 6svh), 3rem);
-    inset-block-start: 50%;
+    align-content: safe center;
+    display: grid;
+    inset-block: $corner-band;
     inset-inline-start: clamp(1.5rem, 6vw, 6rem);
     margin-block-start: 0;
     position: absolute;
-    transform: translateY(-50%);
     z-index: 1;
   }
 }
@@ -129,6 +134,24 @@ $wobble-stagger: 0.12s;
       opacity $snap,
       transform $snap;
     white-space: nowrap;
+  }
+}
+
+// The card lifts by the dock band as the footer docks; the rail sinks by the
+// same amount so it holds still instead of riding up under the sound toggle.
+@supports (animation-timeline: view()) {
+  @media #{$rail} {
+    .root {
+      animation: rail-hold linear both;
+      animation-range: $dock-range;
+      animation-timeline: --descent;
+    }
+  }
+}
+
+@keyframes rail-hold {
+  to {
+    translate: 0 var(--dock-band);
   }
 }
 

@@ -1,0 +1,9 @@
+// The screen's top corners: the moon sits in one, the sound toggle in the
+// other.
+$corner-inset-block: clamp(1rem, 4svh, 2.5rem);
+$corner-inset-inline: clamp(1rem, 4vw, 2.5rem);
+// Grows with the viewport, like the moon it balances.
+$sound-toggle-size: clamp(2.75rem, 5vw, 3.5rem);
+// The band the fixed sound toggle occupies, which content kept on screen
+// alongside it must clear.
+$corner-band: calc(#{$corner-inset-block} + #{$sound-toggle-size} + 1rem);

@@ -1,4 +1,5 @@
 @use "../../styles/animated-overlay" as *;
+@use "../../styles/corner" as *;
 
 // Stars that only come out while the sky is dark at totality.
 $eclipse-stars:
@@ -44,8 +45,8 @@ $shade-feather: 10%;
   border-radius: 50%;
   display: block;
   inline-size: clamp(3.5rem, 9vw, 6rem);
-  inset-block-start: clamp(1rem, 4svh, 2.5rem);
-  inset-inline-end: clamp(1rem, 4vw, 2.5rem);
+  inset-block-start: $corner-inset-block;
+  inset-inline-end: $corner-inset-inline;
   position: absolute;
   user-select: none;
   z-index: 2;
