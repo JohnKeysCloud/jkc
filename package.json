@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "author": "Cyclone Studios",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "env:lan": "bash scripts/set-lan-env.sh",
@@ -10,7 +11,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test \"scripts/**/*.test.ts\" \"src/**/*.test.ts\"",
+    "test:e2e": "playwright test",
+    "instagram": "node --env-file-if-exists=.env.local --experimental-strip-types --disable-warning=ExperimentalWarning scripts/instagram/cli.ts",
+    "instagram:sync": "npm run --silent instagram -- sync",
+    "instagram:refresh-token": "npm run --silent instagram -- refresh-token",
+    "instagram:import-export": "npm run --silent instagram -- import-export"
   },
   "dependencies": {
     "next": "^16.3.6",
@@ -19,12 +26,14 @@
     "sass": "^1.105.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20.19.43",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.6",
     "prettier": "^3.9.9",
+    "sharp": "^0.35.5",
     "typescript": "^5.9.3"
   }
 }

@@ -17,6 +17,15 @@ npm-debug.log*
 
 # env files
 .env*
+!.env.example
+
+# playwright
+/test-results/
+/playwright-report/
+
+# instagram sync: per-run staging and interrupted atomic writes
+/.instagram-staging/
+/src/content/instagram/*.tmp
 
 # netlify
 .netlify
