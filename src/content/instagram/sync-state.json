@@ -1,5 +1,30 @@
 {
-  "lastSuccessAt": null,
+  "lastSuccessAt": "2026-10-10T20:30:11.932Z",
   "failures": [],
-  "gaps": []
+  "gaps": [
+    {
+      "id": "17983527126119624",
+      "permalink": "https://www.instagram.com/reel/Dc247yVypn1/",
+      "publishedAt": "2026-09-04T07:50:41.000Z",
+      "reason": "video-unavailable"
+    },
+    {
+      "id": "18117439333810337",
+      "permalink": "https://www.instagram.com/reel/DU3jKJHDupA/",
+      "publishedAt": "2026-02-17T17:49:09.000Z",
+      "reason": "video-unavailable"
+    },
+    {
+      "id": "17996308709889993",
+      "permalink": "https://www.instagram.com/reel/DT6elELjto6/",
+      "publishedAt": "2026-01-25T00:36:01.000Z",
+      "reason": "video-unavailable"
+    },
+    {
+      "id": "17877702966308430",
+      "permalink": "https://www.instagram.com/reel/DPXRCjsjsZU/",
+      "publishedAt": "2025-10-03T22:20:21.000Z",
+      "reason": "video-unavailable"
+    }
+  ]
 }
