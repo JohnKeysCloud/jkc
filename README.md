@@ -205,17 +205,32 @@ your LAN address to `.env.local` and serves the site on port 3100.
 `allowedDevOrigins`; without them, a phone renders the page but never
 hydrates.
 
-| Script           | What it does               |
-| ---------------- | -------------------------- |
-| `npm run build`  | Production build           |
-| `npm run start`  | Serve the production build |
-| `npm run lint`   | ESLint                     |
-| `npm run format` | Prettier                   |
+| Script                   | What it does                                |
+| ------------------------ | ------------------------------------------- |
+| `npm run build`          | Production build                            |
+| `npm run start`          | Serve the production build                  |
+| `npm run lint`           | ESLint                                      |
+| `npm run format`         | Prettier                                    |
+| `npm test`               | Unit and integration tests                  |
+| `npm run test:e2e`       | Gallery tests in Chromium, on fixture posts |
+| `npm run instagram:sync` | Copy new Instagram posts into the gallery   |
 
 ## Edit content
 
 All copy and outbound links live in [`src/content/site.ts`](src/content/site.ts).
 The quotes live in [`src/content/quotes.json`](src/content/quotes.json).
+
+## Instagram gallery
+
+[`/gallery`](src/app/gallery/page.tsx), linked from the footer, shows every
+Instagram post in a three-column grid, newest first, with a dialog for
+captions, carousels, and videos. The page never calls Instagram. A daily
+GitHub Actions job copies new posts into the repo through the official API,
+and Netlify deploys them like any other commit.
+
+Setup (a Creator account, a Meta app, and two repo secrets), the first
+import, and what to do when a run fails are in
+[`docs/instagram-sync.md`](docs/instagram-sync.md).
 
 ## Deploy
 
