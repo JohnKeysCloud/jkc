@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/content/site";
 import { CurrentYear } from "./CurrentYear";
 import { FooterPane } from "./FooterPane";
@@ -20,6 +21,9 @@ export function SiteFooter() {
             © <CurrentYear fallback={new Date().getFullYear()} />{" "}
             {`${site.studio.name}™ All Rights Reserved`}
           </p>
+          <Link className={styles.gallery} href="/gallery">
+            Gallery
+          </Link>
         </div>
         <a
           className={styles.signature}

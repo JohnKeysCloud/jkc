@@ -1,3 +1,5 @@
+@use "../../styles/interaction" as *;
+
 $color-shift: 333ms ease-out;
 // How long the "powered by" block takes to light up and fade back.
 $engage-time: 0.8s;
@@ -222,8 +224,9 @@ $egg-fade-out: 0.3s;
   flex-direction: column;
   justify-content: center;
 
-  // As above… so below.
-  &:active {
+  // As above… so below. Not while pressing the link, or the flip would carry
+  // it out from under the pointer before the click lands.
+  &:active:not(:has(.gallery:active)) {
     transform: rotate(180deg);
   }
 }
@@ -235,6 +238,18 @@ $egg-fade-out: 0.3s;
   transition: color $color-shift;
 
   &:hover {
+    color: var(--color-funky);
+  }
+}
+
+.gallery {
+  color: var(--color-mashumaro-muted);
+  font-family: var(--font-footer);
+  font-size: 0.938rem;
+  text-decoration: none;
+  transition: color $color-shift;
+
+  @include engaged {
     color: var(--color-funky);
   }
 }

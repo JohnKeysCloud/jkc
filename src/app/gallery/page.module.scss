@@ -1,0 +1,58 @@
+@use "../../styles/corner" as *;
+@use "../../styles/interaction" as *;
+
+// Instagram's own desktop width for a profile grid.
+$grid-width: 935px;
+
+.root {
+  margin-inline: auto;
+  max-inline-size: $grid-width;
+  padding-block-end: 2rem;
+}
+
+// Clears the fixed sound toggle, with Home mirroring it in the other corner.
+.header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-block: $corner-band 2rem;
+  padding-inline: 1rem;
+}
+
+.home {
+  color: var(--color-mashumaro-muted);
+  font-family: var(--font-pixel);
+  font-size: 0.625rem;
+  inset-block-start: calc(#{$corner-inset-block} + 1rem);
+  inset-inline-end: $corner-inset-inline;
+  letter-spacing: 0.08em;
+  position: absolute;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 150ms ease-out;
+
+  @include engaged {
+    color: var(--color-funky);
+  }
+}
+
+.title {
+  color: var(--color-funky);
+  font-family: var(--font-pixel);
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 0.5em currentcolor;
+  text-transform: uppercase;
+}
+
+.profile {
+  color: var(--color-mashumaro-muted);
+  text-decoration: none;
+  transition: color 150ms ease-out;
+
+  @include engaged {
+    color: var(--color-mashumaro);
+  }
+}

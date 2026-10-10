@@ -1,0 +1,94 @@
+@use "../../styles/interaction" as *;
+
+// Instagram keeps three columns at every width, with hairline gutters that
+// open up a little on desktop.
+$gutter: clamp(2px, 0.6vw, 6px);
+$badge-size: clamp(0.75rem, 2.2vw, 1.125rem);
+$settle: 300ms ease-out;
+
+.grid {
+  display: grid;
+  gap: $gutter;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+// Instagram's profile grid crops to 3:4.
+.tile {
+  aspect-ratio: 3 / 4;
+  background-color: rgb(255 252 232 / 5%);
+  display: block;
+  inline-size: 100%;
+  overflow: hidden;
+  position: relative;
+
+  // Inset, so the ring isn't hidden under the neighbouring tiles.
+  &:focus-visible {
+    outline-offset: -3px;
+  }
+
+  @include engaged {
+    .image {
+      filter: brightness(1.08);
+      transform: scale(1.04);
+    }
+  }
+}
+
+.image {
+  block-size: 100%;
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+  transition:
+    filter $settle,
+    transform $settle;
+}
+
+.missing {
+  align-items: center;
+  color: var(--color-mashumaro-muted);
+  display: flex;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.4375rem, 1.4vw, 0.625rem);
+  inset: 0;
+  justify-content: center;
+  line-height: 1.6;
+  padding: 0.5rem;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.badge {
+  fill: var(--color-mashumaro);
+  filter: drop-shadow(0 0 2px rgb(0 0 0 / 70%));
+  inline-size: $badge-size;
+  inset-block-start: 0.5rem;
+  inset-inline-end: 0.5rem;
+  pointer-events: none;
+  position: absolute;
+}
+
+.status {
+  color: var(--color-mashumaro-muted);
+  font-size: 0.875rem;
+  min-block-size: 3rem;
+  padding-block: 1rem;
+  text-align: center;
+}
+
+.retry {
+  color: var(--color-funky);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.empty {
+  color: var(--color-mashumaro-muted);
+  padding-block: 4rem;
+  text-align: center;
+
+  a {
+    color: var(--color-funky);
+  }
+}
