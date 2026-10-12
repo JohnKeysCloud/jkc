@@ -1,0 +1,277 @@
+@use "../../styles/crossing" as *;
+
+// Just under the sound toggle (Pac-Man), which passes over everything here.
+$layer: 9;
+$fade: 300ms;
+// Each flicker, skirt wiggle, and pellet blink stays at or under 2.5 flashes
+// a second, inside WCAG's limit of 3.
+$flicker: 400ms;
+$wiggle: 400ms;
+$blink: 500ms;
+$rise: 900ms;
+
+// Shows only while Pac-Man crosses, and only once laid out from measured sizes.
+.root {
+  inset: 0;
+  opacity: 0;
+  overflow: clip;
+  pointer-events: none;
+  position: fixed;
+  transition:
+    opacity $fade ease-out,
+    visibility 0s $fade;
+  visibility: hidden;
+  z-index: $layer;
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-panning]) .root[data-ready] {
+    opacity: 1;
+    transition:
+      opacity $fade ease-out $content-dim-in,
+      visibility 0s linear $content-dim-in;
+    visibility: visible;
+  }
+}
+
+// Measured to lay the route out in pixels.
+.crossRuler,
+.pixelRuler {
+  block-size: 0;
+  position: absolute;
+}
+
+.crossRuler {
+  inline-size: $cross;
+}
+
+.pixelRuler {
+  inline-size: $sound-pixel;
+}
+
+.originRuler {
+  inset-block-start: $cross-start-y;
+  inset-inline-start: $cross-start-x;
+  position: absolute;
+}
+
+.library {
+  block-size: 0;
+  inline-size: 0;
+  position: absolute;
+}
+
+// Centred on Pac-Man's path across the top.
+.item {
+  display: grid;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  place-items: center;
+  position: absolute;
+  translate: calc(#{$cross-start-x} + var(--at) * #{$cross} - 50%)
+    calc(#{$cross-start-y} - 50%);
+
+  &[data-covered] {
+    visibility: hidden;
+  }
+
+  &[data-state="eaten"] > .sprite {
+    opacity: 0;
+  }
+
+  > * {
+    grid-area: 1 / 1;
+  }
+}
+
+.sprite {
+  display: block;
+  inline-size: calc(10 * #{$sound-pixel});
+}
+
+.dot,
+.power {
+  background-color: var(--color-mashumaro);
+
+  &[data-state="eaten"] {
+    opacity: 0;
+  }
+}
+
+.dot {
+  block-size: calc(2 * #{$sound-pixel});
+  inline-size: calc(2 * #{$sound-pixel});
+}
+
+.power {
+  block-size: calc(4 * #{$sound-pixel});
+  border-radius: 50%;
+  inline-size: calc(4 * #{$sound-pixel});
+}
+
+.ghost {
+  color: var(--ghost);
+
+  &[data-state="frightened"],
+  &[data-state="flickering"] {
+    color: var(--color-edible-ghost);
+  }
+
+  &[data-state="eaten"] > .sprite {
+    opacity: 1;
+  }
+}
+
+.body {
+  fill: currentcolor;
+
+  .ghost[data-state="eaten"] & {
+    opacity: 0;
+  }
+}
+
+.skirtB {
+  opacity: 0;
+}
+
+// Floats off once eaten, as the eyes head home.
+.eyes {
+  transition:
+    opacity 600ms ease-out,
+    translate 600ms ease-out;
+
+  .ghost:is([data-state="frightened"], [data-state="flickering"]) & {
+    opacity: 0;
+    transition: none;
+  }
+
+  .ghost[data-state="eaten"] & {
+    opacity: 0;
+    translate: 0 -2px;
+  }
+}
+
+.whites {
+  fill: var(--color-mashumaro);
+}
+
+.pupils {
+  fill: var(--color-edible-ghost);
+}
+
+.face {
+  fill: var(--color-mashumaro);
+  opacity: 0;
+
+  .ghost:is([data-state="frightened"], [data-state="flickering"]) & {
+    opacity: 1;
+  }
+}
+
+.flash {
+  fill: var(--color-mashumaro);
+  opacity: 0;
+}
+
+// White body, blue eyes and mouth: the negative of the blue frightened ghost.
+.flashFace {
+  fill: var(--color-edible-ghost);
+}
+
+.stems {
+  fill: var(--color-funky);
+}
+
+.cherries {
+  fill: var(--color-binky);
+}
+
+.shine {
+  fill: var(--color-mashumaro);
+}
+
+// The points rise from whatever was eaten: cyan for ghosts, pink for fruit.
+.points {
+  font-family: var(--font-pixel);
+  font-size: calc(3 * #{$sound-pixel});
+  line-height: 1;
+  opacity: 0;
+
+  .ghost & {
+    color: var(--color-inky);
+  }
+
+  .cherry & {
+    color: var(--color-pinky);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // Stays applied after the rise, so returning to the crossing does not
+  // replay scores that already floated off.
+  .item[data-state="eaten"] .points {
+    animation: rise $rise ease-out forwards;
+  }
+
+  :global([data-panning]) {
+    .power:not([data-state="eaten"]) {
+      animation: blink $blink steps(1, end) infinite;
+    }
+
+    .skirtA {
+      animation: wiggle-out $wiggle steps(1, end) infinite;
+    }
+
+    .skirtB {
+      animation: wiggle-in $wiggle steps(1, end) infinite;
+    }
+
+    .ghost[data-state="flickering"] .flash {
+      animation: flicker $flicker steps(1, end) infinite;
+    }
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes wiggle-out {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes wiggle-in {
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes flicker {
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    translate: 0 -1.5em;
+  }
+}

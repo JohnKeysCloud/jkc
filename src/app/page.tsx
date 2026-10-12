@@ -1,4 +1,5 @@
 import { CallingCard } from "@/components/CallingCard";
+import { Chase } from "@/components/Chase";
 import { Clouds } from "@/components/Clouds";
 import { Descent } from "@/components/Descent";
 import { GalleryPanel } from "@/components/GalleryPanel";
@@ -25,6 +26,7 @@ export default function Home() {
       >
         <CallingCard />
       </Descent>
+      <Chase />
       <SkipCrossing targetId={CARD_ID} galleryId={GALLERY_ID} />
       <SiteFooter descentId={CARD_ID} galleryId={GALLERY_ID} />
     </>
