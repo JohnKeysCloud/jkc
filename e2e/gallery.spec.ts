@@ -95,8 +95,17 @@ test("loads older posts as the reader scrolls, still in order", async ({
   await page.goto("/gallery");
   await expect(tiles(page)).toHaveCount(PAGE_SIZE);
 
+  await expect(
+    page.getByRole("button", { name: /Back to the future/ }),
+  ).toHaveCount(0);
+
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await expect(tiles(page)).toHaveCount(TOTAL);
+  const recall = page.getByRole("button", { name: /Back to the future/ });
+  await expect(recall).toBeVisible();
+  await recall.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(recall).toBeHidden();
 
   const order = await publishedOrder(page);
   expect(order).toEqual([...order].sort().reverse());
@@ -167,11 +176,4 @@ test("shows a placeholder for a missing image without breaking the page", async 
   await expect(tiles(page).first().locator("img")).toBeVisible();
   await expect(tiles(page)).toHaveCount(PAGE_SIZE);
   expect(pageErrors).toEqual([]);
-});
-
-test("is reachable from the home page footer", async ({ page }) => {
-  await page.goto("/");
-  await page.getByRole("link", { name: "Gallery", exact: true }).click();
-  await expect(page).toHaveURL(/\/gallery$/);
-  await expect(page.getByRole("heading", { name: "Gallery" })).toBeVisible();
 });

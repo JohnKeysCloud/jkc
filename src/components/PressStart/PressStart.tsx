@@ -1,50 +1,15 @@
 "use client";
 
 import type { MouseEvent } from "react";
-import { measureDescentEnd } from "@/lib/descent";
-import { easeInOutSine } from "@/lib/easing";
+import { measureEnd } from "@/lib/descent";
 import { haptic } from "@/lib/haptics";
+import { isPlainClick } from "@/lib/plainClick";
+import { awardInteraction } from "@/lib/score";
+import { slideTo } from "@/lib/slideTo";
 
-const SLIDE_DURATION_MS = 3400;
-const INTERRUPT_EVENTS = ["wheel", "touchstart", "keydown"] as const;
-
-let cancelActiveSlide: (() => void) | null = null;
-
-function slideTo(destination: number) {
-  cancelActiveSlide?.();
-
-  const start = window.scrollY;
-  const distance = destination - start;
-  const startTime = performance.now();
-  let frameId: number | null = null;
-
-  const cancel = () => {
-    if (frameId !== null) {
-      window.cancelAnimationFrame(frameId);
-      frameId = null;
-    }
-    INTERRUPT_EVENTS.forEach((type) =>
-      window.removeEventListener(type, cancel),
-    );
-    cancelActiveSlide = null;
-  };
-
-  const step = (now: number) => {
-    const progress = Math.min((now - startTime) / SLIDE_DURATION_MS, 1);
-    window.scrollTo(0, start + distance * easeInOutSine(progress));
-    if (progress < 1) {
-      frameId = window.requestAnimationFrame(step);
-    } else {
-      cancel();
-    }
-  };
-
-  INTERRUPT_EVENTS.forEach((type) =>
-    window.addEventListener(type, cancel, { passive: true }),
-  );
-  cancelActiveSlide = cancel;
-  frameId = window.requestAnimationFrame(step);
-}
+// Long enough that the social icons still spin in one by one as the slide
+// eases to a stop.
+const PRESS_START_MS = 4400;
 
 type PressStartProps = {
   className?: string;
@@ -54,20 +19,14 @@ type PressStartProps = {
 export function PressStart({ className, targetId }: PressStartProps) {
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     const target = document.getElementById(targetId);
-    if (!target) {
+    if (!target || !isPlainClick(event)) {
       return;
     }
 
     event.preventDefault();
     haptic("press");
-    const destination = measureDescentEnd(target);
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      window.scrollTo(0, destination);
-      return;
-    }
-
-    slideTo(destination);
+    awardInteraction("press-start");
+    slideTo(measureEnd(target, "socials"), PRESS_START_MS);
   };
 
   return (

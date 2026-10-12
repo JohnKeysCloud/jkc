@@ -21,7 +21,10 @@ const TONES: Record<SocialIcon, Tone> = {
 export function Socials() {
   return (
     <nav className={styles.root} aria-label="Socials">
-      <ul className={styles.list}>
+      <ul
+        className={styles.list}
+        style={{ "--social-count": site.socials.length } as CSSProperties}
+      >
         {site.socials.map(({ label, href, icon }, index) => {
           const { accent, restBrightness = 1 } = TONES[icon];
 

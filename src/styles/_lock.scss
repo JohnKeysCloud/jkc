@@ -1,0 +1,36 @@
+// The master key's lock, which drops out of the sound toggle's way as it
+// crosses the screen's top.
+
+@use "corner" as *;
+
+$keyhole-size: 2.6875rem;
+$keyhole-width: calc(#{$keyhole-size} * 104 / 172);
+// The blade stops this far short of the lock's far edge.
+$seat-inset: 0.15rem;
+// How far the seated key reaches back from the seam, which is how far it hangs
+// below the lock halfway through its downward turn.
+$key-reach: calc(var(--key-length) - #{$keyhole-width} / 2 + #{$seat-inset});
+// The key and lock grow to this, about the lock, while it hangs between the
+// card and the gallery.
+$key-grow: 2;
+// How far the lock drops from the key band: enough to centre the grown,
+// hanging key in the viewport, and never so little that the lock stays in the
+// sound toggle's way on a short screen.
+$key-drop: max(
+  calc(50svh - var(--key-band) / 2 - #{$key-reach} * #{$key-grow} / 2),
+  calc(
+    #{$corner-inset-block} + #{$sound-toggle-size} + 1rem + #{$keyhole-size} *
+      #{$key-grow} / 2 - var(--key-band) / 2
+  )
+);
+// The drop, in shares of the pan's scroll: down from `$drop-from` to
+// `$drop-down`, held to `$drop-up`, back by `$drop-to`. Down before the
+// toggle reaches the key on a narrow phone, and back in the corner before the
+// pan ends.
+$drop-from: 10%;
+$drop-down: 30%;
+$drop-up: 70%;
+$drop-to: 90%;
+// How far into the drop, from 0 to 1, off the eased `--pan`, for browsers
+// without scroll timelines. Linear between the eased bounds.
+$drop-progress: clamp(0, (0.4755 - abs(var(--pan) - 0.5)) / 0.1816, 1);

@@ -1,0 +1,12 @@
+@use "../../styles/gallery" as *;
+
+// Clears the turned master key, which lies across the top of the panel.
+.root {
+  padding-block: var(--key-band) clamp(3rem, 8svh, 6rem);
+  padding-inline: 10vw;
+}
+
+.grid {
+  margin-inline: auto;
+  max-inline-size: $gallery-width;
+}

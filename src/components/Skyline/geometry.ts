@@ -1,6 +1,10 @@
 /** Art-pixel grid the skyline is drawn on; one unit renders as `--sky-pixel`. */
-export const VIEW_WIDTH = 480;
+export const VIEW_WIDTH = 960;
 export const VIEW_HEIGHT = 44;
+/** Column held under the centre of the card, between the midtown icons. */
+export const ANCHOR_X = 240;
+// Manhattan's span; the streets past it carry on under the gallery.
+const MANHATTAN_WIDTH = 480;
 
 export type Block = { x: number; y: number; width: number; height: number };
 export type LitBlock = Block & { isLit: boolean };
@@ -24,7 +28,7 @@ type Landmark = {
 };
 
 // Looking east across the Hudson: uptown on the left, downtown on the right,
-// with the midtown icons kept central so narrow screens crop to them.
+// with the midtown icons around `ANCHOR_X` so narrow screens crop to them.
 const LANDMARKS: Landmark[] = [
   // Central Park Tower, 111 West 57th, 432 Park Avenue
   {
@@ -107,8 +111,10 @@ const LANDMARKS: Landmark[] = [
 
 const WINDOW_TONES: WindowTone[] = ["amber", "amber", "cyan", "magenta"];
 
+type Random = () => number;
+
 /** Park–Miller generator; seeded so server and client draw the same city. */
-function createRandom(seed: number) {
+function createRandom(seed: number): Random {
   let state = seed;
   return () => {
     state = (state * 16807) % 2147483647;
@@ -116,25 +122,30 @@ function createRandom(seed: number) {
   };
 }
 
-const random = createRandom(1955);
-
-function randomInt(min: number, max: number) {
+function randomInt(random: Random, min: number, max: number) {
   return min + Math.floor(random() * (max - min + 1));
 }
 
 function raiseStreet(
+  random: Random,
+  [from, to]: [number, number],
   [minWidth, maxWidth]: [number, number],
   [minHeight, maxHeight]: [number, number],
   maxGap: number,
 ): Block[] {
   const blocks: Block[] = [];
-  for (let x = 0; x < VIEW_WIDTH;) {
-    const width = randomInt(minWidth, maxWidth);
-    const height = randomInt(minHeight, maxHeight);
+  for (let x = from; x < to;) {
+    const width = randomInt(random, minWidth, maxWidth);
+    const height = randomInt(random, minHeight, maxHeight);
     blocks.push({ height, width, x, y: VIEW_HEIGHT - height });
-    x += width + randomInt(0, maxGap);
+    x += width + randomInt(random, 0, maxGap);
   }
   return blocks;
+}
+
+function streetEnd(blocks: Block[]): number {
+  const last = blocks.at(-1);
+  return last ? last.x + last.width : 0;
 }
 
 function raiseLandmark({ align = "center", center, tiers }: Landmark) {
@@ -161,18 +172,18 @@ function raiseWaterTower({ x, y }: Block): Block[] {
   ];
 }
 
-function lightWindows(blocks: Block[]): LitWindow[] {
+function lightWindows(random: Random, blocks: Block[]): LitWindow[] {
   return blocks.flatMap((block) => {
     const lit: LitWindow[] = [];
     for (let y = block.y + 2; y < VIEW_HEIGHT - 1; y += 2) {
       for (let x = block.x + 1; x < block.x + block.width - 1; x += 2) {
         if (random() < 0.16) {
           lit.push({
-            delay: -randomInt(0, 90) / 10,
-            duration: randomInt(40, 90) / 10,
+            delay: -randomInt(random, 0, 90) / 10,
+            duration: randomInt(random, 40, 90) / 10,
             height: 1,
             isTwinkling: random() < 0.3,
-            tone: WINDOW_TONES[randomInt(0, WINDOW_TONES.length - 1)],
+            tone: WINDOW_TONES[randomInt(random, 0, WINDOW_TONES.length - 1)],
             width: 1,
             x,
             y,
@@ -184,13 +195,34 @@ function lightWindows(blocks: Block[]): LitWindow[] {
   });
 }
 
-export const farBlocks = raiseStreet([3, 7], [10, 24], 0);
+// Each stretch draws from its own seed, so widening the city never reshuffles
+// the stretch already drawn.
+function raiseDistrict(
+  seed: number,
+  [farFrom, nearFrom]: [number, number],
+  to: number,
+) {
+  const random = createRandom(seed);
+  const far = raiseStreet(random, [farFrom, to], [3, 7], [10, 24], 0);
+  const near = raiseStreet(random, [nearFrom, to], [4, 9], [4, 13], 1);
+  const towers = near
+    .filter((block) => block.width >= 5 && random() < 0.3)
+    .flatMap(raiseWaterTower);
+  return { far, near, towers, windows: lightWindows(random, near) };
+}
+
+const manhattan = raiseDistrict(1955, [0, 0], MANHATTAN_WIDTH);
+const beyond = raiseDistrict(
+  2026,
+  [streetEnd(manhattan.far), streetEnd(manhattan.near)],
+  VIEW_WIDTH,
+);
+
+export const farBlocks = [...manhattan.far, ...beyond.far];
 export const landmarkBlocks = LANDMARKS.flatMap(raiseLandmark);
-export const nearBlocks = raiseStreet([4, 9], [4, 13], 1);
-export const waterTowers = nearBlocks
-  .filter((block) => block.width >= 5 && random() < 0.3)
-  .flatMap(raiseWaterTower);
-export const windows = lightWindows(nearBlocks);
+export const nearBlocks = [...manhattan.near, ...beyond.near];
+export const waterTowers = [...manhattan.towers, ...beyond.towers];
+export const windows = [...manhattan.windows, ...beyond.windows];
 export const beacons: Block[] = LANDMARKS.filter(
   ({ hasBeacon }) => hasBeacon,
 ).map(({ center, tiers }) => ({

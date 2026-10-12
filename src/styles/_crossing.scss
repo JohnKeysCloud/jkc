@@ -1,0 +1,24 @@
+// The sound toggle's crossing of the screen's top as the gallery pans in,
+// shared by the toggle and the Pac-Man chase laid along its route.
+
+@use "corner" as *;
+
+$sound-icon-size: clamp(1.75rem, 3vw, 2.25rem);
+// One pixel of the toggle's 12 by 10 pixel art.
+$sound-pixel: calc(#{$sound-icon-size} / 12);
+// From the moon's opposite corner to the mirror of it, across the top.
+$cross: calc(100vw - 2 * #{$corner-inset-inline} - #{$sound-toggle-size});
+// The toggle's centre, where the crossing starts.
+$cross-start-x: calc(#{$corner-inset-inline} + #{$sound-toggle-size} / 2);
+$cross-start-y: calc(#{$corner-inset-block} + #{$sound-toggle-size} / 2);
+// Pixels fly from speaker to Pac-Man over `$morph`, spread over `$morph-stagger`.
+// The yellow lands only after the last one arrives; heading home, it drains first.
+$morph: 450ms;
+$morph-stagger: 300ms;
+$tint: 250ms;
+$morph-back: $tint + $morph-stagger + $morph;
+// The departing screen dims, and only then does the speaker become Pac-Man.
+// Restoring it waits out `$morph-back`, so the screen rises after he is the
+// speaker again.
+$content-dim: 0.4;
+$content-dim-in: 320ms;

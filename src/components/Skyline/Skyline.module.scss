@@ -6,27 +6,43 @@ $near-ink: #040509;
 $neon-rim: rgb(220 128 177 / 65%);
 $neon-bloom: rgb(157 25 157 / 45%);
 
-// Matches `VIEW_HEIGHT` in `geometry.ts`; the grid's width crops to fit.
+// Matches `VIEW_HEIGHT` in `geometry.ts`.
 $grid-rows: 44;
 // How far the city sinks as the footer docks, as a share of the dock band.
 $dock-sink: 0.4;
 
 // Rests on the stage's bottom edge, a dock band below the fold, so it only
 // meets the page's bottom edge once the footer has docked. Where scroll
-// timelines run, it rises into full view behind the card instead.
+// timelines run, it rises into full view behind the card instead. Spans both
+// of the descent's panels and pans with them; the pixel grows on very wide
+// screens so the art still reaches both ends.
 .root {
-  --sky-pixel: clamp(4.5px, 0.3vw, 5.5px);
+  --sky-pixel: max(
+    clamp(4.5px, 0.3vw, 5.5px),
+    50vw / var(--sky-anchor),
+    150vw / (var(--sky-columns) - var(--sky-anchor))
+  );
   block-size: calc(#{$grid-rows} * var(--sky-pixel));
-  inset: auto 0 0;
+  inline-size: 200%;
+  inset: auto auto 0 0;
+  overflow-x: clip;
   pointer-events: none;
   position: absolute;
+  transform: translateX(calc(var(--pan) * -50%));
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+  }
 }
 
+// Drawn at the art's own pixel size, with the anchor column under the centre
+// of the card's panel, a quarter of the way along.
 .silhouette,
 .lights {
   block-size: 100%;
-  inline-size: 100%;
-  inset: 0;
+  inline-size: calc(var(--sky-columns) * var(--sky-pixel));
+  inset-block: 0;
+  inset-inline-start: calc(25% - var(--sky-anchor) * var(--sky-pixel));
   position: absolute;
 }
 
@@ -81,16 +97,25 @@ $dock-sink: 0.4;
 
 @supports (animation-timeline: view()) {
   // Climbs up from below the fold as the clouds part, then holds on the
-  // viewport's bottom edge while the page scrolls on to the footer. Fixed
-  // rather than tracked by a scroll range, which iOS sizes against the wrong
-  // viewport once its toolbar collapses. Clipped, so the rooftop bloom can't
-  // glow along the bottom edge while the city waits below the fold.
+  // viewport's bottom edge, panning with the card, while the page scrolls on
+  // through the gallery to the footer. Fixed rather than tracked by a scroll
+  // range, which iOS sizes against the wrong viewport once its toolbar
+  // collapses. Clipped, so the rooftop bloom can't glow along the bottom edge
+  // while the city waits below the fold. Set in longhands: Chrome resolves a
+  // listed shorthand's missing durations to 0s rather than `auto`, which
+  // collapses each scroll range.
   .root {
-    animation: skyline-rise $ease-in-out-sine both;
-    animation-range: $part-range;
-    animation-timeline: --descent;
+    animation-fill-mode: both;
+    animation-name: skyline-rise, skyline-pan;
+    animation-range: $part-range, $pan-range;
+    animation-timeline: --descent, $pan-timeline;
+    animation-timing-function: $ease-in-out-sine;
     overflow: clip;
     position: fixed;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-name: skyline-rise, none;
+    }
   }
 
   // Parallax: the city drifts down as the footer rides up over it.
@@ -107,6 +132,16 @@ $dock-sink: 0.4;
 @keyframes skyline-rise {
   from {
     translate: 0 100%;
+  }
+}
+
+@keyframes skyline-pan {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }
 

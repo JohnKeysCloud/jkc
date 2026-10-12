@@ -7,11 +7,8 @@ import {
   getPageCount,
   getPosts,
 } from "@/lib/instagramContent";
+import { profileHandle, profileUrl } from "@/lib/instagramProfile";
 import styles from "./page.module.scss";
-
-const instagram = site.socials.find((social) => social.icon === "instagram");
-const profileUrl = instagram?.href ?? "https://www.instagram.com/";
-const handle = new URL(profileUrl).pathname.replaceAll("/", "");
 
 export const metadata: Metadata = {
   title: `Gallery · ${site.handle}`,
@@ -34,7 +31,7 @@ export default function GalleryPage() {
           rel="noopener noreferrer"
           target="_blank"
         >
-          @{handle}
+          @{profileHandle}
           <span className="srOnly"> on Instagram (opens in a new tab)</span>
         </a>
       </header>

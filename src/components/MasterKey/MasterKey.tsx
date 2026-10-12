@@ -1,32 +1,30 @@
 "use client";
 
-import { type CSSProperties, useEffect, useRef, useState } from "react";
-import { PART_TAIL, measureDescentProgress } from "@/lib/descent";
+import { useEffect, useState } from "react";
+import {
+  PANNED_AT,
+  PART_TAIL,
+  measureEnd,
+  measureProgress,
+} from "@/lib/descent";
 import { haptic } from "@/lib/haptics";
+import { awardInteraction } from "@/lib/score";
+import { slideTo } from "@/lib/slideTo";
 import styles from "./MasterKey.module.scss";
 
-type KeyState = "resting" | "inserted" | "withdrawing";
+const REVEAL_AT = 1 - PART_TAIL;
+/** Glide for a tap that turns the key or turns it back. */
+const TURN_SLIDE_MS = 2400;
 
 type MasterKeyProps = {
   /** The descent the key waits on; it appears once the clouds have parted. */
   targetId: string;
 };
 
-/** Matches the `key-insert` / `key-withdraw` duration in the stylesheet. */
-const TURN_MS = 800;
-const REVEAL_AT = 1 - PART_TAIL;
-
-const STATE_CLASS: Record<KeyState, string> = {
-  resting: styles.key,
-  inserted: `${styles.key} ${styles.isInserted}`,
-  withdrawing: `${styles.key} ${styles.isWithdrawing}`,
-};
-
 export function MasterKey({ targetId }: MasterKeyProps) {
-  const keyRef = useRef<HTMLButtonElement>(null);
   const [isRevealed, setIsRevealed] = useState(false);
-  const [keyState, setKeyState] = useState<KeyState>("resting");
-  const [offsetMs, setOffsetMs] = useState(0);
+  const [isEngaged, setIsEngaged] = useState(false);
+  const [isTurned, setIsTurned] = useState(false);
 
   useEffect(() => {
     const descent = document.getElementById(targetId);
@@ -38,7 +36,9 @@ export function MasterKey({ targetId }: MasterKeyProps) {
 
     const update = () => {
       frameId = null;
-      setIsRevealed(measureDescentProgress(descent) >= REVEAL_AT);
+      setIsRevealed(measureProgress(descent, "part") >= REVEAL_AT);
+      setIsEngaged(measureProgress(descent, "insert") > 0);
+      setIsTurned(measureProgress(descent, "pan") >= PANNED_AT);
     };
 
     const requestUpdate = () => {
@@ -60,26 +60,16 @@ export function MasterKey({ targetId }: MasterKeyProps) {
     };
   }, [targetId]);
 
+  // Scroll plays the turn, so a tap just carries the page through it. Turning
+  // back stops with the key still in its lock, once the socials are back.
   const toggle = () => {
-    const isEntering = keyState !== "inserted";
-    // Both directions report progress along the insert path, so a mid-flight
-    // tap picks up from wherever the key currently is.
-    const progress =
-      keyState === "resting"
-        ? 0
-        : (keyRef.current?.getAnimations()[0]?.effect?.getComputedTiming()
-            .progress ?? (isEntering ? 0 : 1));
-    const remaining = isEntering ? progress : 1 - progress;
-
-    haptic();
-    setOffsetMs(-remaining * TURN_MS);
-    setKeyState(isEntering ? "inserted" : "withdrawing");
-  };
-
-  const settle = () => {
-    if (keyState === "withdrawing") {
-      setKeyState("resting");
+    const descent = document.getElementById(targetId);
+    if (!descent) {
+      return;
     }
+    haptic();
+    awardInteraction("master-key");
+    slideTo(measureEnd(descent, isTurned ? "insert" : "pan"), TURN_SLIDE_MS);
   };
 
   return (
@@ -88,19 +78,22 @@ export function MasterKey({ targetId }: MasterKeyProps) {
         isRevealed ? `${styles.root} ${styles.isRevealed}` : styles.root
       }
     >
-      <div className={styles.band}>
-        <button
-          ref={keyRef}
-          aria-label="Master key"
-          aria-pressed={keyState === "inserted"}
-          className={STATE_CLASS[keyState]}
-          onAnimationEnd={settle}
-          onClick={toggle}
-          style={{ "--key-offset": `${offsetMs}ms` } as CSSProperties}
-          type="button"
-        />
+      <div className={styles.glow}>
+        <div className={styles.band}>
+          <button
+            aria-label="Master key"
+            aria-pressed={isTurned}
+            className={
+              isEngaged ? `${styles.key} ${styles.isEngaged}` : styles.key
+            }
+            onClick={toggle}
+            type="button"
+          >
+            <span className={styles.art} data-chase-cover="shape" />
+          </button>
+        </div>
       </div>
-      <span className={styles.keyhole} aria-hidden="true" />
+      <span className={styles.keyhole} aria-hidden="true" data-chase-cover />
     </div>
   );
 }

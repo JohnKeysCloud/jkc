@@ -1,16 +1,47 @@
+@use "sass:math";
+@use "../../styles/crossing" as *;
 @use "../../styles/descent" as *;
+
+// The scene rises this far as the clouds part, and fades in over the middle
+// of the eased parting: opacity = part * gain - offset.
+$scene-rise: 6svh;
+$scene-fade-gain: 1.6;
+$scene-fade-offset: 0.3;
+
+// Linear progress at which a sine ease reaches `$eased`, as a keyframe offset.
+@function sine-progress-at($eased) {
+  @return math.div(math.acos(1 - 2 * $eased), 180deg) * 100%;
+}
 
 .root {
   --cloud-part: 1;
-  block-size: calc(100svh + #{$pinned-travel} + var(--dock-band));
+  --insert: 0;
+  --leave: 0;
+  --socials: 0;
   position: relative;
   view-timeline-name: --descent;
 }
 
-// Runs a dock band past the viewport, painted in svh so the city's neon haze
-// carries on below the fold. Once the pin releases, that band scrolls up
-// behind the glass footer instead of exposing the page background.
+// Pinned through the travel spacers after it, then released to scroll on, so
+// a gallery taller than the viewport reads top to bottom before the footer
+// docks. Clipped sideways: the track is twice its width.
 .stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  inset-block-start: 0;
+  overflow-x: clip;
+  position: sticky;
+  // Holds the gallery's negative layer inside the stage, under the skyline,
+  // without letting that layer cover the footer or the score.
+  z-index: 0;
+}
+
+// Holds the viewport while the stage scrolls on, and reaches a dock band past
+// the fold so the city's neon haze carries on below it. Once the stage runs
+// out, that band scrolls up behind the glass footer instead of exposing the
+// page background.
+.glow {
+  align-self: start;
   background:
     radial-gradient(
       70% 45svh at 50% 112svh,
@@ -30,25 +61,113 @@
     ),
     linear-gradient(to bottom, var(--color-dusk), var(--color-night) 100svh);
   block-size: calc(100svh + var(--dock-band));
+  grid-area: 1 / 1;
   inset-block-start: 0;
   position: sticky;
+  z-index: -2;
+}
+
+// The card and the aside side by side; the pan slides it one stage width
+// left. Ends on a dock band of room for the footer to dock over.
+.track {
+  display: grid;
+  grid-area: 1 / 1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  inline-size: 200%;
+  padding-block-end: var(--dock-band);
+  position: relative;
+  transform: translateX(calc(var(--pan) * -50%));
+}
+
+// Photos only. Sits under the skyline; the card's track, painted after the
+// city, stays in front of it. Clicks pass through the city.
+.below {
+  z-index: -1;
+}
+
+// The card and the key. Ignores the pointer everywhere but the card, so the
+// gallery underneath can still be tapped.
+.above {
+  align-self: start;
+  pointer-events: none;
 }
 
 .frame {
+  align-self: start;
   block-size: 100svh;
   display: grid;
+  pointer-events: auto;
   position: relative;
+}
+
+.aside {
+  min-block-size: 100svh;
 }
 
 .scene {
   display: grid;
-  opacity: clamp(0, calc(var(--cloud-part) * 1.6 - 0.3), 1);
+  opacity: clamp(
+    0,
+    calc(var(--cloud-part) * #{$scene-fade-gain} - #{$scene-fade-offset}),
+    1
+  );
   place-items: center;
   position: relative;
-  transform: translateY(calc((1 - var(--cloud-part)) * 6svh));
+  transform: translateY(calc((1 - var(--cloud-part)) * #{$scene-rise}));
 }
 
-// The browser syncs this to the scroll position itself, so the card can't lag
+// Never scroll anchors: they shift down whenever the stage grows, say as the
+// gallery loads more posts, and anchoring to one would drag the page along.
+.partTravel,
+.socialsTravel,
+.insertTravel,
+.leaveTravel,
+.panTravel {
+  overflow-anchor: none;
+}
+
+.partTravel {
+  block-size: $part-travel;
+}
+
+.socialsTravel {
+  block-size: $socials-travel;
+}
+
+.insertTravel {
+  block-size: $insert-travel;
+}
+
+.leaveTravel {
+  block-size: $leave-travel;
+}
+
+.panTravel {
+  block-size: $pan-travel;
+
+  @media (pointer: coarse) {
+    block-size: $pan-travel-touch;
+  }
+}
+
+// Recede while Pac-Man has the crossing, after the dim and not before he is
+// the speaker again. The key stays bright, hanging between them.
+@media (prefers-reduced-motion: no-preference) {
+  .frame,
+  .aside {
+    transition: opacity $content-dim-in ease-out $morph-back;
+  }
+
+  :global([data-panning]) {
+    .frame,
+    .aside {
+      opacity: $content-dim;
+      transition: opacity $content-dim-in ease-out;
+    }
+  }
+}
+
+// The browser syncs these to the scroll position itself, so the card can't lag
 // behind a touch scroll the way scroll-event updates do on iOS.
 @supports (animation-timeline: view()) {
   .scene {
@@ -56,25 +175,103 @@
     animation-range: $part-range;
     animation-timeline: --descent;
   }
+
+  .track {
+    animation: pan $ease-in-out-sine both;
+    animation-range: $pan-range;
+    animation-timeline: $pan-timeline;
+  }
 }
 
-// Mirrors the fallback: opacity = clamp(0, part * 1.6 - 0.3, 1).
+// Rather than sliding, the card fades out, the track jumps across while
+// neither panel shows, and the gallery fades in.
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transform: translateX(calc(round(var(--pan)) * -50%));
+  }
+
+  .frame {
+    opacity: clamp(0, calc(1 - var(--pan) * 2), 1);
+  }
+
+  .aside {
+    opacity: clamp(0, calc(var(--pan) * 2 - 1), 1);
+  }
+
+  @supports (animation-timeline: view()) {
+    .track {
+      animation-timing-function: steps(2, jump-none);
+    }
+
+    .frame,
+    .aside {
+      animation: linear both;
+      animation-range: $pan-range;
+      animation-timeline: $pan-timeline;
+    }
+
+    .frame {
+      animation-name: card-leave;
+    }
+
+    .aside {
+      animation-name: gallery-arrive;
+    }
+  }
+}
+
+// Mirrors the fallback, whose fade is linear in the eased parting. Keyframe
+// offsets are linear progress, so the fade's ends sit where the sine ease
+// reaches them, and the near-linear middle of that ease runs straight across.
 @keyframes scene-arrive {
   from {
     opacity: 0;
-    transform: translateY(6svh);
+    transform: translateY($scene-rise);
   }
 
-  18.75% {
+  #{sine-progress-at(math.div($scene-fade-offset, $scene-fade-gain))} {
+    animation-timing-function: linear;
     opacity: 0;
   }
 
-  81.25% {
+  #{sine-progress-at(math.div(1 + $scene-fade-offset, $scene-fade-gain))} {
     opacity: 1;
   }
 
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes pan {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes card-leave {
+  from {
+    opacity: 1;
+  }
+
+  50%,
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes gallery-arrive {
+  from,
+  50% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

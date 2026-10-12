@@ -1,12 +1,10 @@
 @use "../../styles/corner" as *;
+@use "../../styles/gallery" as *;
 @use "../../styles/interaction" as *;
-
-// Instagram's own desktop width for a profile grid.
-$grid-width: 935px;
 
 .root {
   margin-inline: auto;
-  max-inline-size: $grid-width;
+  max-inline-size: $gallery-width;
   padding-block-end: 2rem;
 }
 

@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import {
+  ANCHOR_X,
   VIEW_HEIGHT,
   VIEW_WIDTH,
   beacons,
@@ -21,14 +22,18 @@ const TONE_CLASS = {
 // doesn't repaint the silhouette's neon rim filter.
 const gridProps = {
   "aria-hidden": true,
-  preserveAspectRatio: "xMidYMax slice",
   shapeRendering: "crispEdges",
   viewBox: `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`,
 } as const;
 
+const gridStyle = {
+  "--sky-anchor": ANCHOR_X,
+  "--sky-columns": VIEW_WIDTH,
+} as CSSProperties;
+
 export function Skyline() {
   return (
-    <div className={styles.root}>
+    <div className={styles.root} data-skyline style={gridStyle}>
       <svg className={styles.silhouette} {...gridProps}>
         <g className={styles.far}>
           {farBlocks.map(({ x, y, width, height }) => (

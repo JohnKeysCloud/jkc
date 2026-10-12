@@ -1,13 +1,30 @@
-$keyhole-size: 2.6875rem;
+@use "../../styles/descent" as *;
+@use "../../styles/lock" as *;
+
 // Transparent margin around the key art, which runs edge to edge in its
 // viewBox. Mobile browsers snap the glowing, jingling key to whole pixels and
 // would otherwise shave its top and bottom.
 $key-bleed: 0.25rem;
-$turn: 800ms;
 $reveal: 600ms;
+// Scrubbing time for the insert where scroll timelines are unsupported; the
+// descent's `--insert` picks the frame.
+$insert-scrub: 1s;
 
+// The key band across the descent's two-panel track, whose seam (the lock)
+// sits at 50%. While the panels pan, it drops the lock between the card and
+// the gallery and grows about it, clear of the sound toggle crossing the top.
 .root {
-  display: contents;
+  block-size: var(--key-band);
+  inset: 0 0 auto;
+  position: absolute;
+  scale: calc(1 + (#{$key-grow} - 1) * #{$drop-progress});
+  translate: 0 calc(#{$key-drop} * #{$drop-progress});
+  z-index: 3;
+
+  @media (prefers-reduced-motion: reduce) {
+    scale: none;
+    translate: none;
+  }
 }
 
 // Hidden (not just transparent) until revealed so the key can't be tabbed to
@@ -33,34 +50,60 @@ $reveal: 600ms;
   }
 }
 
-// Strip across the top of the card's frame, in the room the card leaves
-// above itself, so it rides along with the card rather than floating over
-// it. The key travels to its right edge, so horizontal overflow is clipped
-// while the glow can still bleed vertically.
-.band {
+// Strip across the top of the card's panel, in the room the card leaves above
+// itself. The key travels into the lock on the seam, and the band turns
+// downward about that point to carry it over to the gallery.
+//
+// The glow sits on an unturned wrapper so the shadow follows the key instead
+// of being cut off where the band ends.
+.glow {
   block-size: var(--key-band);
-  display: grid;
-  inset: 0 0 auto;
-  overflow-x: clip;
+  filter: drop-shadow(0 0 13px var(--color-mashumaro));
+  inset: 0 50% auto 0;
   pointer-events: none;
-  place-items: center;
   position: absolute;
   z-index: 3;
 }
 
+// `inline-size` containment so the key can measure the seam with `50cqw`.
+.band {
+  container-type: inline-size;
+  display: grid;
+  inset: 0;
+  place-items: center;
+  position: absolute;
+  rotate: calc(var(--pan) * -180deg);
+  transform-origin: 100% 50%;
+
+  @media (prefers-reduced-motion: reduce) {
+    rotate: calc(round(var(--pan)) * -180deg);
+  }
+}
+
+// Paused and scrubbed: a negative delay seeks the insert to `--insert`.
 .key {
+  // 50cqw is the seam. Half a key back from there, then across the lock.
+  --seat: calc(
+    50cqw - var(--key-length) / 2 + #{$keyhole-width} / 2 - #{$seat-inset}
+  );
+  animation: key-insert $insert-scrub linear both paused;
+  animation-delay: calc(var(--insert) * -#{$insert-scrub});
   aspect-ratio: 811.893 / 274;
-  background: url("/key/master-key.svg") center / contain no-repeat content-box
-    border-box;
   box-sizing: content-box;
-  filter: drop-shadow(0 0 13px var(--color-mashumaro));
-  inline-size: 11rem;
+  inline-size: var(--key-length);
   padding: $key-bleed;
   pointer-events: auto;
+  position: relative;
+}
 
-  @media (max-height: 700px) {
-    inline-size: 8.5rem;
-  }
+// The idle animations run on their own element: iOS Safari drops layers that
+// mix scroll and time timelines in one transform stack.
+.art {
+  background: url("/key/master-key.svg") center / contain no-repeat content-box
+    border-box;
+  inset: 0;
+  padding: $key-bleed;
+  position: absolute;
 
   @media (prefers-reduced-motion: no-preference) {
     animation: key-jingle 0.38s linear infinite alternate;
@@ -68,57 +111,102 @@ $reveal: 600ms;
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .key:hover {
+  .key:hover .art {
     animation: key-hover 7.77s linear infinite;
   }
 }
 
-// Declared after hover so a turned key ignores it.
-.key.isInserted {
-  animation: key-insert $turn linear var(--key-offset) both;
+// Declared after hover so a key in the lock ignores it.
+.key.isEngaged .art {
+  animation: none;
 }
 
-.key.isWithdrawing {
-  animation: key-withdraw $turn linear var(--key-offset) reverse both;
-}
-
+// One lock, centered on the seam.
 .keyhole {
-  aspect-ratio: 188 / 617;
-  background: url("/key/keyhole-half.webp") center / contain no-repeat;
+  aspect-ratio: 104 / 172;
+  background: url("/key/keyhole.svg") center / contain no-repeat;
   block-size: $keyhole-size;
   filter: saturate(0) drop-shadow(0 0 8px white);
   inset-block-start: calc(var(--key-band) / 2 - #{$keyhole-size} / 2);
-  inset-inline-end: 0;
+  inset-inline-start: 50%;
   pointer-events: none;
   position: absolute;
+  translate: -50%;
   z-index: 2;
 }
 
-@mixin insert-path {
+@supports (animation-timeline: view()) {
+  .root {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: lock-drop $ease-in-out-sine both;
+      animation-range: $pan-range;
+      animation-timeline: $pan-timeline;
+    }
+  }
+
+  .band {
+    animation: band-turn $ease-in-out-sine both;
+    animation-range: $pan-range;
+    animation-timeline: $pan-timeline;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-timing-function: steps(2, jump-none);
+    }
+  }
+
+  .key {
+    animation: key-insert linear both;
+    animation-range: $insert-range;
+    animation-timeline: --descent;
+  }
+}
+
+@keyframes band-turn {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: -180deg;
+  }
+}
+
+@keyframes lock-drop {
+  from,
+  #{$drop-from} {
+    scale: 1;
+    translate: 0 0;
+  }
+
+  #{$drop-down},
+  #{$drop-up} {
+    scale: $key-grow;
+    translate: 0 $key-drop;
+  }
+
+  #{$drop-to},
+  to {
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes key-insert {
   from {
     transform: translateX(0) rotate(3deg) scaleY(1);
   }
 
   33% {
-    transform: translateX(48vw) rotate(0deg) scaleY(0.5);
+    transform: translateX(var(--seat)) rotate(0deg) scaleY(0.5);
   }
 
   55% {
-    transform: translateX(48vw) rotate(3deg) scaleY(0.5);
+    transform: translateX(var(--seat)) rotate(3deg) scaleY(0.5);
   }
 
   to {
-    transform: translateX(48vw) rotate(0deg) scaleY(1);
+    transform: translateX(var(--seat)) rotate(0deg) scaleY(1);
   }
-}
-
-@keyframes key-insert {
-  @include insert-path;
-}
-
-// Same path, played in reverse; a distinct name restarts the animation.
-@keyframes key-withdraw {
-  @include insert-path;
 }
 
 @keyframes key-jingle {

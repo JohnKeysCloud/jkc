@@ -32,6 +32,7 @@ $wobble-stagger: 0.12s;
 
 .list {
   display: flex;
+  flex-direction: row;
   gap: 0.875rem;
   justify-content: center;
 
@@ -39,6 +40,97 @@ $wobble-stagger: 0.12s;
     align-items: flex-start;
     flex-direction: column;
     gap: clamp(0.75rem, 2.4svh, 1.25rem);
+  }
+}
+
+// Held through the parting, then revealed by the next pinned stretch:
+// left to right on the horizontal bar, top to bottom on the vertical rail.
+// Once the key is in its lock they leave the way they came, last in first
+// out, before the card pans away. Scroll drives `.item`; the tile's idle
+// wobble stays on its own element so iOS doesn't drop a mixed timeline.
+// Focus reveals an icon early, so a keyboard user is never left on an
+// invisible link.
+.item {
+  --leave-index: calc(var(--social-count) - 1 - var(--social-index));
+  --reveal: min(
+    clamp(0, var(--socials, 0) * var(--social-count) - var(--social-index), 1),
+    1 - clamp(0, var(--leave, 0) * var(--social-count) - var(--leave-index), 1)
+  );
+  animation-delay: calc(var(--reveal) * -1s);
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: social-arrive-x;
+  animation-play-state: paused;
+  animation-timing-function: $ease-in-out-sine;
+
+  @media #{$rail} {
+    animation-name: social-arrive-y;
+  }
+
+  &:focus-within {
+    animation: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+// The arrival, then the same keyframes in reverse for the leaving. That one
+// fills only forwards, so it can't hide an icon before it has arrived.
+@supports (animation-timeline: view()) {
+  .item {
+    animation-delay: 0s;
+    animation-direction: normal, reverse;
+    animation-duration: auto;
+    animation-fill-mode: both, forwards;
+    animation-name: social-arrive-x, social-arrive-x;
+    animation-play-state: running;
+    animation-range:
+      contain
+        calc(
+          #{$socials-start} + var(--social-index) * #{$socials-travel} /
+            var(--social-count)
+        )
+        contain
+        calc(
+          #{$socials-start} + (var(--social-index) + 1) * #{$socials-travel} /
+            var(--social-count)
+        ),
+      contain
+        calc(
+          #{$leave-start} + var(--leave-index) * #{$leave-travel} /
+            var(--social-count)
+        )
+        contain
+        calc(
+          #{$leave-start} + (var(--leave-index) + 1) * #{$leave-travel} /
+            var(--social-count)
+        );
+    animation-timeline: --descent;
+
+    @media #{$rail} {
+      animation-name: social-arrive-y, social-arrive-y;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    animation: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  @media (scripting: none) {
+    .item {
+      animation: none;
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+    }
   }
 }
 
@@ -137,21 +229,39 @@ $wobble-stagger: 0.12s;
   }
 }
 
-// The card lifts by the dock band as the footer docks; the rail sinks by the
-// same amount so it holds still instead of riding up under the sound toggle.
-@supports (animation-timeline: view()) {
-  @media #{$rail} {
-    .root {
-      animation: rail-hold linear both;
-      animation-range: $dock-range;
-      animation-timeline: --descent;
-    }
+@keyframes social-arrive-x {
+  from {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-75%) rotate(-180deg);
+  }
+
+  15% {
+    pointer-events: auto;
+  }
+
+  to {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 }
 
-@keyframes rail-hold {
+@keyframes social-arrive-y {
+  from {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-75%) rotate(-180deg);
+  }
+
+  15% {
+    pointer-events: auto;
+  }
+
   to {
-    translate: 0 var(--dock-band);
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 }
 

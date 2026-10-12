@@ -1,8 +1,27 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  type CSSProperties,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { haptic } from "@/lib/haptics";
+import { getSnapshot, subscribe } from "@/lib/panProgress";
+import { awardInteraction } from "@/lib/score";
 import styles from "./SoundToggle.module.scss";
+import {
+  MUTED,
+  PACMAN,
+  type Pixel,
+  SPEAKER,
+  WAVE_FAR,
+  WAVE_NEAR,
+  assignSources,
+  toCells,
+} from "./sprites";
 
 // AAC with an edit list that trims the encoder priming, so the loop has no
 // gap in Chromium or Safari.
@@ -10,35 +29,23 @@ const TRACK = "/cloudy.m4a";
 const VOLUME = 0.5;
 const STORAGE_KEY = "jkc-sound";
 const RESUME_EVENTS = ["click", "keydown"] as const;
+// Pac-Man stops chomping this long after the pan stops moving.
+const SETTLE_MS = 120;
 
-type Pixel = readonly [x: number, y: number, width: number, height: number];
+const PLAYING_CELLS = toCells([...SPEAKER, ...WAVE_NEAR, ...WAVE_FAR]);
+const MUTED_CELLS = toCells([...SPEAKER, ...MUTED]);
 
-const SPEAKER: readonly Pixel[] = [
-  [1, 3, 3, 4],
-  [4, 2, 1, 6],
-  [5, 1, 1, 8],
-  [6, 0, 1, 10],
-];
-const WAVE_NEAR: readonly Pixel[] = [
-  [8, 3, 1, 1],
-  [9, 4, 1, 2],
-  [8, 6, 1, 1],
-];
-const WAVE_FAR: readonly Pixel[] = [
-  [10, 1, 1, 1],
-  [11, 2, 1, 6],
-  [10, 8, 1, 1],
-];
-const MUTED: readonly Pixel[] = [
-  [8, 3, 1, 1],
-  [9, 4, 1, 1],
-  [10, 5, 1, 1],
-  [11, 6, 1, 1],
-  [11, 3, 1, 1],
-  [10, 4, 1, 1],
-  [9, 5, 1, 1],
-  [8, 6, 1, 1],
-];
+function setFlag(name: string, value: string | null) {
+  const root = document.documentElement;
+  if (root.getAttribute(name) === value) {
+    return;
+  }
+  if (value === null) {
+    root.removeAttribute(name);
+  } else {
+    root.setAttribute(name, value);
+  }
+}
 
 // Created on the first opt-in, so the track never weighs on the first load.
 let track: HTMLAudioElement | null = null;
@@ -176,6 +183,52 @@ export function SoundToggle() {
     };
   }, [isOn]);
 
+  // While the pan carries the toggle across as Pac-Man, he chomps only while
+  // moving and faces the way he's going.
+  useEffect(() => {
+    let last = getSnapshot();
+    let settleId: number | null = null;
+
+    const settle = () => {
+      settleId = null;
+      setFlag("data-moving", null);
+    };
+
+    const stopSettling = () => {
+      if (settleId !== null) {
+        window.clearTimeout(settleId);
+        settleId = null;
+      }
+    };
+
+    const unsubscribe = subscribe(() => {
+      const next = getSnapshot();
+      if (next > 0 && next < 1) {
+        setFlag("data-heading", next < last ? "left" : "right");
+        setFlag("data-moving", "");
+        stopSettling();
+        settleId = window.setTimeout(settle, SETTLE_MS);
+      } else {
+        stopSettling();
+        setFlag("data-heading", null);
+        setFlag("data-moving", null);
+      }
+      last = next;
+    });
+
+    return () => {
+      unsubscribe();
+      stopSettling();
+      setFlag("data-heading", null);
+      setFlag("data-moving", null);
+    };
+  }, []);
+
+  const morph = useMemo(
+    () => assignSources(PACMAN, isOn ? PLAYING_CELLS : MUTED_CELLS),
+    [isOn],
+  );
+
   const toggle = () => {
     haptic();
     writeOptIn(!isOn);
@@ -183,7 +236,11 @@ export function SoundToggle() {
       getTrack().pause();
       setIsOn(false);
     } else {
-      play();
+      play().then((isPlaying) => {
+        if (isPlaying) {
+          awardInteraction("music");
+        }
+      });
     }
   };
 
@@ -196,22 +253,50 @@ export function SoundToggle() {
       onClick={toggle}
       type="button"
     >
-      <svg
-        aria-hidden="true"
-        className={styles.icon}
-        shapeRendering="crispEdges"
-        viewBox="0 0 12 10"
-      >
-        <Pixels pixels={SPEAKER} />
-        {isOn ? (
-          <>
-            <Pixels className={styles.wave} pixels={WAVE_NEAR} />
-            <Pixels className={styles.wave} pixels={WAVE_FAR} />
-          </>
-        ) : (
-          <Pixels pixels={MUTED} />
-        )}
-      </svg>
+      <span className={styles.icon}>
+        <span className={styles.facing}>
+          <svg
+            aria-hidden="true"
+            className={styles.glyph}
+            shapeRendering="crispEdges"
+            viewBox="0 0 12 10"
+          >
+            <Pixels pixels={SPEAKER} />
+            {isOn ? (
+              <>
+                <Pixels className={styles.wave} pixels={WAVE_NEAR} />
+                <Pixels className={styles.wave} pixels={WAVE_FAR} />
+              </>
+            ) : (
+              <Pixels pixels={MUTED} />
+            )}
+          </svg>
+          <svg
+            aria-hidden="true"
+            className={styles.sprite}
+            shapeRendering="crispEdges"
+            viewBox="0 0 12 10"
+          >
+            {morph.map(({ x, y, fromX, fromY, delay, isMouth }) => (
+              <rect
+                key={`${x}-${y}`}
+                className={isMouth ? styles.mouth : undefined}
+                height={1}
+                style={
+                  {
+                    "--delay": delay,
+                    "--from-x": fromX,
+                    "--from-y": fromY,
+                  } as CSSProperties
+                }
+                width={1}
+                x={x}
+                y={y}
+              />
+            ))}
+          </svg>
+        </span>
+      </span>
     </button>
   );
 }

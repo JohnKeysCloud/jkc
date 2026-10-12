@@ -1,10 +1,15 @@
-import Link from "next/link";
 import { site } from "@/content/site";
 import { CurrentYear } from "./CurrentYear";
 import { FooterPane } from "./FooterPane";
+import { GalleryLink } from "./GalleryLink";
 import styles from "./SiteFooter.module.scss";
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  descentId: string;
+  galleryId: string;
+};
+
+export function SiteFooter({ descentId, galleryId }: SiteFooterProps) {
   return (
     <footer className={styles.root}>
       <FooterPane className={styles.pane}>
@@ -21,9 +26,11 @@ export function SiteFooter() {
             © <CurrentYear fallback={new Date().getFullYear()} />{" "}
             {`${site.studio.name}™ All Rights Reserved`}
           </p>
-          <Link className={styles.gallery} href="/gallery">
-            Gallery
-          </Link>
+          <GalleryLink
+            className={styles.gallery}
+            descentId={descentId}
+            galleryId={galleryId}
+          />
         </div>
         <a
           className={styles.signature}

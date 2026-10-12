@@ -1,4 +1,5 @@
 @use "../../styles/interaction" as *;
+@use "../../styles/veil" as *;
 
 // Instagram keeps three columns at every width, with hairline gutters that
 // open up a little on desktop.
@@ -90,5 +91,80 @@ $settle: 300ms ease-out;
 
   a {
     color: var(--color-funky);
+  }
+}
+
+// Under the score. Placement is written from the gallery's own box.
+$recall-layer: 8;
+$recall-fade: 180ms;
+
+.recall {
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  position: fixed;
+  z-index: $recall-layer;
+
+  &.isHidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.recallButton {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-mashumaro);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.75rem, 1.8vw, 0.9375rem);
+  gap: 0.55em;
+  isolation: isolate;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  padding-block: 0.7em;
+  padding-inline: 1.1em;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-shadow: 1px 2px 0 var(--color-night);
+
+  &::before {
+    backdrop-filter: var(--glass-blur);
+    background: var(--glass-fill), $night-veil;
+    border: 1px solid var(--glass-edge);
+    border-radius: 0.75em;
+    box-shadow: var(--glass-highlight);
+    content: "";
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  @include engaged {
+    color: var(--color-funky);
+  }
+}
+
+.arrow {
+  block-size: 21px;
+  fill: currentcolor;
+  filter: drop-shadow(1px 2px 0 var(--color-night));
+  inline-size: 21px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .recall {
+    transition:
+      opacity $recall-fade ease-out,
+      visibility 0s;
+  }
+
+  .isHidden {
+    transition:
+      opacity $recall-fade ease-out,
+      visibility 0s linear $recall-fade;
   }
 }

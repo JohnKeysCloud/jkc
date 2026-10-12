@@ -2,6 +2,7 @@
   --color-binky: #e91113;
   --color-clyde: #fe8b0d;
   --color-dusk: #1b2735;
+  --color-edible-ghost: #2121de;
   --color-error: #ff6b6b;
   --color-funky: #7fff00;
   --color-inky: #01f0ef;
@@ -32,9 +33,18 @@
   --glass-radius: 1.5rem;
   // Height of the strip atop the card that the master key rides in.
   --key-band: 6.9375rem;
+  // Width of the master key's art.
+  --key-length: 11rem;
+  // How far the home page has panned from the card to the gallery (0 to 1).
+  // Written here by the descent where its fixed layers can't follow a scroll
+  // timeline, so the sound toggle can follow it too.
+  --pan: 0;
+  // How far the footer has docked (0 to 1), written alongside `--pan`.
+  --dock: 0;
 
   @media (max-height: 700px) {
     --key-band: 5.25rem;
+    --key-length: 8.5rem;
   }
 }
 
@@ -93,6 +103,7 @@ html:has(dialog[open]) {
   scrollbar-gutter: stable;
 }
 
+// The scope lets the score panel, outside the descent, follow its timeline.
 body {
   background-color: var(--color-night);
   color: var(--color-mashumaro);
@@ -102,6 +113,7 @@ body {
   min-block-size: 100svh;
   overflow-x: clip;
   text-rendering: optimizeLegibility;
+  timeline-scope: --descent;
 }
 
 a {

@@ -1,11 +1,40 @@
-// Scroll timing for the `--descent` view timeline, shared by every layer it
-// drives. `@/lib/descent` mirrors these for browsers without scroll timelines.
+// Scroll timing for the descent, shared by every layer it drives: the
+// `--descent` view timeline, and the page's scroll timeline for the pan.
+// `@/lib/descent` reads the same lengths off the descent's travel spacers.
 
 $ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
 // Scroll the stage stays pinned while the clouds part.
-$pinned-travel: 140svh;
-// Mirrors `PART_HOLD` / `PART_TAIL`. Absolute so the footer dock band past the
-// pin doesn't stretch the parting.
-$part-range: contain ($pinned-travel * 0.12) contain ($pinned-travel * 0.88);
-// From the pin's release to the page's end, while the footer docks.
-$dock-range: contain $pinned-travel contain 100%;
+$part-travel: 140svh;
+// Then while the social icons arrive, one by one, with the card held still.
+$socials-travel: 112svh;
+// Then while the master key slides into its lock, unhurried enough to watch.
+$insert-travel: 120svh;
+// Then, the key in its lock, while the social icons leave, last in first out,
+// so the card is bare before it pans away.
+$leave-travel: 112svh;
+// Then while the key turns and Pac-Man crosses for the gallery. Three times
+// the parting, so a normal scroll doesn't finish him; Skip jumps the rest.
+$pan-travel: 420svh;
+// A swipe covers far more ground than a wheel notch, so touch screens cross
+// in a little over half the scroll.
+$pan-travel-touch: 240svh;
+// Mirrors `PART_HOLD` / `PART_TAIL`. Absolute so the travel past the parting
+// doesn't stretch it.
+$part-range: contain ($part-travel * 0.12) contain ($part-travel * 0.88);
+$socials-start: $part-travel;
+$socials-end: $part-travel + $socials-travel;
+$insert-range: contain $socials-end contain ($socials-end + $insert-travel);
+$leave-start: $socials-end + $insert-travel;
+$pan-start: $leave-start + $leave-travel;
+$pan-end: $pan-start + $pan-travel;
+// The pan runs on the page's own scroll, between offsets the descent measures
+// off its spacers, so it ends exactly where the stage releases the gallery.
+// On iOS, `--descent`'s view ranges drift from the layout as the toolbar
+// moves, so a view range would start Pac-Man's return before the gallery
+// reaches its top. Until measured, assumes the descent sits a screen down,
+// below the sky, with a mouse's travel.
+$pan-timeline: scroll(root);
+$pan-range: var(--pan-scroll-start, calc(100svh + #{$pan-start}))
+  var(--pan-scroll-end, calc(100svh + #{$pan-end}));
+// The page's last dock band of scroll, while the footer docks.
+$dock-range: contain calc(100% - var(--dock-band)) contain 100%;
