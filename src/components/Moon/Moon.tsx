@@ -3,6 +3,7 @@
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { ECLIPSE_MS } from "@/lib/eclipse";
 import { haptic } from "@/lib/haptics";
+import { awardInteraction } from "@/lib/score";
 import { useAnimatedImage } from "@/lib/useAnimatedImage";
 import styles from "./Moon.module.scss";
 
@@ -34,6 +35,7 @@ export function Moon() {
     }
 
     haptic("press");
+    awardInteraction("moon");
     setIsEclipsing(true);
     timeoutRef.current = window.setTimeout(() => {
       setIsEclipsing(false);

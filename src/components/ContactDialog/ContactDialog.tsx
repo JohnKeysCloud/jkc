@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { haptic } from "@/lib/haptics";
+import { awardInteraction } from "@/lib/score";
 import styles from "./ContactDialog.module.scss";
 
 /** Must match the form declared in `public/__forms.html`. */
@@ -63,6 +64,7 @@ export function ContactDialog() {
       form.reset();
       setStatus("sent");
       haptic("success");
+      awardInteraction("message");
     } catch {
       setStatus("error");
       haptic("error");
