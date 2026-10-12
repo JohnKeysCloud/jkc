@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { MuseoModerno, Press_Start_2P, Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
+import { ScoreBoard } from "@/components/ScoreBoard";
 import { SoundToggle } from "@/components/SoundToggle";
 import { site } from "@/content/site";
 import "./globals.scss";
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <SoundToggle />
         {children}
+        <ScoreBoard />
         <ConsoleGreeting />
       </body>
     </html>

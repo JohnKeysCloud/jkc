@@ -1,0 +1,123 @@
+@use "../../styles/corner" as *;
+@use "../../styles/descent" as *;
+@use "../../styles/veil" as *;
+
+// Level with the sound toggle, above every scene layer and the chase.
+$layer: 10;
+$appear: 400ms;
+$pop: 240ms;
+$tone: 200ms;
+// The dark tone's counterpart to the night veil: its text keeps 4.5:1 over
+// pure black behind the panel.
+$cream-veil: rgb(255 252 232 / 80%);
+
+// Pinned to the bottom-left corner, lifting clear of the footer as it docks.
+// Ignores the pointer so the gallery's tiles stay tappable beneath it. The
+// scroll-driven lift and the time-driven fade live on separate elements:
+// iOS Safari drops layers that mix both timelines.
+.root {
+  inset-block-end: $corner-inset-block;
+  inset-inline-start: $corner-inset-inline;
+  pointer-events: none;
+  position: fixed;
+  translate: 0 calc(var(--dock) * -1 * var(--dock-band));
+  z-index: $layer;
+}
+
+.panel {
+  color: var(--color-mashumaro);
+  display: grid;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.5625rem, 1.4vw, 0.75rem);
+  gap: 0.5em;
+  isolation: isolate;
+  line-height: 1;
+  padding: 0.75em 0.875em;
+  position: relative;
+  transition: color $tone ease-out;
+
+  // Frosted backing that steadies the digits over busy backgrounds, with a
+  // cream veil that fades in over it for the dark tone.
+  &::before,
+  &::after {
+    border-radius: 0.75em;
+    content: "";
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &::before {
+    backdrop-filter: var(--glass-blur);
+    background: var(--glass-fill), $night-veil;
+    border: 1px solid var(--glass-edge);
+  }
+
+  &::after {
+    background: $cream-veil;
+    opacity: 0;
+    transition: opacity $tone ease-out;
+  }
+
+  &[data-tone="dark"] {
+    color: var(--color-night);
+
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: appear $appear ease-out;
+  }
+}
+
+.label {
+  color: var(--color-pacman);
+  transition: color $tone ease-out;
+
+  .panel[data-tone="dark"] & {
+    color: var(--color-night);
+  }
+}
+
+.high {
+  font-size: 0.75em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .score {
+    animation: pop $pop ease-out;
+    transform-origin: left center;
+  }
+}
+
+@supports (timeline-scope: --descent) {
+  .root {
+    animation: lift linear both;
+    animation-range: $dock-range;
+    animation-timeline: --descent;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    scale: 1.2;
+  }
+}
+
+@keyframes lift {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 calc(-1 * var(--dock-band));
+  }
+}
