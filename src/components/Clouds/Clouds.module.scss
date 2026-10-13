@@ -1,5 +1,5 @@
 // `--cloud-part` (0 = closed, 1 = fully parted) is set on an ancestor when
-// scroll-driven animations are unsupported; otherwise the `--descent` view
+// scroll-driven animations are unsupported; otherwise the page's scroll
 // timeline drives the same motion in lockstep with scrolling.
 
 @use "../../styles/descent" as *;
@@ -48,7 +48,7 @@
   .drifter {
     animation: part-ways $ease-in-out-sine both;
     animation-range: $part-range;
-    animation-timeline: --descent;
+    animation-timeline: $descent-timeline;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -136,13 +136,12 @@ $chomp: 200ms;
 }
 
 // The page's scroll timeline runs on every page; only the home page's
-// descent has a crossing to follow. Gated with the score, which needs
-// `timeline-scope`, so the descent's fallback loop covers both or neither.
-@supports (timeline-scope: --descent) {
+// descent has a crossing to follow.
+@supports (animation-timeline: view()) {
   :global(html:has([data-descent])) .root {
     animation: cross-over $ease-in-out-sine both;
     animation-range: $pan-range;
-    animation-timeline: $pan-timeline;
+    animation-timeline: $descent-timeline;
 
     @media (prefers-reduced-motion: reduce) {
       animation-timing-function: steps(2, jump-none);

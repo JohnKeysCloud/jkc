@@ -92,11 +92,13 @@ $cream-veil: rgb(255 252 232 / 80%);
   }
 }
 
-@supports (timeline-scope: --descent) {
-  .root {
+// The page's scroll timeline runs on every page; only the home page's
+// descent leaves the footer a band to dock over.
+@supports (animation-timeline: view()) {
+  :global(html:has([data-descent])) .root {
     animation: lift linear both;
     animation-range: $dock-range;
-    animation-timeline: --descent;
+    animation-timeline: $descent-timeline;
   }
 }
 

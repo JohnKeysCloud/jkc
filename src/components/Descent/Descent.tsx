@@ -8,12 +8,14 @@ import {
   clampUnit,
   measureEnd,
   measureProgress,
-  scrollFallback,
 } from "@/lib/descent";
 import { easeInOutSine } from "@/lib/easing";
 import { holdFlingsAt } from "@/lib/flingStop";
 import { publish } from "@/lib/panProgress";
 import styles from "./Descent.module.scss";
+
+// Too small to see, but a real change to every range that folds it in.
+const TIMELINE_NUDGE = "0.01px";
 
 type DescentProps = {
   id: string;
@@ -52,20 +54,16 @@ export function Descent({
       return undefined;
     }
 
-    // Scroll-driven CSS animations handle the motion where supported. Safari
-    // 18 can run them but cannot share the descent's timeline with the fixed
-    // score, so it and the toggle follow `--pan` and `--dock` instead.
-    const fallback = scrollFallback(
-      CSS.supports("animation-timeline: view()"),
-      CSS.supports("timeline-scope: --descent"),
-    );
+    // Scroll-driven CSS animations handle the motion where supported; the
+    // loop writes the same progress as custom properties everywhere else.
+    const fallback = !CSS.supports("animation-timeline: view()");
     let frameId: number | null = null;
 
     // Reads all layout before writing any style, so a frame lays out once.
     const update = () => {
       frameId = null;
       const pan = measureProgress(root, "pan");
-      const inside = fallback.inside
+      const inside = fallback
         ? {
             part: measureProgress(root, "part"),
             socials: measureProgress(root, "socials"),
@@ -76,7 +74,7 @@ export function Descent({
       // The page's last dock band of scroll, as the footer docks. The track's
       // end padding is that band, resolved to pixels.
       let dock = 0;
-      if (fallback.outside) {
+      if (fallback) {
         const dockBand = parseFloat(getComputedStyle(track).paddingBlockEnd);
         const toEnd =
           document.documentElement.scrollHeight -
@@ -104,7 +102,7 @@ export function Descent({
         root.style.setProperty("--insert", inside.insert.toFixed(4));
         root.style.setProperty("--leave", inside.leave.toFixed(4));
       }
-      if (fallback.outside) {
+      if (fallback) {
         document.documentElement.style.setProperty(
           "--pan",
           easeInOutSine(pan).toFixed(4),
@@ -141,36 +139,49 @@ export function Descent({
       requestUpdate();
     });
 
-    // Where the pan's scroll timeline starts and ends, as document offsets
-    // read off the same spacers that pin the stage. Anything that moves or
-    // resizes the descent resizes the body too.
-    const placePan = () => {
+    // Where the descent's ranges sit on the page's scroll timeline, as
+    // document offsets: its top, and the pan's ends read off the same spacers
+    // that pin the stage. Anything that moves or resizes the descent resizes
+    // the body too. Each pass also nudges every range, so iOS re-reads the
+    // scroll its animations run on.
+    let synced = false;
+    const placeTimelines = () => {
       const { style } = document.documentElement;
+      style.setProperty(
+        "--descent-top",
+        `${root.getBoundingClientRect().top + window.scrollY}px`,
+      );
       style.setProperty("--pan-scroll-start", `${measureEnd(root, "leave")}px`);
       style.setProperty("--pan-scroll-end", `${measureEnd(root, "pan")}px`);
+      synced = !synced;
+      style.setProperty("--timeline-sync", synced ? TIMELINE_NUDGE : "0px");
     };
-    const panObserver = new ResizeObserver(placePan);
+    const timelineObserver = new ResizeObserver(placeTimelines);
 
     observer.observe(root);
-    panObserver.observe(document.body);
+    timelineObserver.observe(document.body);
+    window.addEventListener("resize", placeTimelines);
     window.addEventListener("hashchange", followHash);
     // A fling stops at the gallery's top, from either side, rather than
     // carrying straight through Pac-Man's crossing.
     const releaseFlings = holdFlingsAt(() => measureEnd(root, "pan"));
-    placePan();
+    placeTimelines();
     followHash();
     update();
 
     return () => {
       observer.disconnect();
-      panObserver.disconnect();
+      timelineObserver.disconnect();
       stopListening();
       releaseFlings();
+      window.removeEventListener("resize", placeTimelines);
       window.removeEventListener("hashchange", followHash);
       document.documentElement.style.removeProperty("--pan");
       document.documentElement.style.removeProperty("--dock");
+      document.documentElement.style.removeProperty("--descent-top");
       document.documentElement.style.removeProperty("--pan-scroll-start");
       document.documentElement.style.removeProperty("--pan-scroll-end");
+      document.documentElement.style.removeProperty("--timeline-sync");
       document.documentElement.removeAttribute("data-panning");
       publish(0);
       if (frameId !== null) {

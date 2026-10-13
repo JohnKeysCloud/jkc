@@ -103,7 +103,6 @@ html:has(dialog[open]) {
   scrollbar-gutter: stable;
 }
 
-// The scope lets the score panel, outside the descent, follow its timeline.
 body {
   background-color: var(--color-night);
   color: var(--color-mashumaro);
@@ -113,7 +112,6 @@ body {
   min-block-size: 100svh;
   overflow-x: clip;
   text-rendering: optimizeLegibility;
-  timeline-scope: --descent;
 }
 
 a {

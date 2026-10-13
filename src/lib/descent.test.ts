@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { clampUnit, scrollFallback, spanProgress } from "./descent.ts";
+import { clampUnit, spanProgress } from "./descent.ts";
 
 describe("clampUnit", () => {
   it("keeps values within 0 to 1", () => {
@@ -30,32 +30,5 @@ describe("spanProgress", () => {
 
   it("treats a span with no length as finished", () => {
     assert.equal(spanProgress(0, { start: 0, length: 0 }), 1);
-  });
-});
-
-describe("scrollFallback", () => {
-  it("lets the timeline drive every layer when it can be shared", () => {
-    assert.deepEqual(scrollFallback(true, true), {
-      inside: false,
-      outside: false,
-    });
-  });
-
-  it("still drives the fixed layers where the timeline stays inside the descent", () => {
-    assert.deepEqual(scrollFallback(true, false), {
-      inside: false,
-      outside: true,
-    });
-  });
-
-  it("drives every layer without a view timeline", () => {
-    assert.deepEqual(scrollFallback(false, true), {
-      inside: true,
-      outside: true,
-    });
-    assert.deepEqual(scrollFallback(false, false), {
-      inside: true,
-      outside: true,
-    });
   });
 });

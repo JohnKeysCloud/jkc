@@ -140,14 +140,14 @@ $insert-scrub: 1s;
     @media (prefers-reduced-motion: no-preference) {
       animation: lock-drop $ease-in-out-sine both;
       animation-range: $pan-range;
-      animation-timeline: $pan-timeline;
+      animation-timeline: $descent-timeline;
     }
   }
 
   .band {
     animation: band-turn $ease-in-out-sine both;
     animation-range: $pan-range;
-    animation-timeline: $pan-timeline;
+    animation-timeline: $descent-timeline;
 
     @media (prefers-reduced-motion: reduce) {
       animation-timing-function: steps(2, jump-none);
@@ -157,7 +157,7 @@ $insert-scrub: 1s;
   .key {
     animation: key-insert linear both;
     animation-range: $insert-range;
-    animation-timeline: --descent;
+    animation-timeline: $descent-timeline;
   }
 }
 

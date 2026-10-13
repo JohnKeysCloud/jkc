@@ -108,7 +108,7 @@ $dock-sink: 0.4;
     animation-fill-mode: both;
     animation-name: skyline-rise, skyline-pan;
     animation-range: $part-range, $pan-range;
-    animation-timeline: --descent, $pan-timeline;
+    animation-timeline: $descent-timeline;
     animation-timing-function: $ease-in-out-sine;
     overflow: clip;
     position: fixed;
@@ -124,7 +124,7 @@ $dock-sink: 0.4;
     .lights {
       animation: skyline-settle linear both;
       animation-range: $dock-range;
-      animation-timeline: --descent;
+      animation-timeline: $descent-timeline;
     }
   }
 }

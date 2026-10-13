@@ -19,7 +19,6 @@ $scene-fade-offset: 0.3;
   --leave: 0;
   --socials: 0;
   position: relative;
-  view-timeline-name: --descent;
 }
 
 // Pinned through the travel spacers after it, then released to scroll on, so
@@ -173,13 +172,13 @@ $scene-fade-offset: 0.3;
   .scene {
     animation: scene-arrive $ease-in-out-sine both;
     animation-range: $part-range;
-    animation-timeline: --descent;
+    animation-timeline: $descent-timeline;
   }
 
   .track {
     animation: pan $ease-in-out-sine both;
     animation-range: $pan-range;
-    animation-timeline: $pan-timeline;
+    animation-timeline: $descent-timeline;
   }
 }
 
@@ -207,7 +206,7 @@ $scene-fade-offset: 0.3;
     .aside {
       animation: linear both;
       animation-range: $pan-range;
-      animation-timeline: $pan-timeline;
+      animation-timeline: $descent-timeline;
     }
 
     .frame {

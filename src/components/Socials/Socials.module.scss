@@ -10,25 +10,29 @@ $wobble-stagger: 0.12s;
 $flight-settle: 80%;
 
 // Each icon's slice of the arrival and of the leaving.
-$arrive-range: contain
-  calc(
-    #{$socials-start} + var(--social-index) * #{$socials-travel} /
-      var(--social-count)
+$arrive-range: travel-at(
+    calc(
+      #{$socials-start} + var(--social-index) * #{$socials-travel} /
+        var(--social-count)
+    )
   )
-  contain
-  calc(
-    #{$socials-start} + (var(--social-index) + 1) * #{$socials-travel} /
-      var(--social-count)
+  travel-at(
+    calc(
+      #{$socials-start} + (var(--social-index) + 1) * #{$socials-travel} /
+        var(--social-count)
+    )
   );
-$leave-range: contain
-  calc(
-    #{$leave-start} + var(--social-index) * #{$leave-travel} /
-      var(--social-count)
+$leave-range: travel-at(
+    calc(
+      #{$leave-start} + var(--social-index) * #{$leave-travel} /
+        var(--social-count)
+    )
   )
-  contain
-  calc(
-    #{$leave-start} + (var(--social-index) + 1) * #{$leave-travel} /
-      var(--social-count)
+  travel-at(
+    calc(
+      #{$leave-start} + (var(--social-index) + 1) * #{$leave-travel} /
+        var(--social-count)
+    )
   );
 
 .root {
@@ -134,7 +138,7 @@ $leave-range: contain
     animation-name: social-arrive-x, social-arrive-x;
     animation-play-state: running;
     animation-range: $arrive-range, $leave-range;
-    animation-timeline: --descent;
+    animation-timeline: $descent-timeline;
 
     @media #{$rail} {
       animation-name: social-arrive-y, social-arrive-y;
@@ -149,7 +153,7 @@ $leave-range: contain
     animation-name: social-flight, social-flight;
     animation-play-state: running;
     animation-range: $arrive-range, $leave-range;
-    animation-timeline: --descent;
+    animation-timeline: $descent-timeline;
   }
 }
 

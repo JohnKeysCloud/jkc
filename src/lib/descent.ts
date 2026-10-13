@@ -23,31 +23,6 @@ export function spanProgress(scrolled: number, span: DescentSpan): number {
   return span.length > 0 ? clampUnit((scrolled - span.start) / span.length) : 1;
 }
 
-export type ScrollFallback = {
-  /** Parting and key insert, which live inside the descent. */
-  inside: boolean;
-  /** `--pan` and `--dock`, for the fixed layers outside the descent. */
-  outside: boolean;
-};
-
-/**
- * What the scroll loop still has to drive. A view timeline covers the
- * descent itself. `timeline-scope` is what lets the score, which sits outside
- * it, follow that timeline; the sound toggle's crossing waits on the same
- * support. Safari 18 has the first and not the second, so those two layers
- * keep the loop.
- */
-export function scrollFallback(
-  supportsViewTimeline: boolean,
-  supportsTimelineScope: boolean,
-): ScrollFallback {
-  const inside = !supportsViewTimeline;
-  return {
-    inside,
-    outside: inside || !supportsTimelineScope,
-  };
-}
-
 /**
  * Each segment has a spacer after the stage (the descent's first child), sized
  * in the stylesheet's own units, so reading its box keeps this in step with
