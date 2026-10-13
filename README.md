@@ -81,25 +81,26 @@ the card, clouds, skyline, key, and gallery in its slots, then
 
 ### Scroll-driven animation, with a fallback
 
-The descent runs on a CSS view timeline (`view-timeline-name: --descent`), so
-the browser keeps it in step with scrolling. On iOS, scroll-event updates lag
+The descent runs on the page's CSS scroll timeline (`scroll(root)`), so the
+browser keeps it in step with scrolling. On iOS, scroll-event updates lag
 behind a touch scroll, and the timeline sidesteps that. Browsers without
 scroll timelines get the same motion from a small requestAnimationFrame loop
 that writes `--cloud-part`, `--socials`, `--insert`, `--leave`, `--pan`, and
 `--dock` custom properties (`--pan` and `--dock` on the root element, for the
 fixed sound toggle and score panel), and only listens while the section is on
 screen.
-Safari 18 can run the timelines but cannot share `--descent` outside the
-descent (`timeline-scope`), so the loop still writes `--pan` and `--dock`
-there.
 The CSS keyframes are written to match the fallback's formulas. Each pinned
 segment has a spacer sized from the Sass tokens, and
 [`src/lib/descent.ts`](src/lib/descent.ts) reads those spacers, so the two
-paths agree. The pan is the exception: it runs on the page's own scroll
-timeline (`scroll(root)`), between document offsets the descent reads off
-those spacers into `--pan-scroll-start` and `--pan-scroll-end`, so it ends on
-the exact pixel where the stage releases the gallery. With no JS and no
-timeline support, the card still shows.
+paths agree. Every range is a document offset from the descent's top, which
+the descent measures into `--descent-top`; the pan's ends are read straight
+off the spacers into `--pan-scroll-start` and `--pan-scroll-end`, so it ends
+on the exact pixel where the stage releases the gallery. iOS runs these
+animations off the main thread on a snapshot of the page's scroll, and keeps
+it as the gallery grows the page, so the descent nudges every range through
+`--timeline-sync` whenever the page resizes. A view timeline of the descent
+would keep its old size even then, and play ahead of the scroll. With no JS
+and no timeline support, the card still shows.
 
 See [`Descent.tsx`](src/components/Descent/Descent.tsx) and
 [`Descent.module.scss`](src/components/Descent/Descent.module.scss).
