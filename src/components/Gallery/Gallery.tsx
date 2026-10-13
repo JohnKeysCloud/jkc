@@ -19,8 +19,6 @@ const PREFETCH_MARGIN = "800px 0px";
 const RETURN_MS = 1200;
 /** Hide again once the gallery's top is this close to the viewport. */
 const RECALL_TOP = 48;
-/** Clearance from the gallery's own bottom edge, and from the rooftops. */
-const RECALL_INSET = 16;
 
 type Status = "idle" | "loading" | "error";
 
@@ -100,9 +98,9 @@ export function Gallery({
   }, [hasMore, loadMore, status]);
 
   // The label lives on the body because the home gallery sits in a transformed
-  // track, which would trap a fixed layer. Its box still comes from the
-  // gallery, so it only shows over that gallery and leaves once its top is
-  // back on screen.
+  // track, which would trap a fixed layer. It still follows the gallery's box,
+  // so it only shows over that gallery and leaves once its top is back on
+  // screen.
   useEffect(() => {
     const root = rootRef.current;
     if (!root || !hasOlderPosts) {
@@ -111,31 +109,11 @@ export function Gallery({
 
     let frameId: number | null = null;
     let showing = false;
-    const skyline = root
-      .closest("[data-descent]")
-      ?.querySelector("[data-skyline]");
 
-    const place = () => {
+    const check = () => {
       frameId = null;
-      const recall = recallRef.current;
       const rect = root.getBoundingClientRect();
       const next = rect.top <= -RECALL_TOP && rect.bottom > RECALL_TOP;
-
-      if (recall) {
-        const skylineTop =
-          skyline?.getBoundingClientRect().top ?? window.innerHeight;
-        const aboveRooftops = Math.max(
-          RECALL_INSET,
-          window.innerHeight - skylineTop + RECALL_INSET,
-        );
-        const aboveGalleryEnd = Math.max(
-          RECALL_INSET,
-          window.innerHeight - rect.bottom + RECALL_INSET,
-        );
-        recall.style.insetBlockEnd = `${Math.max(aboveRooftops, aboveGalleryEnd)}px`;
-        recall.style.insetInlineStart = `${rect.left}px`;
-        recall.style.inlineSize = `${rect.width}px`;
-      }
 
       if (next !== showing) {
         showing = next;
@@ -145,7 +123,7 @@ export function Gallery({
 
     const request = () => {
       if (frameId === null) {
-        frameId = window.requestAnimationFrame(place);
+        frameId = window.requestAnimationFrame(check);
       }
     };
 
@@ -253,7 +231,8 @@ export function Gallery({
                   <rect height="1" width="1" x="3" y="0" />
                   <rect height="1" width="3" x="2" y="1" />
                   <rect height="1" width="5" x="1" y="2" />
-                  <rect height="4" width="1" x="3" y="3" />
+                  <rect height="1" width="7" x="0" y="3" />
+                  <rect height="3" width="3" x="2" y="4" />
                 </svg>
                 Back to the future
                 <span className="srOnly">, newest posts</span>

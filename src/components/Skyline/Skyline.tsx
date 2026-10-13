@@ -33,7 +33,7 @@ const gridStyle = {
 
 export function Skyline() {
   return (
-    <div className={styles.root} data-skyline style={gridStyle}>
+    <div className={styles.root} style={gridStyle}>
       <svg className={styles.silhouette} {...gridProps}>
         <g className={styles.far}>
           {farBlocks.map(({ x, y, width, height }) => (

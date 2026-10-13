@@ -1,3 +1,4 @@
+@use "../../styles/corner" as *;
 @use "../../styles/interaction" as *;
 @use "../../styles/veil" as *;
 
@@ -94,13 +95,22 @@ $settle: 300ms ease-out;
   }
 }
 
-// Under the score. Placement is written from the gallery's own box.
+// Top centre, level with the key and sound toggle in the corners, under the
+// score.
 $recall-layer: 8;
-$recall-fade: 180ms;
+$recall-fade: 240ms;
+$recall-drop: -0.75rem;
+// Kept on both sides, so the label stays centred and clear of the toggle.
+$recall-clearance: calc(
+  #{$corner-inset-inline} + #{$sound-toggle-size} + 0.5rem
+);
 
 .recall {
   display: flex;
+  inset-block-start: $corner-inset-block;
+  inset-inline: 0;
   justify-content: center;
+  padding-inline: $recall-clearance;
   pointer-events: none;
   position: fixed;
   z-index: $recall-layer;
@@ -117,25 +127,26 @@ $recall-fade: 180ms;
   border: 0;
   color: var(--color-mashumaro);
   display: flex;
-  flex-direction: column;
   font-family: var(--font-pixel);
-  font-size: clamp(0.75rem, 1.8vw, 0.9375rem);
-  gap: 0.55em;
+  font-size: clamp(0.625rem, 1.4vw, 0.75rem);
+  gap: 0.75em;
   isolation: isolate;
   letter-spacing: 0.06em;
-  line-height: 1.45;
-  padding-block: 0.7em;
-  padding-inline: 1.1em;
+  line-height: 1.5;
+  min-block-size: $sound-toggle-size;
+  padding-block: 0.6em;
+  padding-inline: 1.25em 1.5em;
   pointer-events: auto;
   position: relative;
   text-align: center;
   text-shadow: 1px 2px 0 var(--color-night);
+  text-wrap: balance;
 
   &::before {
     backdrop-filter: var(--glass-blur);
     background: var(--glass-fill), $night-veil;
     border: 1px solid var(--glass-edge);
-    border-radius: 0.75em;
+    border-radius: 999px;
     box-shadow: var(--glass-highlight);
     content: "";
     inset: 0;
@@ -148,23 +159,28 @@ $recall-fade: 180ms;
   }
 }
 
+// Two CSS pixels per art pixel keeps the arrow crisp.
 .arrow {
-  block-size: 21px;
+  block-size: 14px;
   fill: currentcolor;
-  filter: drop-shadow(1px 2px 0 var(--color-night));
-  inline-size: 21px;
+  filter: drop-shadow(1px 1px 0 var(--color-night));
+  flex: none;
+  inline-size: 14px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .recall {
     transition:
       opacity $recall-fade ease-out,
+      transform $recall-fade ease-out,
       visibility 0s;
   }
 
   .isHidden {
+    transform: translateY($recall-drop);
     transition:
       opacity $recall-fade ease-out,
+      transform $recall-fade ease-out,
       visibility 0s linear $recall-fade;
   }
 }
