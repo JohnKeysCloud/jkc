@@ -73,8 +73,7 @@ those, and iOS's snap position needn't match the gallery's top.
 The page is put together in [`src/app/page.tsx`](src/app/page.tsx):
 [`Sky`](src/components/Sky), then [`Descent`](src/components/Descent) with
 the card, clouds, skyline, key, and gallery in its slots, then
-[`Chase`](src/components/Chase),
-[`SkipCrossing`](src/components/SkipCrossing), and
+[`Chase`](src/components/Chase), and
 [`SiteFooter`](src/components/SiteFooter). The scroll ranges live in
 [`src/styles/_descent.scss`](src/styles/_descent.scss).
 
@@ -169,7 +168,6 @@ it home. Transition timing comes from the state being entered, so the morph
 plays one way out and the reverse on the way back. Pac-Man chomps only while
 you scroll, faces the way you're heading, and turns back into the speaker in
 the new corner. The crossing takes more scroll than the beats before it.
-Skip, in the bottom-right corner, jumps the rest of it.
 
 Along its route sit dots, a power pellet, and all four ghosts, with a cherry
 halfway. The power pellet frightens
@@ -215,9 +213,9 @@ reveal only animates transforms and opacity, so nothing reflows. See
 
 ### Haptics
 
-The moon, the key, the music toggle, PRESS START, Skip, the contact form,
-gallery posts, Back to the future, and each ghost Pac-Man eats give a light
-buzz through the Vibration API. Safari has none, so on iPhone
+The moon, the key, the music toggle, PRESS START, the contact form, gallery
+posts, Back to the future, and each ghost Pac-Man eats give a light buzz
+through the Vibration API. Safari has none, so on iPhone
 [`iosHaptic.ts`](src/lib/iosHaptic.ts) borrows the system tick that iOS 18
 plays when a native switch toggles. It's unofficial, kept to one file so it's
 easy to remove. All haptics are skipped under reduced motion. See

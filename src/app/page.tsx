@@ -5,7 +5,6 @@ import { Descent } from "@/components/Descent";
 import { GalleryPanel } from "@/components/GalleryPanel";
 import { MasterKey } from "@/components/MasterKey";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SkipCrossing } from "@/components/SkipCrossing";
 import { Sky } from "@/components/Sky";
 import { Skyline } from "@/components/Skyline";
 
@@ -27,7 +26,6 @@ export default function Home() {
         <CallingCard />
       </Descent>
       <Chase />
-      <SkipCrossing targetId={CARD_ID} galleryId={GALLERY_ID} />
       <SiteFooter descentId={CARD_ID} galleryId={GALLERY_ID} />
     </>
   );
