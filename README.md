@@ -23,7 +23,7 @@ flowchart TD
   key["The master key appears above the card"]
   socials["Social icons fade and spin in, one by one"]
   insert["The key slides into its lock"]
-  leave["Social icons spin and fade out, last in first out"]
+  leave["Social icons spin and fade out, first in first out"]
   pan["The key turns; card and city pan left for the gallery"]
   gallery["The gallery scrolls on"]
   dock["The glass footer docks over the city"]
@@ -47,7 +47,7 @@ The descent is driven by how far you've scrolled through its pinned stretch:
 | 123svh and up | The master key is revealed.                            |
 | 140 to 252svh | Social icons fade and spin in, one by one.             |
 | 252 to 372svh | The key slides into the lock on the card's right edge. |
-| 372 to 484svh | Social icons spin and fade out, last in first out.     |
+| 372 to 484svh | Social icons spin and fade out, first in first out.    |
 | 484 to 904svh | The key turns 180°; card and city pan for the gallery. |
 | After the pin | The gallery scrolls, then the footer glass docks.      |
 

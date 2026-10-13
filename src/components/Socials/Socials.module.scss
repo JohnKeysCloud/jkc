@@ -6,6 +6,30 @@ $rail: "(width >= 1024px)";
 $row: "(width < 1024px)";
 $snap: 188ms ease-in-out;
 $wobble-stagger: 0.12s;
+// How far through its own fold an icon holds its hover colour before settling.
+$flight-settle: 80%;
+
+// Each icon's slice of the arrival and of the leaving.
+$arrive-range: contain
+  calc(
+    #{$socials-start} + var(--social-index) * #{$socials-travel} /
+      var(--social-count)
+  )
+  contain
+  calc(
+    #{$socials-start} + (var(--social-index) + 1) * #{$socials-travel} /
+      var(--social-count)
+  );
+$leave-range: contain
+  calc(
+    #{$leave-start} + var(--social-index) * #{$leave-travel} /
+      var(--social-count)
+  )
+  contain
+  calc(
+    #{$leave-start} + (var(--social-index) + 1) * #{$leave-travel} /
+      var(--social-count)
+  );
 
 .root {
   --tile-size: 2rem;
@@ -45,16 +69,15 @@ $wobble-stagger: 0.12s;
 
 // Held through the parting, then revealed by the next pinned stretch:
 // left to right on the horizontal bar, top to bottom on the vertical rail.
-// Once the key is in its lock they leave the way they came, last in first
-// out, before the card pans away. Scroll drives `.item`; the tile's idle
-// wobble stays on its own element so iOS doesn't drop a mixed timeline.
-// Focus reveals an icon early, so a keyboard user is never left on an
-// invisible link.
+// Once the key is in its lock they leave in the same order, first in first
+// out, before the card pans away, so coming back from the gallery they return
+// last first. Scroll drives `.item`; the tile's idle wobble stays on its own
+// element so iOS doesn't drop a mixed timeline. Focus reveals an icon early,
+// so a keyboard user is never left on an invisible link.
 .item {
-  --leave-index: calc(var(--social-count) - 1 - var(--social-index));
   --reveal: min(
     clamp(0, var(--socials, 0) * var(--social-count) - var(--social-index), 1),
-    1 - clamp(0, var(--leave, 0) * var(--social-count) - var(--leave-index), 1)
+    1 - clamp(0, var(--leave, 0) * var(--social-count) - var(--social-index), 1)
   );
   animation-delay: calc(var(--reveal) * -1s);
   animation-duration: 1s;
@@ -75,6 +98,31 @@ $wobble-stagger: 0.12s;
   }
 }
 
+// Lit while an icon moves, until it settles, whichever way it's moving. The
+// gate around it lets the colour through only while the icons unfold back into
+// view, which only the page's scroll direction can tell. It switches without
+// a transition: the first icon to leave starts moving on the frame the gate
+// closes.
+.unfold {
+  display: block;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+
+  .root[data-unfolding] & {
+    opacity: 1;
+  }
+}
+
+.flight {
+  animation-delay: calc(var(--reveal) * -1s);
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: social-flight;
+  animation-play-state: paused;
+  animation-timing-function: linear;
+}
+
 // The arrival, then the same keyframes in reverse for the leaving. That one
 // fills only forwards, so it can't hide an icon before it has arrived.
 @supports (animation-timeline: view()) {
@@ -85,32 +133,23 @@ $wobble-stagger: 0.12s;
     animation-fill-mode: both, forwards;
     animation-name: social-arrive-x, social-arrive-x;
     animation-play-state: running;
-    animation-range:
-      contain
-        calc(
-          #{$socials-start} + var(--social-index) * #{$socials-travel} /
-            var(--social-count)
-        )
-        contain
-        calc(
-          #{$socials-start} + (var(--social-index) + 1) * #{$socials-travel} /
-            var(--social-count)
-        ),
-      contain
-        calc(
-          #{$leave-start} + var(--leave-index) * #{$leave-travel} /
-            var(--social-count)
-        )
-        contain
-        calc(
-          #{$leave-start} + (var(--leave-index) + 1) * #{$leave-travel} /
-            var(--social-count)
-        );
+    animation-range: $arrive-range, $leave-range;
     animation-timeline: --descent;
 
     @media #{$rail} {
       animation-name: social-arrive-y, social-arrive-y;
     }
+  }
+
+  .flight {
+    animation-delay: 0s;
+    animation-direction: normal, reverse;
+    animation-duration: auto;
+    animation-fill-mode: both, forwards;
+    animation-name: social-flight, social-flight;
+    animation-play-state: running;
+    animation-range: $arrive-range, $leave-range;
+    animation-timeline: --descent;
   }
 }
 
@@ -121,6 +160,10 @@ $wobble-stagger: 0.12s;
     pointer-events: auto;
     transform: none;
   }
+
+  .flight {
+    animation: none;
+  }
 }
 
 @supports not (animation-timeline: view()) {
@@ -130,6 +173,10 @@ $wobble-stagger: 0.12s;
       opacity: 1;
       pointer-events: auto;
       transform: none;
+    }
+
+    .flight {
+      animation: none;
     }
   }
 }
@@ -148,9 +195,22 @@ $wobble-stagger: 0.12s;
     z-index: 1;
 
     .icon {
-      filter: grayscale(0) brightness(1) drop-shadow(0 0 10px currentcolor);
-      opacity: 1;
       transform: scale(1.8) rotate(360deg);
+    }
+
+    // Swapped rather than stacked, so the grey can't tint the lit face's soft
+    // edges.
+    .rest {
+      opacity: 0;
+    }
+
+    .lit {
+      opacity: 1;
+    }
+
+    // The hover layer already shows the same face, so the glow isn't doubled.
+    .flight {
+      visibility: hidden;
     }
 
     @media #{$rail} {
@@ -170,24 +230,14 @@ $wobble-stagger: 0.12s;
   }
 }
 
-// Filter lists match at rest and engaged so the browser can interpolate them.
 .icon {
   display: block;
-  filter: grayscale(1) brightness(var(--social-rest-brightness))
-    drop-shadow(0 0 0 transparent);
   inset: 0;
-  opacity: 0.7;
   position: absolute;
-  transition:
-    filter $snap,
-    opacity $snap,
-    transform $snap;
+  transition: transform $snap;
 }
 
 .tile {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
   display: block;
   inset: 0;
   position: absolute;
@@ -196,6 +246,36 @@ $wobble-stagger: 0.12s;
     animation: tile-wobble 2.4s ease-in-out infinite;
     animation-delay: calc(var(--social-index) * #{$wobble-stagger});
   }
+}
+
+// The face is drawn three times so only opacity ever animates: grey at rest,
+// lit on hover, and lit while folding into view.
+.rest,
+.lit,
+.flight {
+  background-image: var(--tile-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  inset: 0;
+  position: absolute;
+}
+
+.rest {
+  filter: grayscale(1) brightness(var(--social-rest-brightness));
+  opacity: 0.7;
+}
+
+.lit,
+.flight {
+  filter: drop-shadow(0 0 10px currentcolor);
+  opacity: 0;
+}
+
+.rest,
+.lit {
+  transition: opacity $snap;
 }
 
 .label {
@@ -262,6 +342,17 @@ $wobble-stagger: 0.12s;
     opacity: 1;
     pointer-events: auto;
     transform: none;
+  }
+}
+
+@keyframes social-flight {
+  from,
+  #{$flight-settle} {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
 

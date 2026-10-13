@@ -1,5 +1,8 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { type CSSProperties, useEffect, useRef } from "react";
 import { type SocialIcon, site } from "@/content/site";
+import { measureProgress } from "@/lib/descent";
 import styles from "./Socials.module.scss";
 
 type Tone = {
@@ -19,8 +22,54 @@ const TONES: Record<SocialIcon, Tone> = {
 };
 
 export function Socials() {
+  const navRef = useRef<HTMLElement>(null);
+
+  // The scroll timeline can't tell which way the page is moving, so whether the
+  // icons are unfolding back into view is decided here.
+  useEffect(() => {
+    const nav = navRef.current;
+    const descent = nav?.closest<HTMLElement>("[data-descent]");
+    if (!nav || !descent) {
+      return undefined;
+    }
+
+    let lastScrollY = window.scrollY;
+    let isRewinding = false;
+    let frameId: number | null = null;
+
+    const update = () => {
+      frameId = null;
+      const isLeaving = measureProgress(descent, "leave") > 0;
+      const { scrollY } = window;
+      if (scrollY !== lastScrollY) {
+        isRewinding = scrollY < lastScrollY;
+        lastScrollY = scrollY;
+      }
+      // Arriving on the way down, or returning on the way back up.
+      nav.toggleAttribute("data-unfolding", isRewinding === isLeaving);
+    };
+
+    const request = () => {
+      if (frameId === null) {
+        frameId = window.requestAnimationFrame(update);
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+
+    return () => {
+      window.removeEventListener("scroll", request);
+      window.removeEventListener("resize", request);
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
+  }, []);
+
   return (
-    <nav className={styles.root} aria-label="Socials">
+    <nav ref={navRef} className={styles.root} aria-label="Socials">
       <ul
         className={styles.list}
         style={{ "--social-count": site.socials.length } as CSSProperties}
@@ -49,8 +98,18 @@ export function Socials() {
                 <span className={styles.icon} aria-hidden="true">
                   <span
                     className={styles.tile}
-                    style={{ backgroundImage: `url(/socials/${icon}.webp)` }}
-                  />
+                    style={
+                      {
+                        "--tile-image": `url(/socials/${icon}.webp)`,
+                      } as CSSProperties
+                    }
+                  >
+                    <span className={styles.rest} />
+                    <span className={styles.lit} />
+                    <span className={styles.unfold}>
+                      <span className={styles.flight} />
+                    </span>
+                  </span>
                 </span>
                 <span className={styles.label}>{label}</span>
                 <span className="srOnly"> (opens in a new tab)</span>
