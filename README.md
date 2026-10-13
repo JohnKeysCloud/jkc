@@ -331,9 +331,14 @@ The quotes live in [`src/content/quotes.json`](src/content/quotes.json).
 The gallery pans in past the card on the home page (the footer's Gallery link
 and `/#gallery` land there), and [`/gallery`](src/app/gallery/page.tsx) gives
 it a page of its own. Both show every Instagram post in a three-column grid,
-newest first, with a dialog for captions, carousels, and videos. Neither ever
-calls Instagram. A daily GitHub Actions job copies new posts into the repo
-through the official API, and Netlify deploys them like any other commit.
+newest first, with a dialog for full-size images, carousels, and videos.
+Neither ever calls Instagram. A daily GitHub Actions job copies new posts into
+the repo through the official API, and Netlify deploys them like any other
+commit.
+
+The dialog's dates and captions are off for now:
+`GALLERY_DETAILS_ENABLED` in [`features.ts`](src/lib/features.ts) turns them
+on.
 
 Setup (a Creator account, a Meta app, and two repo secrets), the first
 import, and what to do when a run fails are in

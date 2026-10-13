@@ -1,14 +1,16 @@
 import { test as base, expect, type Page } from "@playwright/test";
 import sharp from "sharp";
+import { GALLERY_DETAILS_ENABLED } from "../src/lib/features";
 
 // `e2e/fixtures/instagram/posts.json`: 30 posts, one a day back from
 // 2026-09-30, stored out of order. Post 1 is a carousel of three, post 4 a
-// video, and post 3's image is made to fail below.
+// video, post 13 has a caption, and post 3's image is made to fail below.
 const NEWEST = "2026-09-30T18:00:00.000Z";
 const CAROUSEL = "2026-09-29T18:00:00.000Z";
 const BROKEN_POST = "179000000000003";
 const BROKEN_PUBLISHED = "2026-09-27T18:00:00.000Z";
 const VIDEO = "2026-09-26T18:00:00.000Z";
+const CAPTIONED = "2026-09-17T18:00:00.000Z";
 const PAGE_SIZE = 24;
 const TOTAL = 30;
 
@@ -133,19 +135,32 @@ test("steps through a carousel's items in order", async ({ page }) => {
   await page.locator(`[data-published="${CAROUSEL}"]`).click();
 
   const dialog = page.getByRole("dialog");
-  const media = dialog.locator("img");
+  // Hidden slides leave the accessibility tree, so once the outgoing slide
+  // finishes its exit, only the current one matches.
+  const shown = dialog.getByRole("group", { name: /^\d of 3$/ });
+  const expectShown = async (position: number) => {
+    await expect(shown).toHaveCount(1);
+    await expect(shown).toHaveAccessibleName(`${position} of 3`);
+    await expect(shown.locator("img")).toHaveAttribute(
+      "src",
+      new RegExp(`/${position - 1}-1440\\.webp$`),
+    );
+  };
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByText("1 / 3")).toBeVisible();
-  await expect(media).toHaveAttribute("src", /\/0-1440\.webp$/);
+  await expectShown(1);
 
-  await dialog.getByRole("button", { name: "Next item" }).click();
-  await expect(dialog.getByText("2 / 3")).toBeVisible();
-  await expect(media).toHaveAttribute("src", /\/1-1440\.webp$/);
+  await dialog.getByRole("button", { name: "Next slide" }).click();
+  await expectShown(2);
 
   await page.keyboard.press("ArrowRight");
-  await expect(media).toHaveAttribute("src", /\/2-1440\.webp$/);
+  await expectShown(3);
   await page.keyboard.press("ArrowRight");
-  await expect(dialog.getByText("1 / 3")).toBeVisible();
+  await expectShown(1);
+
+  await dialog.getByRole("button", { name: "Go to slide 3" }).click();
+  await expectShown(3);
+  await page.keyboard.press("ArrowLeft");
+  await expectShown(2);
 
   await expect(
     dialog.getByRole("link", { name: /View on Instagram/ }),
@@ -153,6 +168,22 @@ test("steps through a carousel's items in order", async ({ page }) => {
 
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
+});
+
+test("keeps a post's date and caption off behind their flag", async ({
+  page,
+}) => {
+  test.skip(
+    GALLERY_DETAILS_ENABLED,
+    "Details are on in `src/lib/features.ts`.",
+  );
+  await page.goto("/gallery");
+  await page.locator(`[data-published="${CAPTIONED}"]`).click();
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toHaveAccessibleName("Post from September 17, 2026");
+  await expect(dialog.getByRole("heading")).toHaveCount(0);
+  await expect(dialog.getByText("Clouds over the city.")).toHaveCount(0);
 });
 
 test("plays videos from the stored file with a poster", async ({ page }) => {
