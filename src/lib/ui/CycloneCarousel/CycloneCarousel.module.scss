@@ -1,0 +1,315 @@
+@use "../../../styles/interaction" as *;
+
+// Hover cues also answer keyboard focus, as `engaged` does.
+$motion: 333ms ease-in-out;
+$text-size: clamp(0.675rem, 2vw, 0.813rem);
+$text-inset: 1.25rem;
+$wide-radius: 1rem;
+$arrow-size: 2.5rem;
+$arrow-stroke: 3px;
+$arrow-nudge: 0.2rem;
+$arrow-rest: 0.72;
+$dot-size: min(1rem, 2.4vw);
+$dot-fill: rgb(180 180 180);
+$dot-ink: rgb(72 72 72);
+$dot-hover: 0.72;
+$dot-shrink: 0.72;
+$media-lift: 1.05;
+
+// Hosts size it with `--cyclone-carousel-ratio`,
+// `--cyclone-carousel-inline-size`,
+// `--cyclone-carousel-navigation-block-size`, and `--cyclone-carousel-radius`.
+.carousel {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--cyclone-carousel-inline-size, min(100vw, 45rem));
+
+  &:has(:is(.arrow, .dot):focus-visible) :is(.index, .caption) {
+    opacity: 1;
+  }
+
+  @media (hover: hover) {
+    &:has(:is(.arrow, .dot):hover) :is(.index, .caption) {
+      opacity: 1;
+    }
+  }
+
+  &[data-direction="left"] {
+    .active {
+      animation: fade-in-from-left $motion forwards;
+    }
+
+    .leaving {
+      animation: fade-out-to-right $motion forwards;
+    }
+  }
+
+  &[data-direction="right"] {
+    .active {
+      animation: fade-in-from-right $motion forwards;
+    }
+
+    .leaving {
+      animation: fade-out-to-left $motion forwards;
+    }
+  }
+}
+
+.container {
+  align-items: center;
+  aspect-ratio: var(--cyclone-carousel-ratio, 16 / 9);
+  backdrop-filter: blur(0.25rem);
+  background: rgb(0 0 0 / 50%);
+  display: flex;
+  inline-size: 100%;
+  justify-content: space-between;
+  position: relative;
+
+  &:has(.arrow:focus-visible) .media {
+    transform: scale($media-lift);
+  }
+
+  @media (hover: hover) {
+    &:has(.arrow:hover) .media {
+      transform: scale($media-lift);
+    }
+  }
+
+  // Square on narrow screens unless the host sets a radius.
+  border-radius: var(--cyclone-carousel-radius, 0);
+
+  @media (width >= 45rem) {
+    border-radius: var(--cyclone-carousel-radius, #{$wide-radius});
+  }
+}
+
+// Two strokes make the chevron; on hover each spins a full turn into place.
+.arrow {
+  aspect-ratio: 1;
+  display: grid;
+  inline-size: $arrow-size;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+
+  &::before,
+  &::after {
+    background: whitesmoke;
+    block-size: 50%;
+    border-radius: 100vw;
+    content: "";
+    inline-size: $arrow-stroke;
+    opacity: $arrow-rest;
+    position: absolute;
+    transition:
+      opacity $motion,
+      transform $motion;
+  }
+
+  &::before {
+    transform: translateY(calc(50% - #{$arrow-nudge})) rotate(-45deg);
+  }
+
+  &::after {
+    transform: translateY(calc(-50% + #{$arrow-nudge})) rotate(45deg);
+  }
+
+  @include engaged {
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+
+    &::before {
+      transform: translateY(calc(50% - #{$arrow-nudge})) rotate(-405deg);
+    }
+
+    &::after {
+      transform: translateY(calc(-50% + #{$arrow-nudge})) rotate(405deg);
+    }
+  }
+}
+
+.next {
+  transform: rotate(180deg);
+}
+
+.slides {
+  border-radius: inherit;
+  inset: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.slide {
+  block-size: 100%;
+  border-radius: inherit;
+  display: none;
+  inline-size: 100%;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+
+  &.active {
+    display: block;
+    opacity: 1;
+  }
+
+  &.leaving {
+    display: block;
+    opacity: 0;
+  }
+}
+
+.figure {
+  block-size: 100%;
+  border-radius: inherit;
+  inline-size: 100%;
+  inset: 0;
+  position: absolute;
+
+  > picture {
+    border-radius: inherit;
+    display: contents;
+  }
+}
+
+.index,
+.caption {
+  font-family: monospace;
+  font-size: $text-size;
+  opacity: 0;
+  position: absolute;
+  transition: opacity $motion;
+  z-index: 1;
+}
+
+.index {
+  inset-block-start: $text-inset;
+  inset-inline-start: $text-inset;
+}
+
+.caption {
+  inset: auto 0 0;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.media {
+  block-size: 100%;
+  border-radius: inherit;
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+  transition: transform $motion;
+}
+
+.still {
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.navigation {
+  block-size: var(--cyclone-carousel-navigation-block-size, 3rem);
+  display: grid;
+  place-items: center;
+}
+
+.dots {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+
+  &:has(.dot:focus-visible) .dot:not(:focus-visible) {
+    transform: scale($dot-shrink);
+  }
+
+  @media (hover: hover) {
+    &:has(.dot:hover) .dot:not(:hover) {
+      transform: scale($dot-shrink);
+    }
+  }
+}
+
+.dot {
+  aspect-ratio: 1;
+  background-color: $dot-fill;
+  border: 1px solid $dot-ink;
+  border-radius: 100vw;
+  inline-size: $dot-size;
+  position: relative;
+  transition: transform $motion;
+
+  &::before {
+    background-color: $dot-ink;
+    border-radius: 100vw;
+    content: "";
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity $motion;
+    z-index: 1;
+  }
+
+  @include engaged {
+    &::before {
+      opacity: $dot-hover;
+    }
+  }
+
+  &[aria-current="true"]::before {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out-to-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fade-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out-to-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
