@@ -6,6 +6,7 @@ import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 import { ScoreBoard } from "@/components/ScoreBoard";
 import { SoundToggle } from "@/components/SoundToggle";
 import { site } from "@/content/site";
+import { SCORING_ENABLED } from "@/lib/features";
 import "./globals.scss";
 
 const museo = MuseoModerno({
@@ -59,7 +60,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <SoundToggle />
         {children}
-        <ScoreBoard />
+        {SCORING_ENABLED && <ScoreBoard />}
         <ConsoleGreeting />
       </body>
     </html>

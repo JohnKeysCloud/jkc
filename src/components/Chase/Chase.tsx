@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { easeInOutSine } from "@/lib/easing";
+import { SCORING_ENABLED } from "@/lib/features";
 import { haptic } from "@/lib/haptics";
 import { getSnapshot, subscribe } from "@/lib/panProgress";
 import { award } from "@/lib/score";
@@ -357,7 +358,9 @@ export function Chase() {
                     <use className={styles.flashFace} href={artHref("face")} />
                   </g>
                 </Sprite>
-                <span className={styles.points} data-points />
+                {SCORING_ENABLED && (
+                  <span className={styles.points} data-points />
+                )}
               </>
             )}
             {item.kind === "cherry" && (
@@ -373,7 +376,9 @@ export function Chase() {
                     <Runs rows={ART.shine} />
                   </g>
                 </Sprite>
-                <span className={styles.points}>{CHERRY_POINTS}</span>
+                {SCORING_ENABLED && (
+                  <span className={styles.points}>{CHERRY_POINTS}</span>
+                )}
               </>
             )}
           </span>

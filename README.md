@@ -195,6 +195,11 @@ and each tone has its own frosted veil, so the text keeps 4.5:1 contrast over
 any backdrop. An end-to-end test checks that. Under reduced motion there's no
 morph or chase, but the page's other moments still score.
 
+Scoring is off for now: `SCORING_ENABLED` in
+[`features.ts`](src/lib/features.ts) turns it on. Off, nothing pays or is
+stored, and neither the score panel nor the floating points render. The
+chase itself still plays.
+
 See [`SoundToggle`](src/components/SoundToggle),
 [`Chase`](src/components/Chase), [`score.ts`](src/lib/score.ts), and
 [`ScoreBoard`](src/components/ScoreBoard).

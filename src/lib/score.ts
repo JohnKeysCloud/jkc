@@ -6,6 +6,8 @@
  * the page view.
  */
 
+import { SCORING_ENABLED } from "./features.ts";
+
 export type ScoreSnapshot = { score: number; high: number };
 
 type StorageLike = Pick<Storage, "getItem" | "setItem">;
@@ -172,8 +174,12 @@ function browserStorage() {
 
 const store = createScore(browserStorage);
 
-export const { award, getSnapshot } = store;
+export const { getSnapshot } = store;
 export const getServerSnapshot = (): ScoreSnapshot | null => null;
+
+export function award(id: string, points: number): boolean {
+  return SCORING_ENABLED && store.award(id, points);
+}
 
 export function awardInteraction(interaction: Interaction): boolean {
   return award(interaction, INTERACTION_POINTS[interaction]);

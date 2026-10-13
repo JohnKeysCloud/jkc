@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import sharp from "sharp";
+import { SCORING_ENABLED } from "../src/lib/features";
 
 // Builds against `e2e/fixtures/instagram`: 24 posts on the first page, 30 in
 // all. Images aren't stubbed here; missing ones fall back to placeholders.
@@ -235,11 +236,31 @@ test("never scrolls sideways on a phone", async ({ page }) => {
   expect(await overflow()).toBeLessThanOrEqual(0);
 });
 
-test("Pac-Man clears the chase across the pan, paying once", async ({
-  page,
-}) => {
+/** Scrubs halfway across the pan; returns how many dots the route laid. */
+async function scrubToMidCrossing(page: Page) {
   await page.goto("/");
-  await expect(scoreBoard(page)).toHaveCount(0);
+  await expect(page.locator("[data-ready]")).toHaveCount(1);
+  const dots = await page.locator('[data-id^="dot-"]').count();
+  const { start, end } = await panSpan(page);
+  await scrub(page, start, start + (end - start) * 0.5);
+  return dots;
+}
+
+/**
+ * Narrower but as tall, so the scroll lengths, all in viewport heights, hold
+ * Pac-Man where he is while the route lays fewer dots.
+ */
+async function narrowMidCrossing(page: Page, dotsBefore: number) {
+  const viewport = page.viewportSize();
+  expect(viewport).not.toBeNull();
+  await page.setViewportSize({ width: 800, height: viewport?.height ?? 0 });
+  await expect
+    .poll(() => page.locator('[data-id^="dot-"]').count())
+    .not.toBe(dotsBefore);
+}
+
+test("Pac-Man clears the chase across the pan", async ({ page }) => {
+  await page.goto("/");
   // The chase is set up once it has measured its route.
   await expect(page.locator("[data-ready]")).toHaveCount(1);
   const { start, end } = await panSpan(page);
@@ -255,41 +276,12 @@ test("Pac-Man clears the chase across the pan, paying once", async ({
   expect(await chaseState(page, "pinky")).toMatch(/^(frightened|flickering)$/);
 
   await scrub(page, start + (end - start) * 0.3, end);
-  const total = dots * 10 + 50 + 200 + 400 + 800 + 1600 + 100;
-  await expect(page.getByText(SCORE_SENTENCE)).toHaveText(
-    `Score ${spell(total)}, high score ${spell(total)}`,
-  );
   await expect(page.locator('[data-state="eaten"]')).toHaveCount(dots + 6);
-  // The digits are decoration; screen readers get the sentence.
-  await expect(scoreBoard(page)).toMatchAriaSnapshot(
-    `- paragraph: Score ${spell(total)}, high score ${spell(total)}`,
-  );
   await expect.poll(() => toggleArt(page)).toEqual(["1", "0"]);
-
-  // Back and forth again pays nothing more.
-  await scrub(page, end, start);
-  await scrub(page, start, end);
-  await expect(page.getByText(SCORE_SENTENCE)).toHaveText(
-    `Score ${spell(total)}, high score ${spell(total)}`,
-  );
 });
 
 test("keeps what Pac-Man has eaten through a resize", async ({ page }) => {
-  await page.goto("/");
-  await expect(page.locator("[data-ready]")).toHaveCount(1);
-  const before = await page.locator('[data-id^="dot-"]').count();
-  const { start, end } = await panSpan(page);
-  await scrub(page, start, start + (end - start) * 0.5);
-  const score = await page.getByText(SCORE_SENTENCE).textContent();
-
-  // Narrower but as tall, so the scroll lengths, all in viewport heights,
-  // hold Pac-Man where he is while the route lays fewer dots.
-  const viewport = page.viewportSize();
-  expect(viewport).not.toBeNull();
-  await page.setViewportSize({ width: 800, height: viewport?.height ?? 0 });
-  await expect
-    .poll(() => page.locator('[data-id^="dot-"]').count())
-    .not.toBe(before);
+  await narrowMidCrossing(page, await scrubToMidCrossing(page));
 
   const dots = await page.locator('[data-id^="dot-"]').evaluateAll((nodes) =>
     nodes.map((node) => ({
@@ -306,7 +298,6 @@ test("keeps what Pac-Man has eaten through a resize", async ({ page }) => {
     .forEach(({ state }) => expect(state).toBe("ready"));
   expect(await chaseState(page, "pinky")).toBe("eaten");
   expect(await chaseState(page, "inky")).toMatch(/^(frightened|flickering)$/);
-  await expect(page.getByText(SCORE_SENTENCE)).toHaveText(score ?? "");
 });
 
 test("keeps the chase out of reduced motion", async ({ page }) => {
@@ -321,44 +312,102 @@ test("keeps the chase out of reduced motion", async ({ page }) => {
   await expect(scoreBoard(page)).toHaveCount(0);
 });
 
-test("keeps the score readable over every backdrop", async ({ page }) => {
-  await page.addInitScript(() => {
-    window.sessionStorage.setItem(
-      "jkc-score",
-      JSON.stringify({ version: 1, score: 50, awarded: ["press-start"] }),
+test.describe("the score", () => {
+  test.skip(!SCORING_ENABLED, "Scoring is off in `src/lib/features.ts`.");
+
+  test("pays once for the chase", async ({ page }) => {
+    await page.goto("/");
+    await expect(scoreBoard(page)).toHaveCount(0);
+    await expect(page.locator("[data-ready]")).toHaveCount(1);
+    const { start, end } = await panSpan(page);
+    const dots = await page.locator('[data-id^="dot-"]').count();
+    const total = dots * 10 + 50 + 200 + 400 + 800 + 1600 + 100;
+    const sentence = `Score ${spell(total)}, high score ${spell(total)}`;
+
+    await scrollToSettled(page, start);
+    await scrub(page, start, end);
+    await expect(page.getByText(SCORE_SENTENCE)).toHaveText(sentence);
+    // The digits are decoration; screen readers get the sentence.
+    await expect(scoreBoard(page)).toMatchAriaSnapshot(
+      `- paragraph: ${sentence}`,
     );
+
+    // Back and forth again pays nothing more.
+    await scrub(page, end, start);
+    await scrub(page, start, end);
+    await expect(page.getByText(SCORE_SENTENCE)).toHaveText(sentence);
   });
 
-  for (const viewport of [
-    { width: 1280, height: 900 },
-    { width: 390, height: 844 },
-  ]) {
-    await page.setViewportSize(viewport);
-    await page.goto("/");
-    await expect(scoreBoard(page)).toBeVisible();
-    const { start, end } = await panSpan(page);
-    const bottom = await page.evaluate(
-      () => document.documentElement.scrollHeight - window.innerHeight,
-    );
-    const stops = [
-      // Sky, the cloud bank rising, the clouds parting, the card.
-      0,
-      viewport.height * 0.4,
-      viewport.height,
-      start * 0.5,
-      start,
-      // Mid-pan, the gallery, and the docked footer.
-      (start + end) / 2,
-      end + viewport.height,
-      bottom,
-    ];
-    for (const y of stops) {
-      await scrollToSettled(page, y);
-      // Lets the tone's crossfade finish.
-      await page.waitForTimeout(400);
-      expect(await scoreContrast(page), `at ${y}px`).toBeGreaterThanOrEqual(
-        4.5,
+  test("keeps the score through a resize", async ({ page }) => {
+    const dots = await scrubToMidCrossing(page);
+    const score = await page.getByText(SCORE_SENTENCE).textContent();
+    await narrowMidCrossing(page, dots);
+    await expect(page.getByText(SCORE_SENTENCE)).toHaveText(score ?? "");
+  });
+
+  test("keeps the score readable over every backdrop", async ({ page }) => {
+    await page.addInitScript(() => {
+      window.sessionStorage.setItem(
+        "jkc-score",
+        JSON.stringify({ version: 1, score: 50, awarded: ["press-start"] }),
       );
+    });
+
+    for (const viewport of [
+      { width: 1280, height: 900 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto("/");
+      await expect(scoreBoard(page)).toBeVisible();
+      const { start, end } = await panSpan(page);
+      const bottom = await page.evaluate(
+        () => document.documentElement.scrollHeight - window.innerHeight,
+      );
+      const stops = [
+        // Sky, the cloud bank rising, the clouds parting, the card.
+        0,
+        viewport.height * 0.4,
+        viewport.height,
+        start * 0.5,
+        start,
+        // Mid-pan, the gallery, and the docked footer.
+        (start + end) / 2,
+        end + viewport.height,
+        bottom,
+      ];
+      for (const y of stops) {
+        await scrollToSettled(page, y);
+        // Lets the tone's crossfade finish.
+        await page.waitForTimeout(400);
+        expect(await scoreContrast(page), `at ${y}px`).toBeGreaterThanOrEqual(
+          4.5,
+        );
+      }
     }
-  }
+  });
+});
+
+test("keeps scoring off behind its flag", async ({ page }) => {
+  test.skip(SCORING_ENABLED, "Scoring is on in `src/lib/features.ts`.");
+  // Reduced motion lands PRESS START at once, so the scrub isn't fought.
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.getByRole("link", { name: "PRESS START" }).click();
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect(page.locator("[data-ready]")).toHaveCount(1);
+  const { start, end } = await panSpan(page);
+
+  await scrollToSettled(page, start);
+  await scrub(page, start, end);
+  expect(await chaseState(page, "cherry")).toBe("eaten");
+  await expect(scoreBoard(page)).toHaveCount(0);
+  await expect(page.locator("[data-points]")).toHaveCount(0);
+  await expect(page.locator('[data-id="cherry"]')).toHaveText("");
+  expect(
+    await page.evaluate(() => [
+      window.sessionStorage.getItem("jkc-score"),
+      window.localStorage.getItem("jkc-high-score"),
+    ]),
+  ).toEqual([null, null]);
 });
