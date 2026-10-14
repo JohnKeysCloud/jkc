@@ -211,6 +211,21 @@ test("pans back to the gallery from the footer", async ({ page }) => {
   await expect.poll(() => galleryBox(page)).toEqual({ left: 0, top: 0 });
 });
 
+test("keeps the gallery showing once it scrolls on in reduced motion", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const end = await panEnd(page);
+  const galleryOpacity = () =>
+    gallery(page).evaluate((node) => getComputedStyle(node).opacity);
+
+  await scrollToSettled(page, end);
+  await expect.poll(galleryOpacity).toBe("1");
+  await scrollToSettled(page, end + 300);
+  await expect.poll(galleryOpacity).toBe("1");
+});
+
 test("opens a post from the home page gallery", async ({ page }) => {
   await page.goto("/#gallery");
   await expect.poll(() => galleryBox(page)).toEqual({ left: 0, top: 0 });

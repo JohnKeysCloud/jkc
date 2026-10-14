@@ -202,11 +202,15 @@ $scene-fade-offset: 0.3;
       animation-timing-function: steps(2, jump-none);
     }
 
+    // Longhands: the build compiles a shorthand with no name to
+    // `animation: none`, dropping the fill, so the gallery would vanish once
+    // the pan ends.
     .frame,
     .aside {
-      animation: linear both;
+      animation-fill-mode: both;
       animation-range: $pan-range;
       animation-timeline: $descent-timeline;
+      animation-timing-function: linear;
     }
 
     .frame {
