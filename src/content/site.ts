@@ -20,6 +20,7 @@ export const site = {
   greeting: "Hello World",
   handle: "johnKeysCloud",
   mark: "ジKC",
+  url: "https://www.johnkeys.cloud",
   role: "Software Engineer",
   studio: {
     name: "Cyclone Studios",

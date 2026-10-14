@@ -33,12 +33,23 @@ const pixeBoy = localFont({
 const description = `${site.handle}: ${site.role.toLowerCase()} at ${site.studio.name}, ${site.location.name}.`;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: `${site.handle} · ${site.mark}`,
   description,
   openGraph: {
     title: site.handle,
     description,
     type: "website",
+    // A JPEG copy of the portrait: not every link-preview scraper reads WebP
+    // or AVIF.
+    images: [
+      {
+        url: "/portrait/cloud-portrait-512.jpg",
+        width: 512,
+        height: 427,
+        alt: site.portrait.alt,
+      },
+    ],
   },
 };
 

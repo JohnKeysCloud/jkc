@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import sharp from "sharp";
+import { site } from "../src/content/site";
 import { SCORING_ENABLED } from "../src/lib/features";
 
 // Builds against `e2e/fixtures/instagram`: 24 posts on the first page, 30 in
@@ -211,6 +212,18 @@ test("deep links to the gallery", async ({ page }) => {
   await page.goto("/#gallery");
   await expect.poll(() => galleryBox(page)).toEqual({ left: 0, top: 0 });
   await expect(masterKey(page)).toHaveAttribute("aria-pressed", "true");
+});
+
+test("shares the portrait as the link preview image", async ({ page }) => {
+  const portrait = "/portrait/cloud-portrait-512.jpg";
+  await page.goto("/");
+
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    new URL(portrait, site.url).href,
+  );
+  const response = await page.request.get(portrait);
+  expect(response.headers()["content-type"]).toBe("image/jpeg");
 });
 
 test("pans back to the gallery from the footer", async ({ page }) => {
