@@ -21,7 +21,10 @@ $insert-scrub: 1s;
   translate: 0 calc(#{$key-drop} * #{$drop-progress});
   z-index: 3;
 
+  // Fades out and back while the panels swap, rather than jumping across
+  // with the track.
   @media (prefers-reduced-motion: reduce) {
+    opacity: max(1 - var(--pan) * 2, var(--pan) * 2 - 1);
     scale: none;
     translate: none;
   }
@@ -37,6 +40,12 @@ $insert-scrub: 1s;
     opacity $reveal ease-out,
     visibility 0s linear $reveal;
   visibility: hidden;
+
+  // A fade is gentle enough to keep where reduced motion cuts every other
+  // transition short, so the key doesn't pop in.
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: $reveal, 0s !important;
+  }
 }
 
 .root.isRevealed {
@@ -142,6 +151,12 @@ $insert-scrub: 1s;
       animation-range: $pan-range;
       animation-timeline: $descent-timeline;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: key-swap linear both;
+      animation-range: $pan-range;
+      animation-timeline: $descent-timeline;
+    }
   }
 
   .band {
@@ -188,6 +203,17 @@ $insert-scrub: 1s;
   to {
     scale: 1;
     translate: 0 0;
+  }
+}
+
+@keyframes key-swap {
+  from,
+  to {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
   }
 }
 

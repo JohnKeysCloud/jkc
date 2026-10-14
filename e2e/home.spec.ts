@@ -141,6 +141,17 @@ function soundToggleLeft(page: Page) {
     .evaluate((node) => Math.round(node.getBoundingClientRect().left));
 }
 
+/** The key's opacity as drawn, compounding its own with every ancestor's. */
+function keyOpacity(page: Page) {
+  return masterKey(page).evaluate((node) => {
+    let opacity = 1;
+    for (let el: Element | null = node; el; el = el.parentElement) {
+      opacity *= Number(getComputedStyle(el).opacity);
+    }
+    return opacity;
+  });
+}
+
 async function isCardInert(page: Page) {
   return page
     .locator("main")
@@ -224,6 +235,21 @@ test("keeps the gallery showing once it scrolls on in reduced motion", async ({
   await expect.poll(galleryOpacity).toBe("1");
   await scrollToSettled(page, end + 300);
   await expect.poll(galleryOpacity).toBe("1");
+});
+
+test("fades the key out across the panel swap in reduced motion", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const { start, end } = await panSpan(page);
+
+  await scrollToSettled(page, start);
+  await expect.poll(() => keyOpacity(page)).toBeGreaterThan(0.99);
+  await scrollToSettled(page, (start + end) / 2);
+  await expect.poll(() => keyOpacity(page)).toBeLessThan(0.05);
+  await scrollToSettled(page, end);
+  await expect.poll(() => keyOpacity(page)).toBeGreaterThan(0.99);
 });
 
 test("opens a post from the home page gallery", async ({ page }) => {
