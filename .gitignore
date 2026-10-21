@@ -40,3 +40,6 @@ next-env.d.ts
 # cursor local rule overrides
 .cursor/rules/local.mdc
 .cursor/rules/*.local.mdc
+
+# Cursor editor MCP wiring (also in the user global exclude file)
+.cursor/mcp.json
